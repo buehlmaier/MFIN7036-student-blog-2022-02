@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>MFIN7036 Student Blog</title><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/" rel="alternate"></link><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/feeds/all.atom.xml" rel="self"></link><id>https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/</id><updated>2022-01-31T01:12:00+08:00</updated><entry><title>Demo Blog Post</title><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/demo-blog-post.html" rel="alternate"></link><published>2022-01-31T01:12:00+08:00</published><updated>2022-01-31T01:12:00+08:00</updated><author><name>MFIN7036 Students</name></author><id>tag:buehlmaier.github.io,2022-01-31:/MFIN7036-student-blog-2022-02/demo-blog-post.html</id><summary type="html">&lt;p&gt;By Group "Super NLP"&lt;/p&gt;
+&lt;p&gt;This is a demo blog post. Its purpose is to show how to use the basic
+functionality of Markdown in the context of a blog post.&lt;/p&gt;
+&lt;h2&gt;How to Include a Link and Python Code&lt;/h2&gt;
+&lt;p&gt;We chose &lt;a href="http://www.investing.com"&gt;Investing.com&lt;/a&gt; to get the whole
+year data of XRP …&lt;/p&gt;</summary><content type="html">&lt;p&gt;By Group "Super NLP"&lt;/p&gt;
+&lt;p&gt;This is a demo blog post. Its purpose is to show how to use the basic
+functionality of Markdown in the context of a blog post.&lt;/p&gt;
+&lt;h2&gt;How to Include a Link and Python Code&lt;/h2&gt;
+&lt;p&gt;We chose &lt;a href="http://www.investing.com"&gt;Investing.com&lt;/a&gt; to get the whole
+year data of XRP and recalculated the return and 30 days volatility.&lt;/p&gt;
+&lt;p&gt;The code we use is as follows:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;nltk&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;pandas&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;pd&lt;/span&gt;
+&lt;span class="n"&gt;myvar&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;
+&lt;span class="n"&gt;DF&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read_csv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;XRP-data.csv&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;How to Include a Quote&lt;/h2&gt;
+&lt;p&gt;As a famous hedge fund manager once said:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Fed watching is a great tool to make money. I have been making all my
+gazillions using this technique.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2&gt;How to Include an Image&lt;/h2&gt;
+&lt;p&gt;Fed Chair Powell is working hard:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Picture showing Powell" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/group-Fintech-Disruption_Powell.jpeg"&gt;&lt;/p&gt;</content><category term="Progress Report"></category></entry></feed>
