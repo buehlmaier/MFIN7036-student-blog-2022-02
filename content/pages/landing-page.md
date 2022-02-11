@@ -17,6 +17,7 @@ throughout the course as new blog posts become available.
 
 Names of student groups:
 
+  * NLP_0
   * &hellip;
 
 The source code of this blog is available on
