@@ -19,6 +19,9 @@ Names of student groups:
 
   * NLP_0
   * SenseText
+  * Raw Text Connoisseurs
+  * Supernatural
+  * Professional Team
   * &hellip;
 
 The source code of this blog is available on
