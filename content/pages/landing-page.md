@@ -22,6 +22,8 @@ Names of student groups:
   * Raw Text Connoisseurs
   * Supernatural
   * Professional Team
+  * Processors
+  * Import
   * &hellip;
 
 The source code of this blog is available on
