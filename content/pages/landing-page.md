@@ -28,6 +28,7 @@ Names of student groups:
   * Tower of Babel
   * N95 Limited Partner
   * Meta
+  * Ferrari
 
 The source code of this blog is available on
 [GitHub](https://github.com/buehlmaier/MFIN7036-student-blog-2022-02).
