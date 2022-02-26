@@ -29,6 +29,8 @@ Names of student groups:
   * N95 Limited Partner
   * Meta
   * Ferrari
+  * Alpha Seeker
+  * Moneymaker
 
 The source code of this blog is available on
 [GitHub](https://github.com/buehlmaier/MFIN7036-student-blog-2022-02).
