@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="MFIN7036 Students" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", Progress Report, " />
+
+<meta property="og:title" content="From Messy to Clean: Our Way to Deal with 10-K (Group SenseText) "/>
+<meta property="og:url" content="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/from-messy-to-clean-our-way-to-deal-with-10-k-group-sensetext.html" />
+<meta property="og:description" content="By Group &#34;SenseText&#34; We have currently finished text processing and transformation. Our texts are from the items in 10-K. The volume of the words is huge, and the processing is time-consuming. While struggling with bugs, we learned a lot from them and would like to share our experience with the …" />
+<meta property="og:site_name" content="MFIN7036 Student Blog" />
+<meta property="og:article:author" content="MFIN7036 Students" />
+<meta property="og:article:published_time" content="2022-03-16T12:54:00+08:00" />
+<meta name="twitter:title" content="From Messy to Clean: Our Way to Deal with 10-K (Group SenseText) ">
+<meta name="twitter:description" content="By Group &#34;SenseText&#34; We have currently finished text processing and transformation. Our texts are from the items in 10-K. The volume of the words is huge, and the processing is time-consuming. While struggling with bugs, we learned a lot from them and would like to share our experience with the …">
+
+        <title>From Messy to Clean: Our Way to Deal with 10-K (Group SenseText)  · MFIN7036 Student Blog
+</title>
+        <link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="MFIN7036 Student Blog - Full Atom Feed" />
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/"><span class=site-name>MFIN7036 Student Blog</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       https://buehlmaier.github.io/MFIN7036-student-blog-2022-02
+                                    >Home</a>
+                                </li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/categories.html">Categories</a></li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/tags.html">Tags</a></li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/from-messy-to-clean-our-way-to-deal-with-10-k-group-sensetext.html">
+                From Messy to Clean: Our Way to Deal with 10-K (Group SenseText)
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <p>By Group "SenseText"</p>
+<p>We have currently finished text processing and transformation.  Our
+texts are from the items in 10-K. The volume of the words is huge, and
+the processing is time-consuming.  While struggling with bugs, we
+learned a lot from them and would like to share our experience with
+the whole class.</p>
+<h1>Data collection</h1>
+<p>We collected 2,965 10-K files. The Business Description, Risk Factors
+and Management Discussion and Analysis (MD&amp;A) parts were stored as
+paragraphs in each grid of a dataframe.</p>
+<h1>Text Preprocessing</h1>
+<p>Then, we moved on to remove redundant information in the text and
+construct a Bag of Words based on the preprocessed information. Our
+basic workflow is</p>
+<ol>
+<li>Drop symbols, numbers, and single characters</li>
+<li>Remove stop words</li>
+<li>Convert words to lowercases </li>
+<li>Tokenize words and lemmatize according to tags</li>
+<li>Select words to form corpus</li>
+</ol>
+<p>During our work, we have encountered the following problems.</p>
+<h3>Problem 1: Part of Speech Tagging and Lemmatization</h3>
+<p>Initially, we tried to lemmatize the raw strings first and then
+perform part of speech tagging.  But this method could give us many
+unlemmatized words as the image shows:</p>
+<p><img alt="unlemmatized words" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText-Post-01_unlemmatized_wds.png"></p>
+<p>After taking a closer look at the results, we found that most of the unlemmatized words are <strong>verbs</strong>. 
+Then, we realized that the default setting of <a href="https://github.com/nltk/nltk/blob/develop/nltk/stem/wordnet.py#L39"><code>WordNetLemmatizer.lemmatize()</code></a> is <strong>'N'</strong>. 
+Hence, we wrote a function called <code>lemma</code> to pos tag the words in raw strings before lemmatization. 
+To keep subsequent analysis simpler, we only returned <em>verb, noun, adjectives, adverbs, and foreign words</em>. </p>
+<p><img alt="correctly lemmatized words" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText-Post-01_lem_correct.png"></p>
+<p>Below are our functions.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="kn">import</span> <span class="n">WordNetLemmatizer</span>
+<span class="c1"># Return tag of words</span>
+<span class="n">wnl</span> <span class="o">=</span> <span class="n">WordNetLemmatizer</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">get_wordnet_pos</span><span class="p">(</span><span class="n">tag</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">tag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;J&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">wordnet</span><span class="o">.</span><span class="n">ADJ</span>
+    <span class="k">elif</span> <span class="n">tag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;V&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">wordnet</span><span class="o">.</span><span class="n">VERB</span>
+    <span class="k">elif</span> <span class="n">tag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">wordnet</span><span class="o">.</span><span class="n">NOUN</span>
+    <span class="k">elif</span> <span class="n">tag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">wordnet</span><span class="o">.</span><span class="n">ADV</span>
+    <span class="k">elif</span> <span class="n">tag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;F&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">wordnet</span><span class="o">.</span><span class="n">FW</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+<span class="c1"># Lemmatize</span>
+<span class="k">def</span> <span class="nf">lemma</span><span class="p">(</span><span class="n">target_list</span><span class="p">):</span>
+    <span class="n">lem_words</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">target_list</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">get_wordnet_pos</span><span class="p">(</span><span class="n">pos_tag</span><span class="p">([</span><span class="n">target_list</span><span class="p">[</span><span class="n">i</span><span class="p">]])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">tem</span> <span class="o">=</span> <span class="n">wnl</span><span class="o">.</span><span class="n">lemmatize</span><span class="p">(</span><span class="n">target_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                                <span class="n">get_wordnet_pos</span><span class="p">(</span><span class="n">pos_tag</span><span class="p">([</span><span class="n">target_list</span><span class="p">[</span><span class="n">i</span><span class="p">]])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="n">lem_words</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tem</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">lem_words</span>
+</code></pre></div>
+
+<p>After investigating the output, we decided to narrow our target parts
+of speech to <em>nouns, verbs, and adverbs</em>.  For the business
+description item, we think <strong>nouns</strong> are the most significant since
+they describe the product/service.  For the risk factor item, we think
+<strong>verbs</strong> and <strong>adverbs</strong> should also be included since they may
+describe the degree of risks and the company's responses.</p>
+<p>Based on this logic, the codes for pos_tag and lemmatization were
+modified:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Get word class and finish Lemmatization </span>
+<span class="kn">from</span> <span class="nn">nltk</span> <span class="kn">import</span> <span class="n">pos_tag</span>
+<span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="kn">import</span> <span class="n">WordNetLemmatizer</span>
+<span class="kn">from</span> <span class="nn">nltk.corpus</span> <span class="kn">import</span> <span class="n">wordnet</span>
+
+<span class="n">wnl</span> <span class="o">=</span> <span class="n">WordNetLemmatizer</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">b_get_wordnet_pos</span><span class="p">(</span><span class="n">tag</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">tag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">wordnet</span><span class="o">.</span><span class="n">NOUN</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+<span class="k">def</span> <span class="nf">rf_get_wordnet_pos</span><span class="p">(</span><span class="n">tag</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">tag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">wordnet</span><span class="o">.</span><span class="n">NOUN</span>
+    <span class="k">elif</span> <span class="n">tag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;V&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">wordnet</span><span class="o">.</span><span class="n">VERB</span>
+    <span class="k">elif</span> <span class="n">tag</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;R&#39;</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">wordnet</span><span class="o">.</span><span class="n">ADV</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+<span class="k">def</span> <span class="nf">lemma</span><span class="p">(</span><span class="n">target_b_list</span><span class="p">,</span> <span class="n">target_rf_list</span><span class="p">):</span>
+    <span class="n">lem_b_words</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">lem_rf_words</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">target_b_list</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">b_get_wordnet_pos</span><span class="p">(</span><span class="n">pos_tag</span><span class="p">([</span><span class="n">word</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">tem</span> <span class="o">=</span> <span class="n">wnl</span><span class="o">.</span><span class="n">lemmatize</span><span class="p">(</span><span class="n">word</span><span class="p">,</span>
+                                <span class="n">b_get_wordnet_pos</span><span class="p">(</span><span class="n">pos_tag</span><span class="p">([</span><span class="n">word</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+            <span class="n">lem_b_words</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tem</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">target_rf_list</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">rf_get_wordnet_pos</span><span class="p">(</span><span class="n">pos_tag</span><span class="p">([</span><span class="n">word</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">else</span><span class="p">:</span>
+           <span class="n">tem</span> <span class="o">=</span> <span class="n">wnl</span><span class="o">.</span><span class="n">lemmatize</span><span class="p">(</span><span class="n">word</span><span class="p">,</span>
+                               <span class="n">rf_get_wordnet_pos</span><span class="p">(</span><span class="n">pos_tag</span><span class="p">([</span><span class="n">word</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span>
+           <span class="n">lem_rf_words</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tem</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">lem_b_words</span><span class="p">,</span> <span class="n">lem_rf_words</span>
+
+<span class="n">lem_words</span> <span class="o">=</span> <span class="n">lemma</span><span class="p">(</span><span class="n">lower_b_words</span><span class="p">,</span> <span class="n">lower_rf_words</span><span class="p">)</span>
+</code></pre></div>
+
+<h3>Problem 2: Word Selection</h3>
+<p>The returned list of words is fairly large in size. We cannot keep all
+the words because</p>
+<ul>
+<li>It could cause the problem of excessive dimension.</li>
+<li>Some words with high frequency appeared in almost all 10-K files and have no special meaning. </li>
+</ul>
+<p>Ideally, we need to slice the list and keep 500-1,000 relatively
+unique words that could reflect main ideas in the text for each item.
+By taking a closer look at the words in the returned lists, we decided
+to keep the words with term frequency between 1,200 and 20,000.  The
+codes are as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Count the apparence frequency of all the noun </span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>        
+<span class="n">b_words_freq</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">lem_words</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">rf_words_freq</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">lem_words</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">remove_key</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">isalpha</span><span class="p">()</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span><span class="o">&lt;</span><span class="mi">2</span><span class="p">):</span>
+            <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">20000</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">&lt;</span><span class="mi">1200</span> <span class="p">):</span>
+            <span class="k">del</span> <span class="n">a</span><span class="p">[</span><span class="n">k</span><span class="p">]</span>
+
+<span class="n">remove_key</span><span class="p">(</span><span class="n">b_words_freq</span><span class="p">)</span>
+<span class="n">remove_key</span><span class="p">(</span><span class="n">rf_words_freq</span><span class="p">)</span>
+</code></pre></div>
+
+<p>At last, we get <strong>630 nouns in the business description bag and 993
+words in the risk factor bag</strong>.</p>
+<h3>Problem 3: Data Structure</h3>
+<p>At the very beginning, we directly stored all the cleaned words of
+each item in the same list.  As a result, we got two lists of
+words. When performing data transformation, we had to re-perform
+<code>pos_tag</code> and lemmatize each word, which caused redundancy and was
+very time-consuming. Thus, we modified the codes to save the
+lemmatized words as <strong>two lists of lists</strong>.</p>
+<p><img alt="Data Structure of lem_b_words and lem_rf_words" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText-Post-01_data_structure.png"></p>
+<h3>Problem 4: List Reference and Copy</h3>
+<p>This problem is a minor one. It is caused by the confusion in object
+reference. A list stores a set of references (or paths) to the objects
+in computer memory. For example, list A in the picture below points to
+the numbers 1, 2, 3 in memory. If we simply copy list A to list B
+using the operator <code>=</code>, list B will only copy the object references,
+i.e., B points to the same numbers in memory as A.</p>
+<p><img alt="object reference" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText-Post-01_list_problem.jpeg"></p>
+<p>Hence, if we modify number 1 following the reference in A, we will
+also change the first element in B.  To copy A without the reference,
+we can use the <code>.copy</code> method.</p>
+<p>In the context of text cleaning, if we want to remove some words from
+a list, it is better to <strong>use a copy of the list as the iterable</strong>.
+Otherwise, the iteration and deletion would happen at the same time
+and create some trouble. The codes below demonstrate the issue.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create a list A</span>
+<span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Alliteration&#39;</span><span class="p">,</span><span class="s1">&#39;Example&#39;</span><span class="p">,</span><span class="s1">&#39;Peter&#39;</span><span class="p">,</span><span class="s1">&#39;Piper&#39;</span><span class="p">,</span><span class="s1">&#39;picked&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;peck&#39;</span><span class="p">,</span><span class="s1">&#39;of&#39;</span><span class="p">,</span><span class="s1">&#39;pickled&#39;</span><span class="p">,</span><span class="s1">&#39;peppers&#39;</span><span class="p">]</span>
+
+<span class="c1"># Remove all words starting with P/p</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">A</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">):</span>
+        <span class="n">A</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>  <span class="c1"># [&#39;Alliteration&#39;, &#39;Example&#39;, &#39;Piper&#39;, &#39;a&#39;, &#39;of&#39;, &#39;peppers&#39;]</span>
+
+<span class="c1"># &#39;Piper&#39; &amp; &#39;peppers&#39; are still there because iteration and deletion happen at the same time.</span>
+<span class="c1"># Once &#39;Peter&#39; is deleted, &#39;Piper&#39; takes the 3rd position. </span>
+<span class="c1"># However, the iterator has already checked the 3rd position. So it skips &#39;Piper.&#39;</span>
+<span class="c1"># To see this, let&#39;s print each i</span>
+<span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Alliteration&#39;</span><span class="p">,</span><span class="s1">&#39;Example&#39;</span><span class="p">,</span><span class="s1">&#39;Peter&#39;</span><span class="p">,</span><span class="s1">&#39;Piper&#39;</span><span class="p">,</span><span class="s1">&#39;picked&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;peck&#39;</span><span class="p">,</span><span class="s1">&#39;of&#39;</span><span class="p">,</span><span class="s1">&#39;pickled&#39;</span><span class="p">,</span><span class="s1">&#39;peppers&#39;</span><span class="p">]</span>
+
+<span class="c1"># Remove all words starting with P/p</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">A</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">):</span>
+        <span class="n">A</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="c1"># Alliteration</span>
+<span class="c1"># Example</span>
+<span class="c1"># Peter</span>
+<span class="c1"># picked</span>
+<span class="c1"># peck</span>
+<span class="c1"># pickled</span>
+<span class="c1">## No &#39;Piper&#39; &amp; &#39;peppers&#39;</span>
+
+<span class="c1"># To solve this, we iterate through a copy of A</span>
+<span class="n">A</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Alliteration&#39;</span><span class="p">,</span><span class="s1">&#39;Example&#39;</span><span class="p">,</span><span class="s1">&#39;Peter&#39;</span><span class="p">,</span><span class="s1">&#39;Piper&#39;</span><span class="p">,</span><span class="s1">&#39;picked&#39;</span><span class="p">,</span><span class="s1">&#39;a&#39;</span><span class="p">,</span><span class="s1">&#39;peck&#39;</span><span class="p">,</span><span class="s1">&#39;of&#39;</span><span class="p">,</span><span class="s1">&#39;pickled&#39;</span><span class="p">,</span><span class="s1">&#39;peppers&#39;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">A</span><span class="o">.</span><span class="n">copy</span><span class="p">():</span>      <span class="c1"># copy A</span>
+    <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">):</span>
+        <span class="n">A</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>      <span class="c1"># [&#39;Alliteration&#39;, &#39;Example&#39;, &#39;a&#39;, &#39;of&#39;]</span>
+</code></pre></div>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2022-03-16T12:54:00+08:00">Wed 16 March 2022</time>
+            <h4>Category</h4>
+            <a class="category-link" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/categories.html#progress-report-ref">Progress Report</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+    <a href="https://github.com/buehlmaier/MFIN7036-student-blog-2022-02" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitHub" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1B1817"/><path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+    </a>
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>
