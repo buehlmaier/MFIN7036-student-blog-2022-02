@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="MFIN7036 Students" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", Progress Report, " />
+
+<meta property="og:title" content="Financial News Scraping and Sentiment Factor Extraction Modeling (Group Meta) "/>
+<meta property="og:url" content="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/financial-news-scraping-and-sentiment-factor-extraction-modeling-group-meta.html" />
+<meta property="og:description" content="By Group &#34;Meta&#34; So far, we have completed data collection, data cleaning and most of the model building. We have completed the small sample analysis. However, the amount of text is too large, and we need to wait until the independent program mining is completed. A. Data collection We get …" />
+<meta property="og:site_name" content="MFIN7036 Student Blog" />
+<meta property="og:article:author" content="MFIN7036 Students" />
+<meta property="og:article:published_time" content="2022-03-22T18:32:00+08:00" />
+<meta name="twitter:title" content="Financial News Scraping and Sentiment Factor Extraction Modeling (Group Meta) ">
+<meta name="twitter:description" content="By Group &#34;Meta&#34; So far, we have completed data collection, data cleaning and most of the model building. We have completed the small sample analysis. However, the amount of text is too large, and we need to wait until the independent program mining is completed. A. Data collection We get …">
+
+        <title>Financial News Scraping and Sentiment Factor Extraction Modeling (Group Meta)  · MFIN7036 Student Blog
+</title>
+        <link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="MFIN7036 Student Blog - Full Atom Feed" />
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/"><span class=site-name>MFIN7036 Student Blog</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       https://buehlmaier.github.io/MFIN7036-student-blog-2022-02
+                                    >Home</a>
+                                </li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/categories.html">Categories</a></li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/tags.html">Tags</a></li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/financial-news-scraping-and-sentiment-factor-extraction-modeling-group-meta.html">
+                Financial News Scraping and Sentiment Factor Extraction Modeling (Group Meta)
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <p>By Group "Meta"</p>
+<p>So far, we have completed data collection, data cleaning and most of the model building. We have completed the small sample analysis. However, the amount of text is too large, and we need to wait until the independent program mining is completed.</p>
+<h2>A. Data collection</h2>
+<p>We get 1.4 million pieces of text data from <strong>Benzinga</strong></p>
+<p><code>columns</code> = ['title', 'date', 'stock', 'content']</p>
+<p>Beside that we also collect the URL for future analysis</p>
+<h2>B. Text data preprocess</h2>
+<p>First we use the <strong>TF-IDF</strong> model to process our data, follow the standard work flow </p>
+<ol>
+<li>Drop symbols, numbers, and single characters</li>
+<li>Remove stop words</li>
+<li>Tokenize words </li>
+<li>Transform to matrix</li>
+</ol>
+<p>We use <code>AutoTokenizer</code> command to fulfill the work flow</p>
+<p>Part of the feature words:</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="s1">&#39;aerostructures&#39;</span><span class="p">,</span> <span class="s1">&#39;aerosystems&#39;</span><span class="p">,</span> <span class="s1">&#39;aerovironment&#39;</span><span class="p">,</span> <span class="s1">&#39;aersale&#39;</span><span class="p">,</span> <span class="s1">&#39;aes&#39;</span><span class="p">,</span> <span class="s1">&#39;aesthetics&#39;</span><span class="p">,</span> <span class="s1">&#39;aetna&#39;</span><span class="p">,</span> <span class="s1">&#39;aex&#39;</span><span class="p">,</span> <span class="s1">&#39;aeye&#39;</span><span class="p">,</span> <span class="s1">&#39;aezs&#39;</span><span class="p">,</span> <span class="s1">&#39;af&#39;</span><span class="p">,</span> <span class="s1">&#39;afer&#39;</span><span class="p">,</span> <span class="s1">&#39;afexa&#39;</span><span class="p">,</span> <span class="s1">&#39;affairs&#39;</span><span class="p">,</span> <span class="s1">&#39;affect&#39;</span><span class="p">,</span> <span class="s1">&#39;affected&#39;</span><span class="p">,</span> <span class="s1">&#39;affecting&#39;</span><span class="p">,</span> <span class="s1">&#39;affiliate&#39;</span><span class="p">,</span> <span class="s1">&#39;affiliated&#39;</span><span class="p">,</span> <span class="s1">&#39;affiliates&#39;</span><span class="p">,</span> <span class="s1">&#39;affirmation&#39;</span><span class="p">,</span> <span class="s1">&#39;affirmed&#39;</span><span class="p">,</span> <span class="s1">&#39;affirms&#39;</span><span class="p">,</span> <span class="s1">&#39;affo&#39;</span><span class="p">,</span> <span class="s1">&#39;afford&#39;</span><span class="p">,</span> <span class="s1">&#39;affordable&#39;</span><span class="p">,</span> <span class="s1">&#39;afg&#39;</span><span class="p">,</span> <span class="s1">&#39;afimoxifene&#39;</span><span class="p">,</span> <span class="s1">&#39;afl&#39;</span><span class="p">,</span> <span class="s1">&#39;aflac&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<h2>C. Factor test</h2>
+<h3>1. Regression method</h3>
+<p>Regression method is one of the most commonly used methods to test the effectiveness of factors. The specific method is to conduct linear regression between the factor exposure vector in period <span class="math">\(T\)</span> and the stock return vector in period <span class="math">\(T + 1\)</span>. The obtained regression coefficient is the factor return of the factor in the period, and the significance level of the factor return in the regression of this period( <span class="math">\(t\)</span> value). The factor exposure of individual stocks in a certain cross-sectional period refers to the factor value of individual stocks on this factor at the current time. The specific expression of the regression model of phase <span class="math">\(T\)</span> is as follows:
+</p>
+<div class="math">$$
+r^{T+1}=X^{T} a^{T}+\sum_{j} \text { Indus }_{j}^{T} b_{j}^{T}+\ln\_\text{mkt}^{\mathrm{T}} b^{T}+\varepsilon^{T}
+$$</div>
+<p>
+where</p>
+<ul>
+<li><span class="math">\(r^{T+1}\)</span>: Return of all stocks in period <span class="math">\(T+1\)</span></li>
+<li><span class="math">\(X^T\)</span>:  Exposure vector of all stocks in period <span class="math">\(T\)</span> on the tested single factor</li>
+<li><span class="math">\(Indus_j^T\)</span>: Exposure vector (0/1 dummy variable) of all individual stocks on the <span class="math">\(j\)</span> industry factor in the <span class="math">\(T\)</span> period</li>
+<li><span class="math">\(\ln\_mkt\)</span>: Exposure vector of all stocks in period <span class="math">\(T\)</span> on the logarithmic market capitalization factor</li>
+<li><span class="math">\(a^T,b^T,b_j^T\)</span>: Corresponding factor yield, constant to be fitted, usually pay more attention to <span class="math">\(a^T\)</span></li>
+</ul>
+<p><strong>Evaluation:</strong></p>
+<ol>
+<li>The mean of the absolute value of the t-value series: an important criterion for the significance of the factor</li>
+<li>The proportion of the absolute value of the t-value series greater than <span class="math">\(2\)</span>: judging whether the significance of the factor is stable</li>
+<li>The mean of the t-value series: combined with 1.  can judge the factor whether the positive or negative direction of the t value is stable</li>
+<li>The mean value of the factor return series: to determine the size of the factor return.</li>
+</ol>
+<h3>2. IC analysis</h3>
+<p>The IC value of the factor refers to the correlation coefficient between the exposure vector of the factor in the T period and the stock return vector in the <span class="math">\(T+1\)</span> period, that is:
+</p>
+<div class="math">$$
+I C^{T}=\operatorname{corr}\left(r^{T+1}, X^{T}\right)
+$$</div>
+<p>
+In the above formula, the factor exposure vector <span class="math">\(X^T\)</span> generally does not directly use the original factor value, but goes through means such as de-extreme and neutralization.</p>
+<p>In actual calculation, the use of the <em>Pearson</em> correlation coefficient may be greatly affected by the extreme value of the factor, and the use of the <em>Spearman</em> rank correlation coefficient is more robust. The IC calculated in this way is generally called the Rank IC. The IC value analysis model is constructed as follows:</p>
+<ol>
+<li>The stock pool, retrospective interval and cross-section period are the same as the regression method</li>
+<li>First perform a certain preprocessing on the factor exposure vector, and then calculate the <em>Spearman</em> rank correlation coefficient between the processed <span class="math">\(T\)</span> period factor exposure vector and the <span class="math">\(T+1\)</span> period stock return vector, as the <span class="math">\(T\)</span> period factor Rank IC value</li>
+</ol>
+<p><strong>Evaluation:</strong></p>
+<ul>
+<li>Rank IC value series mean value:  factor significance</li>
+<li>Rank IC value series standard deviation:  factor stability</li>
+<li>ICIR (ratio of Rank IC value series mean to standard deviation) : factor validity</li>
+<li>The proportion of the Rank IC value series greater than zero: whether the direction of action of the factor is stable</li>
+</ul>
+<h3>3. Stratified backtesting</h3>
+<p>Scoring stocks according to factor values and building portfolio backtests is the most intuitive way to measure the pros and cons of factors. Compared with regression method and IC value analysis, stratified test method can explore the nonlinear law of factor's prediction of income. That is, if there is a factor stratified test result that shows that the performance of the Top group and Bottom group is stably worse than that of the Middle group for a long time, then the factor has a stable nonlinear law for the prediction of income, but in the regression method and IC value analysis, the process is likely to be judged as an invalid factor. </p>
+<h2>D. Problem Encountered</h2>
+<h3>Problem 1: Web-Scraping</h3>
+<h4>1. Which website?</h4>
+<p>We want to focus on the articles on high-quality financial website includes both the content and titles. First, we try to find the most common and high quality website the list is  <strong>Bloomberg</strong>, <strong>Wall Street Journal</strong>, <strong>SeekingAlpha</strong>, <strong>Benzinga</strong>, <strong>FastCompany</strong>, <strong>TipRanks</strong>, <strong>FXstreet</strong>, <strong>Barron's</strong>. </p>
+<p>After careful and thorough consideration, we eliminate <strong>Wall Street Journal</strong> and <strong>Bloomberg</strong>. Because, we need to pay for the content and we still want to maintain the possibility of full text analysis. in the end even though they are professional and highly recommanded by others, we have to give them up. </p>
+<p>Finally choose <strong>Benzinga</strong> as our target website for the following reason: 1. The text data in <strong>Benzinga</strong> can be download in company lawyer for each url correspond to one certain firm. 2. The <strong>Benzinga</strong> integrates the articles from <strong>SeekingAlpha</strong> , <strong>TipRanks</strong>,  <strong>InvestorPlace</strong> and etc. this means it can help us the scraping more text with less work load. </p>
+<h4>2. Scraping problem</h4>
+<p>(1) the first scraping result is unsatisfactory , because the data is dynamic loading. In this way we can only  get 14 articles</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">bs4</span> <span class="kn">import</span> <span class="n">BeautifulSoup</span> 
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://www.benzinga.com/quote/AAL&quot;</span>
+<span class="n">head</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="s2">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36&quot;</span><span class="p">}</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span><span class="n">headers</span> <span class="o">=</span> <span class="n">head</span><span class="p">)</span>
+<span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">&quot;div&quot;</span><span class="p">,</span> <span class="n">class_</span> <span class="o">=</span> <span class="s2">&quot;py-2 content-headline&quot;</span><span class="p">)</span>
+<span class="n">list1</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
+    <span class="n">list1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">list1</span><span class="p">)</span> <span class="c1"># only get 14 article</span>
+</code></pre></div>
+
+<p>(2) After adjustment we rewrite the code to scrap the dynamic data</p>
+<p>​   Get the dynamic page</p>
+<div class="highlight"><pre><span></span><code><span class="err">:authority: api.benzinga.com</span>
+<span class="err">:method: GET</span>
+<span class="err">:path: /api/v2/news?tickers=AAL&amp;displayOutput=full&amp;pageSize=15&amp;page=1&amp;token=5a3ef9a1e9ed4ce9893131ff6ff046f6</span>
+<span class="err">:scheme: https</span>
+<span class="c">accept: application/json</span>
+</code></pre></div>
+
+<p>​   Code writing</p>
+<div class="highlight"><pre><span></span><code><span class="n">nasdaq_listed</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;nasdaq-listed-symbols_csv.csv&#39;</span><span class="p">)[</span><span class="s1">&#39;Symbol&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">other_listed</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;other-listed_csv.csv&#39;</span><span class="p">)[</span><span class="s1">&#39;ACT Symbol&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">nyse_listed</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;nyse-listed_csv.csv&#39;</span><span class="p">)[</span><span class="s1">&#39;ACT Symbol&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+
+<span class="n">symbols</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">nasdaq_listed</span><span class="p">)</span> <span class="o">|</span> <span class="nb">set</span><span class="p">(</span><span class="n">other_listed</span><span class="p">)</span> <span class="o">|</span> <span class="nb">set</span><span class="p">(</span><span class="n">nyse_listed</span><span class="p">)))</span>
+
+<span class="n">start_date</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">end_date</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">2022</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://api.benzinga.com/api/v2/news&quot;</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;tickers&quot;</span><span class="p">:</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;displayOutput&quot;</span><span class="p">:</span> <span class="s2">&quot;full&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;pageSize&quot;</span><span class="p">:</span> <span class="s2">&quot;15&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;page&quot;</span><span class="p">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="s2">&quot;91741717e18e45a9ac4701d3cb8b7ed4&quot;</span>
+<span class="p">}</span>
+
+
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;origin&#39;</span><span class="p">:</span> <span class="s1">&#39;https://www.benzinga.com&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;referer&#39;</span><span class="p">:</span> <span class="s1">&#39;https://www.benzinga.com/&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;user-agent&#39;</span><span class="p">:</span> <span class="s1">&#39;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.25 Safari/537.36 Core/1.70.3741.400 QQBrowser/10.5.3863.400&#39;</span>
+    <span class="p">}</span>
+
+
+<span class="n">NewsCreateTime_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">NewsTitle_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">NewsStock_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">stock</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">:</span>
+    <span class="n">params</span><span class="p">[</span><span class="s1">&#39;tickers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">stock</span>
+    <span class="n">page</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># end_stock = 1 leads to the end of searching a stock</span>
+    <span class="n">end_stock</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">while</span> <span class="n">end_stock</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+
+        <span class="n">params</span><span class="p">[</span><span class="s1">&#39;page&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+
+        <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+        <span class="n">xml_dict</span> <span class="o">=</span> <span class="n">xmltodict</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+        <span class="n">NewsDict_list</span> <span class="o">=</span> <span class="n">xml_dict</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">][</span><span class="s1">&#39;item&#39;</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">NewsDict</span> <span class="ow">in</span> <span class="n">NewsDict_list</span><span class="p">:</span>
+            <span class="n">create_time_str</span> <span class="o">=</span> <span class="n">NewsDict</span><span class="p">[</span><span class="s1">&#39;created&#39;</span><span class="p">]</span>
+            <span class="n">create_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">create_time_str</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%a</span><span class="s1">, </span><span class="si">%d</span><span class="s1"> %b %Y %H:%M:%S %z&#39;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">create_time</span><span class="o">.</span><span class="n">date</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">start_date</span><span class="p">:</span>
+                <span class="n">end_stock</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="k">break</span>
+            <span class="k">elif</span> <span class="n">create_time</span><span class="o">.</span><span class="n">date</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">end_date</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">NewsCreateTime_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">create_time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S%Z&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;UTC&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">))</span>
+            <span class="n">NewsTitle_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">NewsDict</span><span class="p">[</span><span class="s1">&#39;title&#39;</span><span class="p">])</span>
+            <span class="n">NewsStock_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stock</span><span class="p">)</span>
+
+        <span class="n">page</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="n">result_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;Article headline&#39;</span><span class="p">:</span> <span class="n">NewsTitle_list</span><span class="p">,</span>
+    <span class="s1">&#39;date&#39;</span><span class="p">:</span> <span class="n">NewsCreateTime_list</span><span class="p">,</span>
+    <span class="s1">&#39;stock&#39;</span><span class="p">:</span> <span class="n">NewsStock_list</span>
+<span class="p">})</span>
+
+<span class="n">result_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./analyst_ratings_processed.csv&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<h3>Problem 2 : About BoW model</h3>
+<h4>1. The application of TF-IDF model</h4>
+<h5>(1) The denominator of idf may equals to 0</h5>
+<div class="math">$$
+tf\_idf(t, d) = tf(t, d) * idf(t)
+$$</div>
+<div class="math">$$
+idf(t) = log [ n / df(t) ]
+$$</div>
+<p>In chapter 16 about the TF-IDF calculation, the standard calculation method has some problem in application. The </p>
+<div class="math">$$df(t)$$</div>
+<p>may equal to 0 sometimes. So in the <code>Sklearn</code> working document, they modify the equation. </p>
+<p>we use <code>smooth_idf=True</code> to adjust the TF-IDF model. The calculation formula is
+</p>
+<div class="math">$$
+idf(t) = log \frac {(1 + n)} {(1 + df(t))}  + 1
+$$</div>
+<h5>(2) The loss of sequent information</h5>
+<p>In text analysis TFIDF can't contain the  sequent information of text, but N-grams can help contain all the information the first n-1 words can provide. However, this will produce most words without grammatical and semantic meaning, forming too much noise, which is not good for training.</p>
+<h5>(3) Other problems</h5>
+<p>TFIDF also has the problem of ignoring the deviation of the categories from the previous distribution of the categories. </p>
+<p>For example: word 1 appears 100 times in class 0 and 10 times in class 1; word 2 appears 10 times in class 0 and 100 times in class 1, word 1 and word 2 have the same tfidf value, so the TFIDF matrix cannot reflect the word The importance of 1 in 0 category.</p>
+<h4>Solution: Use BERT model to do text analysis</h4>
+<p>(i) regular expression: expanded for some abbreviations (e.g., “can't” to “can not”)</p>
+<p>(ii) The purpose of stemming and lemmatization is to unify words composed of different letters but have the same meaning, so as to facilitate the establishment of a bag-of-words model.</p>
+<p>but there are minus difference between this two methods</p>
+<p>Stemming: Keep the root, suitable for the field of information retrieval. But the grain of this model is coarse</p>
+<p><img alt="3" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/Meta-Post-01-Stemming.jpg"></p>
+<p>Lemma: Finer-grained, more accurate text analysis and representation</p>
+<p><img alt="4" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/Meta-Post-01-Lemmatization.jpg"></p>
+<script type="text/javascript">if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width < 768) ? "left" : align;
+        indent = (screen.width < 768) ? "0em" : indent;
+        linebreak = (screen.width < 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+</script>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2022-03-22T18:32:00+08:00">Tue 22 March 2022</time>
+            <h4>Category</h4>
+            <a class="category-link" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/categories.html#progress-report-ref">Progress Report</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+    <a href="https://github.com/buehlmaier/MFIN7036-student-blog-2022-02" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitHub" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1B1817"/><path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+    </a>
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

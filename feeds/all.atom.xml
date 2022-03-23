@@ -1,5 +1,264 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>MFIN7036 Student Blog</title><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/" rel="alternate"></link><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/feeds/all.atom.xml" rel="self"></link><id>https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/</id><updated>2022-03-21T12:25:00+08:00</updated><entry><title>Obtaining Data through Webscraping (Group Processors)</title><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/obtaining-data-through-webscraping-group-processors.html" rel="alternate"></link><published>2022-03-21T12:25:00+08:00</published><updated>2022-03-21T12:25:00+08:00</updated><author><name>MFIN7036 Students</name></author><id>tag:buehlmaier.github.io,2022-03-21:/MFIN7036-student-blog-2022-02/obtaining-data-through-webscraping-group-processors.html</id><summary type="html">&lt;p&gt;By Group "Processors"&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>MFIN7036 Student Blog</title><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/" rel="alternate"></link><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/feeds/all.atom.xml" rel="self"></link><id>https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/</id><updated>2022-03-22T18:32:00+08:00</updated><entry><title>Financial News Scraping and Sentiment Factor Extraction Modeling (Group Meta)</title><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/financial-news-scraping-and-sentiment-factor-extraction-modeling-group-meta.html" rel="alternate"></link><published>2022-03-22T18:32:00+08:00</published><updated>2022-03-22T18:32:00+08:00</updated><author><name>MFIN7036 Students</name></author><id>tag:buehlmaier.github.io,2022-03-22:/MFIN7036-student-blog-2022-02/financial-news-scraping-and-sentiment-factor-extraction-modeling-group-meta.html</id><summary type="html">&lt;p&gt;By Group "Meta"&lt;/p&gt;
+&lt;p&gt;So far, we have completed data collection, data cleaning and most of the model building. We have completed the small sample analysis. However, the amount of text is too large, and we need to wait until the independent program mining is completed.&lt;/p&gt;
+&lt;h2&gt;A. Data collection&lt;/h2&gt;
+&lt;p&gt;We get …&lt;/p&gt;</summary><content type="html">&lt;p&gt;By Group "Meta"&lt;/p&gt;
+&lt;p&gt;So far, we have completed data collection, data cleaning and most of the model building. We have completed the small sample analysis. However, the amount of text is too large, and we need to wait until the independent program mining is completed.&lt;/p&gt;
+&lt;h2&gt;A. Data collection&lt;/h2&gt;
+&lt;p&gt;We get 1.4 million pieces of text data from &lt;strong&gt;Benzinga&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;columns&lt;/code&gt; = ['title', 'date', 'stock', 'content']&lt;/p&gt;
+&lt;p&gt;Beside that we also collect the URL for future analysis&lt;/p&gt;
+&lt;h2&gt;B. Text data preprocess&lt;/h2&gt;
+&lt;p&gt;First we use the &lt;strong&gt;TF-IDF&lt;/strong&gt; model to process our data, follow the standard work flow &lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Drop symbols, numbers, and single characters&lt;/li&gt;
+&lt;li&gt;Remove stop words&lt;/li&gt;
+&lt;li&gt;Tokenize words &lt;/li&gt;
+&lt;li&gt;Transform to matrix&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;We use &lt;code&gt;AutoTokenizer&lt;/code&gt; command to fulfill the work flow&lt;/p&gt;
+&lt;p&gt;Part of the feature words:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;aerostructures&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;aerosystems&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;aerovironment&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;aersale&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;aes&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;aesthetics&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;aetna&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;aex&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;aeye&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;aezs&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;af&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;afer&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;afexa&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;affairs&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;affect&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;affected&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;affecting&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;affiliate&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;affiliated&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;affiliates&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;affirmation&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;affirmed&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;affirms&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;affo&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;afford&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;affordable&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;afg&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;afimoxifene&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;afl&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;aflac&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;C. Factor test&lt;/h2&gt;
+&lt;h3&gt;1. Regression method&lt;/h3&gt;
+&lt;p&gt;Regression method is one of the most commonly used methods to test the effectiveness of factors. The specific method is to conduct linear regression between the factor exposure vector in period &lt;span class="math"&gt;\(T\)&lt;/span&gt; and the stock return vector in period &lt;span class="math"&gt;\(T + 1\)&lt;/span&gt;. The obtained regression coefficient is the factor return of the factor in the period, and the significance level of the factor return in the regression of this period( &lt;span class="math"&gt;\(t\)&lt;/span&gt; value). The factor exposure of individual stocks in a certain cross-sectional period refers to the factor value of individual stocks on this factor at the current time. The specific expression of the regression model of phase &lt;span class="math"&gt;\(T\)&lt;/span&gt; is as follows:
+&lt;/p&gt;
+&lt;div class="math"&gt;$$
+r^{T+1}=X^{T} a^{T}+\sum_{j} \text { Indus }_{j}^{T} b_{j}^{T}+\ln\_\text{mkt}^{\mathrm{T}} b^{T}+\varepsilon^{T}
+$$&lt;/div&gt;
+&lt;p&gt;
+where&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(r^{T+1}\)&lt;/span&gt;: Return of all stocks in period &lt;span class="math"&gt;\(T+1\)&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(X^T\)&lt;/span&gt;:  Exposure vector of all stocks in period &lt;span class="math"&gt;\(T\)&lt;/span&gt; on the tested single factor&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(Indus_j^T\)&lt;/span&gt;: Exposure vector (0/1 dummy variable) of all individual stocks on the &lt;span class="math"&gt;\(j\)&lt;/span&gt; industry factor in the &lt;span class="math"&gt;\(T\)&lt;/span&gt; period&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(\ln\_mkt\)&lt;/span&gt;: Exposure vector of all stocks in period &lt;span class="math"&gt;\(T\)&lt;/span&gt; on the logarithmic market capitalization factor&lt;/li&gt;
+&lt;li&gt;&lt;span class="math"&gt;\(a^T,b^T,b_j^T\)&lt;/span&gt;: Corresponding factor yield, constant to be fitted, usually pay more attention to &lt;span class="math"&gt;\(a^T\)&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Evaluation:&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;The mean of the absolute value of the t-value series: an important criterion for the significance of the factor&lt;/li&gt;
+&lt;li&gt;The proportion of the absolute value of the t-value series greater than &lt;span class="math"&gt;\(2\)&lt;/span&gt;: judging whether the significance of the factor is stable&lt;/li&gt;
+&lt;li&gt;The mean of the t-value series: combined with 1.  can judge the factor whether the positive or negative direction of the t value is stable&lt;/li&gt;
+&lt;li&gt;The mean value of the factor return series: to determine the size of the factor return.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;2. IC analysis&lt;/h3&gt;
+&lt;p&gt;The IC value of the factor refers to the correlation coefficient between the exposure vector of the factor in the T period and the stock return vector in the &lt;span class="math"&gt;\(T+1\)&lt;/span&gt; period, that is:
+&lt;/p&gt;
+&lt;div class="math"&gt;$$
+I C^{T}=\operatorname{corr}\left(r^{T+1}, X^{T}\right)
+$$&lt;/div&gt;
+&lt;p&gt;
+In the above formula, the factor exposure vector &lt;span class="math"&gt;\(X^T\)&lt;/span&gt; generally does not directly use the original factor value, but goes through means such as de-extreme and neutralization.&lt;/p&gt;
+&lt;p&gt;In actual calculation, the use of the &lt;em&gt;Pearson&lt;/em&gt; correlation coefficient may be greatly affected by the extreme value of the factor, and the use of the &lt;em&gt;Spearman&lt;/em&gt; rank correlation coefficient is more robust. The IC calculated in this way is generally called the Rank IC. The IC value analysis model is constructed as follows:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;The stock pool, retrospective interval and cross-section period are the same as the regression method&lt;/li&gt;
+&lt;li&gt;First perform a certain preprocessing on the factor exposure vector, and then calculate the &lt;em&gt;Spearman&lt;/em&gt; rank correlation coefficient between the processed &lt;span class="math"&gt;\(T\)&lt;/span&gt; period factor exposure vector and the &lt;span class="math"&gt;\(T+1\)&lt;/span&gt; period stock return vector, as the &lt;span class="math"&gt;\(T\)&lt;/span&gt; period factor Rank IC value&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Evaluation:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Rank IC value series mean value:  factor significance&lt;/li&gt;
+&lt;li&gt;Rank IC value series standard deviation:  factor stability&lt;/li&gt;
+&lt;li&gt;ICIR (ratio of Rank IC value series mean to standard deviation) : factor validity&lt;/li&gt;
+&lt;li&gt;The proportion of the Rank IC value series greater than zero: whether the direction of action of the factor is stable&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3&gt;3. Stratified backtesting&lt;/h3&gt;
+&lt;p&gt;Scoring stocks according to factor values and building portfolio backtests is the most intuitive way to measure the pros and cons of factors. Compared with regression method and IC value analysis, stratified test method can explore the nonlinear law of factor's prediction of income. That is, if there is a factor stratified test result that shows that the performance of the Top group and Bottom group is stably worse than that of the Middle group for a long time, then the factor has a stable nonlinear law for the prediction of income, but in the regression method and IC value analysis, the process is likely to be judged as an invalid factor. &lt;/p&gt;
+&lt;h2&gt;D. Problem Encountered&lt;/h2&gt;
+&lt;h3&gt;Problem 1: Web-Scraping&lt;/h3&gt;
+&lt;h4&gt;1. Which website?&lt;/h4&gt;
+&lt;p&gt;We want to focus on the articles on high-quality financial website includes both the content and titles. First, we try to find the most common and high quality website the list is  &lt;strong&gt;Bloomberg&lt;/strong&gt;, &lt;strong&gt;Wall Street Journal&lt;/strong&gt;, &lt;strong&gt;SeekingAlpha&lt;/strong&gt;, &lt;strong&gt;Benzinga&lt;/strong&gt;, &lt;strong&gt;FastCompany&lt;/strong&gt;, &lt;strong&gt;TipRanks&lt;/strong&gt;, &lt;strong&gt;FXstreet&lt;/strong&gt;, &lt;strong&gt;Barron's&lt;/strong&gt;. &lt;/p&gt;
+&lt;p&gt;After careful and thorough consideration, we eliminate &lt;strong&gt;Wall Street Journal&lt;/strong&gt; and &lt;strong&gt;Bloomberg&lt;/strong&gt;. Because, we need to pay for the content and we still want to maintain the possibility of full text analysis. in the end even though they are professional and highly recommanded by others, we have to give them up. &lt;/p&gt;
+&lt;p&gt;Finally choose &lt;strong&gt;Benzinga&lt;/strong&gt; as our target website for the following reason: 1. The text data in &lt;strong&gt;Benzinga&lt;/strong&gt; can be download in company lawyer for each url correspond to one certain firm. 2. The &lt;strong&gt;Benzinga&lt;/strong&gt; integrates the articles from &lt;strong&gt;SeekingAlpha&lt;/strong&gt; , &lt;strong&gt;TipRanks&lt;/strong&gt;,  &lt;strong&gt;InvestorPlace&lt;/strong&gt; and etc. this means it can help us the scraping more text with less work load. &lt;/p&gt;
+&lt;h4&gt;2. Scraping problem&lt;/h4&gt;
+&lt;p&gt;(1) the first scraping result is unsatisfactory , because the data is dynamic loading. In this way we can only  get 14 articles&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;requests&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;bs4&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;BeautifulSoup&lt;/span&gt; 
+&lt;span class="n"&gt;url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;https://www.benzinga.com/quote/AAL&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;head&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;User-Agent&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="n"&gt;response&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;requests&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="n"&gt;headers&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;head&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;soup&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;BeautifulSoup&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;html.parser&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;soup&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;find_all&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;div&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;class_&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;py-2 content-headline&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;list1&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;list1&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;text&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;list1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="c1"&gt;# only get 14 article&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;(2) After adjustment we rewrite the code to scrap the dynamic data&lt;/p&gt;
+&lt;p&gt;​   Get the dynamic page&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="err"&gt;:authority: api.benzinga.com&lt;/span&gt;
+&lt;span class="err"&gt;:method: GET&lt;/span&gt;
+&lt;span class="err"&gt;:path: /api/v2/news?tickers=AAL&amp;amp;displayOutput=full&amp;amp;pageSize=15&amp;amp;page=1&amp;amp;token=5a3ef9a1e9ed4ce9893131ff6ff046f6&lt;/span&gt;
+&lt;span class="err"&gt;:scheme: https&lt;/span&gt;
+&lt;span class="c"&gt;accept: application/json&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;​   Code writing&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;nasdaq_listed&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read_csv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;nasdaq-listed-symbols_csv.csv&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;Symbol&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;values&lt;/span&gt;
+&lt;span class="n"&gt;other_listed&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read_csv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;other-listed_csv.csv&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;ACT Symbol&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;values&lt;/span&gt;
+&lt;span class="n"&gt;nyse_listed&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read_csv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;nyse-listed_csv.csv&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;ACT Symbol&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;values&lt;/span&gt;
+
+&lt;span class="n"&gt;symbols&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;sorted&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;list&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;set&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nasdaq_listed&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="nb"&gt;set&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;other_listed&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="nb"&gt;set&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;nyse_listed&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+
+&lt;span class="n"&gt;start_date&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;date&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2022&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;end_date&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;date&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2022&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;https://api.benzinga.com/api/v2/news&amp;quot;&lt;/span&gt;
+&lt;span class="n"&gt;params&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="s2"&gt;&amp;quot;tickers&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;A&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;&amp;quot;displayOutput&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;full&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;&amp;quot;pageSize&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;15&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;&amp;quot;page&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;0&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;&amp;quot;token&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;91741717e18e45a9ac4701d3cb8b7ed4&amp;quot;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+
+&lt;span class="n"&gt;headers&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="s1"&gt;&amp;#39;origin&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;https://www.benzinga.com&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;&amp;#39;referer&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;https://www.benzinga.com/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;&amp;#39;user-agent&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.25 Safari/537.36 Core/1.70.3741.400 QQBrowser/10.5.3863.400&amp;#39;&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+
+
+&lt;span class="n"&gt;NewsCreateTime_list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+&lt;span class="n"&gt;NewsTitle_list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+&lt;span class="n"&gt;NewsStock_list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;stock&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;symbols&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;params&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;tickers&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;stock&lt;/span&gt;
+    &lt;span class="n"&gt;page&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+
+    &lt;span class="c1"&gt;# end_stock = 1 leads to the end of searching a stock&lt;/span&gt;
+    &lt;span class="n"&gt;end_stock&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+
+    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="n"&gt;end_stock&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+
+        &lt;span class="n"&gt;params&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;page&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;str&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;page&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+        &lt;span class="n"&gt;res&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;requests&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;url&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;params&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;params&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;headers&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;headers&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;xml_dict&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;xmltodict&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;res&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;content&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;NewsDict_list&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;xml_dict&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;result&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;][&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;item&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;NewsDict&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;NewsDict_list&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;create_time_str&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;NewsDict&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;created&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+            &lt;span class="n"&gt;create_time&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;datetime&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;strptime&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;create_time_str&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&lt;/span&gt;&lt;span class="si"&gt;%a&lt;/span&gt;&lt;span class="s1"&gt;, &lt;/span&gt;&lt;span class="si"&gt;%d&lt;/span&gt;&lt;span class="s1"&gt; %b %Y %H:%M:%S %z&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;create_time&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;date&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="n"&gt;start_date&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="n"&gt;end_stock&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+                &lt;span class="k"&gt;break&lt;/span&gt;
+            &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="n"&gt;create_time&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;date&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;end_date&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="k"&gt;continue&lt;/span&gt;
+
+            &lt;span class="n"&gt;NewsCreateTime_list&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;create_time&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;strftime&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;%Y-%m-&lt;/span&gt;&lt;span class="si"&gt;%d&lt;/span&gt;&lt;span class="s1"&gt; %H:%M:%S%Z&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;replace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;UTC&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+            &lt;span class="n"&gt;NewsTitle_list&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;NewsDict&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;title&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+            &lt;span class="n"&gt;NewsStock_list&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;stock&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+        &lt;span class="n"&gt;page&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+
+&lt;span class="n"&gt;result_df&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;pd&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;DataFrame&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+    &lt;span class="s1"&gt;&amp;#39;Article headline&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;NewsTitle_list&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;&amp;#39;date&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;NewsCreateTime_list&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;&amp;#39;stock&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;NewsStock_list&lt;/span&gt;
+&lt;span class="p"&gt;})&lt;/span&gt;
+
+&lt;span class="n"&gt;result_df&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;to_csv&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;./analyst_ratings_processed.csv&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;Problem 2 : About BoW model&lt;/h3&gt;
+&lt;h4&gt;1. The application of TF-IDF model&lt;/h4&gt;
+&lt;h5&gt;(1) The denominator of idf may equals to 0&lt;/h5&gt;
+&lt;div class="math"&gt;$$
+tf\_idf(t, d) = tf(t, d) * idf(t)
+$$&lt;/div&gt;
+&lt;div class="math"&gt;$$
+idf(t) = log [ n / df(t) ]
+$$&lt;/div&gt;
+&lt;p&gt;In chapter 16 about the TF-IDF calculation, the standard calculation method has some problem in application. The &lt;/p&gt;
+&lt;div class="math"&gt;$$df(t)$$&lt;/div&gt;
+&lt;p&gt;may equal to 0 sometimes. So in the &lt;code&gt;Sklearn&lt;/code&gt; working document, they modify the equation. &lt;/p&gt;
+&lt;p&gt;we use &lt;code&gt;smooth_idf=True&lt;/code&gt; to adjust the TF-IDF model. The calculation formula is
+&lt;/p&gt;
+&lt;div class="math"&gt;$$
+idf(t) = log \frac {(1 + n)} {(1 + df(t))}  + 1
+$$&lt;/div&gt;
+&lt;h5&gt;(2) The loss of sequent information&lt;/h5&gt;
+&lt;p&gt;In text analysis TFIDF can't contain the  sequent information of text, but N-grams can help contain all the information the first n-1 words can provide. However, this will produce most words without grammatical and semantic meaning, forming too much noise, which is not good for training.&lt;/p&gt;
+&lt;h5&gt;(3) Other problems&lt;/h5&gt;
+&lt;p&gt;TFIDF also has the problem of ignoring the deviation of the categories from the previous distribution of the categories. &lt;/p&gt;
+&lt;p&gt;For example: word 1 appears 100 times in class 0 and 10 times in class 1; word 2 appears 10 times in class 0 and 100 times in class 1, word 1 and word 2 have the same tfidf value, so the TFIDF matrix cannot reflect the word The importance of 1 in 0 category.&lt;/p&gt;
+&lt;h4&gt;Solution: Use BERT model to do text analysis&lt;/h4&gt;
+&lt;p&gt;(i) regular expression: expanded for some abbreviations (e.g., “can't” to “can not”)&lt;/p&gt;
+&lt;p&gt;(ii) The purpose of stemming and lemmatization is to unify words composed of different letters but have the same meaning, so as to facilitate the establishment of a bag-of-words model.&lt;/p&gt;
+&lt;p&gt;but there are minus difference between this two methods&lt;/p&gt;
+&lt;p&gt;Stemming: Keep the root, suitable for the field of information retrieval. But the grain of this model is coarse&lt;/p&gt;
+&lt;p&gt;&lt;img alt="3" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/Meta-Post-01-Stemming.jpg"&gt;&lt;/p&gt;
+&lt;p&gt;Lemma: Finer-grained, more accurate text analysis and representation&lt;/p&gt;
+&lt;p&gt;&lt;img alt="4" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/Meta-Post-01-Lemmatization.jpg"&gt;&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</content><category term="Progress Report"></category></entry><entry><title>Obtaining Data through Webscraping (Group Processors)</title><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/obtaining-data-through-webscraping-group-processors.html" rel="alternate"></link><published>2022-03-21T12:25:00+08:00</published><updated>2022-03-21T12:25:00+08:00</updated><author><name>MFIN7036 Students</name></author><id>tag:buehlmaier.github.io,2022-03-21:/MFIN7036-student-blog-2022-02/obtaining-data-through-webscraping-group-processors.html</id><summary type="html">&lt;p&gt;By Group "Processors"&lt;/p&gt;
 &lt;h1&gt;Text Sources&lt;/h1&gt;
 &lt;p&gt;The first step of our project is to obtain bitcoin and cryptocurrency related text data. We mainly focus on two types of text data - social media and news articles. For social media, we make use of the following sources:&lt;/p&gt;
 &lt;ol&gt;
