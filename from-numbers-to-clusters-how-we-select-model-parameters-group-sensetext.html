@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="MFIN7036 Students" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", Progress Report, " />
+
+<meta property="og:title" content="From Numbers to Clusters: How We Select Model Parameters (Group SenseText) "/>
+<meta property="og:url" content="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/from-numbers-to-clusters-how-we-select-model-parameters-group-sensetext.html" />
+<meta property="og:description" content="By Group &#34;SenseText&#34; In this blog, we will mainly focus on the parameter selection of the dimensionality reduction and clustering model. We have explored many possible parameters through loops and visualized the results to select the most suitable configurations. Dimensionality Reduction We use PCA for dimensionality reduction. To determine the …" />
+<meta property="og:site_name" content="MFIN7036 Student Blog" />
+<meta property="og:article:author" content="MFIN7036 Students" />
+<meta property="og:article:published_time" content="2022-03-25T15:11:00+08:00" />
+<meta name="twitter:title" content="From Numbers to Clusters: How We Select Model Parameters (Group SenseText) ">
+<meta name="twitter:description" content="By Group &#34;SenseText&#34; In this blog, we will mainly focus on the parameter selection of the dimensionality reduction and clustering model. We have explored many possible parameters through loops and visualized the results to select the most suitable configurations. Dimensionality Reduction We use PCA for dimensionality reduction. To determine the …">
+
+        <title>From Numbers to Clusters: How We Select Model Parameters (Group SenseText)  · MFIN7036 Student Blog
+</title>
+        <link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="MFIN7036 Student Blog - Full Atom Feed" />
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/"><span class=site-name>MFIN7036 Student Blog</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       https://buehlmaier.github.io/MFIN7036-student-blog-2022-02
+                                    >Home</a>
+                                </li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/categories.html">Categories</a></li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/tags.html">Tags</a></li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/from-numbers-to-clusters-how-we-select-model-parameters-group-sensetext.html">
+                From Numbers to Clusters: How We Select Model Parameters (Group SenseText)
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <p>By Group "SenseText"   </p>
+<p>In this blog, we will mainly focus on the parameter selection of 
+the dimensionality reduction and clustering model. We have explored many possible parameters 
+through loops and visualized the results to select the most suitable configurations.</p>
+<h1>Dimensionality Reduction</h1>
+<p>We use PCA for dimensionality reduction. To determine the final number of the dimensions, 
+we print the Dimension – Accumulated-Explained-Variance-Ratio curve:</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img alt="pca_graph" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText_pca.png"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><b>Dimension-Accumulated-Explained-Variance-Ratio Curve</b></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th align="center"><img src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText_pca_table.png" alt="pca_table" width=90% /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><b>Dimension-Accumulated-Explained-Variance-Ratio Table</b></td>
+</tr>
+</tbody>
+</table>
+<p>Then we found that a dimension of <strong>300</strong> is good enough to achieve an accumulated 
+explained-variance-ratio of nearly 99%. Increasing the dimension further would 
+not yield a significant improvement. Therefore, we chose 300 as the optimal number of the PCA components. </p>
+<h1>DBSCAN Clustering</h1>
+<p>To get the optimal parameters, we explored a range of possibilities by using 
+two loops: for the eps (radius), we tried the threshold [50,150] with an increment of 5; 
+for the minimum ticker sample, we set the value in [4,8] with an increase of 2 in each step. 
+Part of the results are shown in the following table:</p>
+<p><img alt="DBSCAN" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText_DBSCAN.png"></p>
+<p>From the result, we found that over 10% of the training companies are always considered outliers. 
+Moreover, the size of the first cluster is out of proportion, containing more than 50% of the companies. 
+Since the resulting clusters are not balanced, this method is <em>not suitable</em> for our project.</p>
+<h1>SOM Clustering</h1>
+<p>For this method, cluster sizes were tried form 64 to 144. 
+We found <strong>144</strong> to be the most suitable one. The final model parameters are as follows: 
+clustering size = 144, sigma = 5, learning rate = 0.5, neighborhood function = gaussian. </p>
+<p>Two of the clustering-density heat maps are as follows:</p>
+<table>
+<thead>
+<tr>
+<th align="center"><img src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText_heat_100.png" alt="SOM100" width=80% /></th>
+<th align="center"><img src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText_som_heat.png" alt="SOM144" width=80% /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">cluster size = 100</td>
+<td align="center">cluster size = 144</td>
+</tr>
+</tbody>
+</table>
+<p>While the 100-cluster case has two concentrated clusters, the 144-cluster case is more dispersed.</p>
+<h1>K-Means Clustering</h1>
+<p>To determine the optimal number of clusters, we first tried Calinski_harabaz score, 
+and found that the optimal cluster size is <strong>3</strong>. 
+However, taking data size into consideration, if the number of clusters is 3, 
+each cluster will have almost 1,000 tickers on average, which is unreasonable.  </p>
+<p><img alt="K-means harabasa" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText_K-means_harabasa.png"></p>
+<p>Then we tried the SSE method. We plotted SSE against the number of clusters.</p>
+<p><img alt="K-means SSE" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText_k_means_SSE.png"></p>
+<p>From the curve, we found that SSE improves marginally beyond 51 clusters. 
+To facilitate the comparison with the SOM method, we set <strong>144</strong> as the number of clusters.</p>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2022-03-25T15:11:00+08:00">Fri 25 March 2022</time>
+            <h4>Category</h4>
+            <a class="category-link" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/categories.html#progress-report-ref">Progress Report</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+    <a href="https://github.com/buehlmaier/MFIN7036-student-blog-2022-02" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitHub" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1B1817"/><path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+    </a>
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

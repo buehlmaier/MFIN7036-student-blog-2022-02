@@ -1,5 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>MFIN7036 Student Blog - Progress Report</title><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/" rel="alternate"></link><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/feeds/progress-report.atom.xml" rel="self"></link><id>https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/</id><updated>2022-03-22T18:32:00+08:00</updated><entry><title>Financial News Scraping and Sentiment Factor Extraction Modeling (Group Meta)</title><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/financial-news-scraping-and-sentiment-factor-extraction-modeling-group-meta.html" rel="alternate"></link><published>2022-03-22T18:32:00+08:00</published><updated>2022-03-22T18:32:00+08:00</updated><author><name>MFIN7036 Students</name></author><id>tag:buehlmaier.github.io,2022-03-22:/MFIN7036-student-blog-2022-02/financial-news-scraping-and-sentiment-factor-extraction-modeling-group-meta.html</id><summary type="html">&lt;p&gt;By Group "Meta"&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>MFIN7036 Student Blog - Progress Report</title><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/" rel="alternate"></link><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/feeds/progress-report.atom.xml" rel="self"></link><id>https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/</id><updated>2022-03-25T15:11:00+08:00</updated><entry><title>From Numbers to Clusters: How We Select Model Parameters (Group SenseText)</title><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/from-numbers-to-clusters-how-we-select-model-parameters-group-sensetext.html" rel="alternate"></link><published>2022-03-25T15:11:00+08:00</published><updated>2022-03-25T15:11:00+08:00</updated><author><name>MFIN7036 Students</name></author><id>tag:buehlmaier.github.io,2022-03-25:/MFIN7036-student-blog-2022-02/from-numbers-to-clusters-how-we-select-model-parameters-group-sensetext.html</id><summary type="html">&lt;p&gt;By Group "SenseText"   &lt;/p&gt;
+&lt;p&gt;In this blog, we will mainly focus on the parameter selection of 
+the dimensionality reduction and clustering model. We have explored many possible parameters 
+through loops and visualized the results to select the most suitable configurations.&lt;/p&gt;
+&lt;h1&gt;Dimensionality Reduction&lt;/h1&gt;
+&lt;p&gt;We use PCA for dimensionality reduction. To determine the …&lt;/p&gt;</summary><content type="html">&lt;p&gt;By Group "SenseText"   &lt;/p&gt;
+&lt;p&gt;In this blog, we will mainly focus on the parameter selection of 
+the dimensionality reduction and clustering model. We have explored many possible parameters 
+through loops and visualized the results to select the most suitable configurations.&lt;/p&gt;
+&lt;h1&gt;Dimensionality Reduction&lt;/h1&gt;
+&lt;p&gt;We use PCA for dimensionality reduction. To determine the final number of the dimensions, 
+we print the Dimension – Accumulated-Explained-Variance-Ratio curve:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align="center"&gt;&lt;img alt="pca_graph" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText_pca.png"&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;b&gt;Dimension-Accumulated-Explained-Variance-Ratio Curve&lt;/b&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align="center"&gt;&lt;img src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText_pca_table.png" alt="pca_table" width=90% /&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;&lt;b&gt;Dimension-Accumulated-Explained-Variance-Ratio Table&lt;/b&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;Then we found that a dimension of &lt;strong&gt;300&lt;/strong&gt; is good enough to achieve an accumulated 
+explained-variance-ratio of nearly 99%. Increasing the dimension further would 
+not yield a significant improvement. Therefore, we chose 300 as the optimal number of the PCA components. &lt;/p&gt;
+&lt;h1&gt;DBSCAN Clustering&lt;/h1&gt;
+&lt;p&gt;To get the optimal parameters, we explored a range of possibilities by using 
+two loops: for the eps (radius), we tried the threshold [50,150] with an increment of 5; 
+for the minimum ticker sample, we set the value in [4,8] with an increase of 2 in each step. 
+Part of the results are shown in the following table:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="DBSCAN" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText_DBSCAN.png"&gt;&lt;/p&gt;
+&lt;p&gt;From the result, we found that over 10% of the training companies are always considered outliers. 
+Moreover, the size of the first cluster is out of proportion, containing more than 50% of the companies. 
+Since the resulting clusters are not balanced, this method is &lt;em&gt;not suitable&lt;/em&gt; for our project.&lt;/p&gt;
+&lt;h1&gt;SOM Clustering&lt;/h1&gt;
+&lt;p&gt;For this method, cluster sizes were tried form 64 to 144. 
+We found &lt;strong&gt;144&lt;/strong&gt; to be the most suitable one. The final model parameters are as follows: 
+clustering size = 144, sigma = 5, learning rate = 0.5, neighborhood function = gaussian. &lt;/p&gt;
+&lt;p&gt;Two of the clustering-density heat maps are as follows:&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align="center"&gt;&lt;img src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText_heat_100.png" alt="SOM100" width=80% /&gt;&lt;/th&gt;
+&lt;th align="center"&gt;&lt;img src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText_som_heat.png" alt="SOM144" width=80% /&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align="center"&gt;cluster size = 100&lt;/td&gt;
+&lt;td align="center"&gt;cluster size = 144&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;While the 100-cluster case has two concentrated clusters, the 144-cluster case is more dispersed.&lt;/p&gt;
+&lt;h1&gt;K-Means Clustering&lt;/h1&gt;
+&lt;p&gt;To determine the optimal number of clusters, we first tried Calinski_harabaz score, 
+and found that the optimal cluster size is &lt;strong&gt;3&lt;/strong&gt;. 
+However, taking data size into consideration, if the number of clusters is 3, 
+each cluster will have almost 1,000 tickers on average, which is unreasonable.  &lt;/p&gt;
+&lt;p&gt;&lt;img alt="K-means harabasa" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText_K-means_harabasa.png"&gt;&lt;/p&gt;
+&lt;p&gt;Then we tried the SSE method. We plotted SSE against the number of clusters.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="K-means SSE" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText_k_means_SSE.png"&gt;&lt;/p&gt;
+&lt;p&gt;From the curve, we found that SSE improves marginally beyond 51 clusters. 
+To facilitate the comparison with the SOM method, we set &lt;strong&gt;144&lt;/strong&gt; as the number of clusters.&lt;/p&gt;</content><category term="Progress Report"></category></entry><entry><title>From Text to Numbers: Code Improvement in Preparing Data for Clustering (Group SenseText)</title><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/from-text-to-numbers-code-improvement-in-preparing-data-for-clustering-group-sensetext.html" rel="alternate"></link><published>2022-03-23T15:11:00+08:00</published><updated>2022-03-23T15:11:00+08:00</updated><author><name>MFIN7036 Students</name></author><id>tag:buehlmaier.github.io,2022-03-23:/MFIN7036-student-blog-2022-02/from-text-to-numbers-code-improvement-in-preparing-data-for-clustering-group-sensetext.html</id><summary type="html">&lt;p&gt;By Group "SenseText"&lt;/p&gt;
+&lt;p&gt;In the previous blog, we shared the problems in text processing. After that, 
+we converted text to numbers. The technical part of this step is quite straight forward, which 
+includes BoW, tf-idf, and sentiment analysis. Nonetheless, we would like to share with you about the importance 
+of …&lt;/p&gt;</summary><content type="html">&lt;p&gt;By Group "SenseText"&lt;/p&gt;
+&lt;p&gt;In the previous blog, we shared the problems in text processing. After that, 
+we converted text to numbers. The technical part of this step is quite straight forward, which 
+includes BoW, tf-idf, and sentiment analysis. Nonetheless, we would like to share with you about the importance 
+of &lt;strong&gt;code review&lt;/strong&gt; in coding collaboratively.&lt;/p&gt;
+&lt;h1&gt;Background&lt;/h1&gt;
+&lt;p&gt;We separate the text processing task into two parts. 
+The first part is to select two Bag of Words for the business description and risk factors, 
+which is demonstrated in our last blog. The second part is to convert the two BoWs to 
+quantitative factors for later clustering and valuation. 
+The final output of text processing is shown below.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="output of text processing" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText_output.jpeg"&gt;&lt;/p&gt;
+&lt;p&gt;There are 2,965 rows standing for 2,965 companies. Each company has seven parameters as shown.&lt;/p&gt;
+&lt;p&gt;To save time, we parallel processed the coding for the two parts. 
+Diana and Alice are responsible for the first part and Silvia takes charge of the second part.&lt;/p&gt;
+&lt;h1&gt;Initial Version&lt;/h1&gt;
+&lt;p&gt;We generated two BoWs in the first part without distinguishing each company. In other words, 
+we mixed the tokens from each company up and put them into a single list instead of a list of lists.&lt;/p&gt;
+&lt;p&gt;Then, to build the binary and tf-idf factors for each company in the second part, 
+the basic data processing, like stop words removal, lowercasing, and lemmatization, 
+were &lt;strong&gt;conducted again&lt;/strong&gt; because we need to distinguish the companies in the final result.&lt;/p&gt;
+&lt;p&gt;Hence, the second part took both the original factors from 10-K and the two BoWs 
+as the inputs. The workflow of this step is as follows.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="initial workflow" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText_initial_workflow.jpeg"&gt;&lt;/p&gt;
+&lt;h1&gt;Review&lt;/h1&gt;
+&lt;p&gt;After uploading the two code files to GitHub, we found that the basic data processing 
+was conducted &lt;strong&gt;twice&lt;/strong&gt;, which was quite time-consuming and wasted unnecessary computational power. 
+It indicates that the process represented by the dotted arrow could have been avoided.&lt;/p&gt;
+&lt;h1&gt;Improvement&lt;/h1&gt;
+&lt;p&gt;If we simply change the form of the output of the first part to a list of lists, 
+keeping the word appearance information for each company, 
+the similar processes in the second part can be avoided.&lt;/p&gt;
+&lt;p&gt;It saved almost &lt;strong&gt;eight hours&lt;/strong&gt; of data processing and clearly improved the efficiency of our codes.&lt;/p&gt;
+&lt;h1&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;In collaborative coding, we should always communicate with each other and 
+keep each stage of coding consistent. &lt;strong&gt;Frequently reviewing the codes is essential&lt;/strong&gt;. &lt;/p&gt;
+&lt;p&gt;A more efficient way may be found by just a small change of the codes.&lt;/p&gt;</content><category term="Progress Report"></category></entry><entry><title>Financial News Scraping and Sentiment Factor Extraction Modeling (Group Meta)</title><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/financial-news-scraping-and-sentiment-factor-extraction-modeling-group-meta.html" rel="alternate"></link><published>2022-03-22T18:32:00+08:00</published><updated>2022-03-22T18:32:00+08:00</updated><author><name>MFIN7036 Students</name></author><id>tag:buehlmaier.github.io,2022-03-22:/MFIN7036-student-blog-2022-02/financial-news-scraping-and-sentiment-factor-extraction-modeling-group-meta.html</id><summary type="html">&lt;p&gt;By Group "Meta"&lt;/p&gt;
 &lt;p&gt;So far, we have completed data collection, data cleaning and most of the model building. We have completed the small sample analysis. However, the amount of text is too large, and we need to wait until the independent program mining is completed.&lt;/p&gt;
 &lt;h2&gt;A. Data collection&lt;/h2&gt;
 &lt;p&gt;We get …&lt;/p&gt;</summary><content type="html">&lt;p&gt;By Group "Meta"&lt;/p&gt;
