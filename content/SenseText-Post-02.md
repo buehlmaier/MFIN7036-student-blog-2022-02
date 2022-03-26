@@ -19,7 +19,7 @@ which is demonstrated in our last blog. The second part is to convert the two Bo
 quantitative factors for later clustering and valuation. 
 The final output of text processing is shown below.
 
-![output of text processing]({static}https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText_output.jpeg)
+![output of text processing]({static}/images/SenseText_output.jpeg)
 
 There are 2,965 rows standing for 2,965 companies. Each company has seven parameters as shown.
 
@@ -37,7 +37,7 @@ were **conducted again** because we need to distinguish the companies in the fin
 Hence, the second part took both the original factors from 10-K and the two BoWs 
 as the inputs. The workflow of this step is as follows.
 
-![initial workflow]({static}https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText_initial_workflow.jpeg)
+![initial workflow]({static}/images/SenseText_initial_workflow.jpeg)
 
 # Review
 After uploading the two code files to GitHub, we found that the basic data processing 

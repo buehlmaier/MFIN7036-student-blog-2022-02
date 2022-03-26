@@ -15,11 +15,11 @@ through loops and visualized the results to select the most suitable configurati
 We use PCA for dimensionality reduction. To determine the final number of the dimensions, 
 we print the Dimension – Accumulated-Explained-Variance-Ratio curve:
 
-|![pca_graph](https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText_pca.png)|
+|![pca_graph]({static}/images/SenseText_pca.png)|
 |:--:|
 |<b>Dimension-Accumulated-Explained-Variance-Ratio Curve</b>|
 
-|<img src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText_pca_table.png" alt="pca_table" width=90% />|
+|<img src="{static}/images/SenseText_pca_table.png" alt="pca_table" width=90% />|
 |:--:|
 |<b>Dimension-Accumulated-Explained-Variance-Ratio Table</b>|     
 
@@ -34,7 +34,7 @@ two loops: for the eps (radius), we tried the threshold [50,150] with an increme
 for the minimum ticker sample, we set the value in [4,8] with an increase of 2 in each step. 
 Part of the results are shown in the following table:
 
-![DBSCAN](https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText_DBSCAN.png)
+![DBSCAN]({static}/images/SenseText_DBSCAN.png)
 
 From the result, we found that over 10% of the training companies are always considered outliers. 
 Moreover, the size of the first cluster is out of proportion, containing more than 50% of the companies. 
@@ -48,7 +48,7 @@ clustering size = 144, sigma = 5, learning rate = 0.5, neighborhood function = g
 
 Two of the clustering-density heat maps are as follows:
 
-<img src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText_heat_100.png" alt="SOM100" width=80% />|<img src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText_som_heat.png" alt="SOM144" width=80% />
+<img src="{static}/images/SenseText_heat_100.png" alt="SOM100" width=80% />|<img src="{static}/images/SenseText_som_heat.png" alt="SOM144" width=80% />
 :-------------------------:|:-------------------------:
 cluster size = 100 | cluster size = 144     
  
@@ -61,11 +61,11 @@ and found that the optimal cluster size is **3**.
 However, taking data size into consideration, if the number of clusters is 3, 
 each cluster will have almost 1,000 tickers on average, which is unreasonable.  
 
-![K-means harabasa](https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText_K-means_harabasa.png)
+![K-means harabasa]({static}/images/SenseText_K-means_harabasa.png)
 
 Then we tried the SSE method. We plotted SSE against the number of clusters.
 
-![K-means SSE](https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/SenseText_k_means_SSE.png)
+![K-means SSE]({static}images/SenseText_k_means_SSE.png)
 
 From the curve, we found that SSE improves marginally beyond 51 clusters. 
 To facilitate the comparison with the SOM method, we set **144** as the number of clusters.
