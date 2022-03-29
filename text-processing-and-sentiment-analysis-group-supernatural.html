@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="MFIN7036 Students" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", Progress Report, " />
+
+<meta property="og:title" content="Text processing and sentiment analysis (Group Supernatural) "/>
+<meta property="og:url" content="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/text-processing-and-sentiment-analysis-group-supernatural.html" />
+<meta property="og:description" content="By Group &#34;Supernatural&#34; In this blog, we do the text processing for readability and simplicity for all the tweets we collect and conduct analysis and regression on financial data. Text processing and sentiment analysis Firstly, the object of tweets collected is dtype. When they are saved as string, the text …" />
+<meta property="og:site_name" content="MFIN7036 Student Blog" />
+<meta property="og:article:author" content="MFIN7036 Students" />
+<meta property="og:article:published_time" content="2022-03-29T22:26:00+08:00" />
+<meta name="twitter:title" content="Text processing and sentiment analysis (Group Supernatural) ">
+<meta name="twitter:description" content="By Group &#34;Supernatural&#34; In this blog, we do the text processing for readability and simplicity for all the tweets we collect and conduct analysis and regression on financial data. Text processing and sentiment analysis Firstly, the object of tweets collected is dtype. When they are saved as string, the text …">
+
+        <title>Text processing and sentiment analysis (Group Supernatural)  · MFIN7036 Student Blog
+</title>
+        <link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="MFIN7036 Student Blog - Full Atom Feed" />
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/"><span class=site-name>MFIN7036 Student Blog</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       https://buehlmaier.github.io/MFIN7036-student-blog-2022-02
+                                    >Home</a>
+                                </li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/categories.html">Categories</a></li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/tags.html">Tags</a></li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/text-processing-and-sentiment-analysis-group-supernatural.html">
+                Text processing and sentiment analysis (Group Supernatural)
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <p>By Group "Supernatural"</p>
+<p>In this blog, we do the text processing for readability and simplicity for all the tweets we collect and conduct analysis and regression on financial data.</p>
+<h2>Text processing and sentiment analysis</h2>
+<p>Firstly, the object of tweets collected is dtype. When they are saved as string, the text would start with b’, so it should be removed. </p>
+<p>Besides it, there are a lot of useless information for analysis, such as users’ names and hyperlinks, we also removed them. Secondly, a problem encountered is the error code generated during encoding, and these codes are <a href="https://en.wikipedia.org/wiki/Unicode">Unicode</a> (like \x9e), which should be transformed into <a href="https://en.wikipedia.org/wiki/ASCII">ASCII</a> to read. </p>
+<p>For the punctuations’ Unicode, we turn them into ASCII by the conversion table, but for the other Unicode like emoji, etc.., they are removed because of less information.</p>
+<p>The code we use is as follows:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># remove all the hyperlinks in the tweets</span>
+<span class="k">def</span> <span class="nf">remove_link</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="n">cleaned_text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(http\|http?\://|https?\://|www)\S+&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="n">cleaned_text</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cleaned_text</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">cleaned_text</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;Text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">remove_link</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># remove all the emojis and other symbols like the form &#39;\xce&#39; etc.</span>
+<span class="k">def</span> <span class="nf">remove_emoji</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="n">cleaned_text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(</span><span class="se">\\</span><span class="s1">x[A-Fa-f0-9]</span><span class="si">{2}</span><span class="s1">)+&#39;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="n">cleaned_text</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cleaned_text</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">cleaned_text</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;Text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">remove_emoji</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</code></pre></div>
+
+<p>Take a random tweet as an example, the comparison between original tweet and processed tweet is shown below:</p>
+<blockquote>
+<h4>Original tweet:</h4>
+<p>b'A $750k settlement for Rio Tinto Ltd who just announced a profit of $29.2billion. Geez ASIC - you got them shaking in their boots \xf0\x9f\xa4\xa6\xe2\x80\x8d\xe2\x99\x80\xef\xb8\x8f <a href="https://t.co/DLcPNV5Glt">https://t.co/DLcPNV5Glt</a>'</p>
+<h4>processed tweet:</h4>
+<p>A $750k settlement for Rio Tinto Ltd who just announced a profit of $29.2billion. Geez ASIC - you got them shaking in their boots
+</p>
+</blockquote>
+<p>After Text processing, given the cleaned text, we use the module ‘TextBlob’ to analyze tweets’ sentiment, and obtain the subjectivity and polarity of tweet. </p>
+<p>The results are divided into different groups by date. And we calculate the mean of all the groups’ sentiment score, and it would show the public opinion on Twitter to the company Rio Tinto during one day.</p>
+<p>Finally, what we do is analyzing words in tweets, and we decide to use BoW to get token frequencies, like what we learn in the lecture. And we introduce the module ‘WordCloud’ to virtualize the most frequent words. The figure is shown below：</p>
+<p><img alt="Picture showing Powell" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/Supernatural-wordcloud.png"></p>
+<h2>Analysis and regression on financial data</h2>
+<p>We first run regressions between return and polarity but there shows no clear pattern. It is understandable that comments from twitter are just a minor affect on the stock price and what matters are those economic factors.</p>
+<p>The classic Fama-French model then came into our mind and we then adjust our project goal to identify if the combination of sentiment analysis would promote the performance of <a href="https://www.investopedia.com/terms/f/famaandfrenchthreefactormodel.asp">Fama-French 3 Factor Model</a>. </p>
+<p>To conduct regression on FF 3 Factor model, some other data need to be collected：</p>
+<p>The first is market return and we use Total market of index of Industrial Industry to represent it since Rio Tinto is an ore miner. </p>
+<p>SMB is calculated as aggregate small companies’ market return less aggregate large companies’ market return. We collect historical data including SmallCap 600 and S&amp;P500 Industrial as representation of the two data. </p>
+<p>For HML, there’s no clear index specific to this area, so 5 low book-to-market ratio companies and 5 high companies are selected manually to calculate HML for each day. This could be a limitation and is clearly shown in later regression analysis.</p>
+<p>The regression results of models with and without the two sentiment scores are shown below.</p>
+<h6>Fama - Frenach 3 – Factor Model:</h6>
+<p><img alt="Picture showing Powell" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/Supernatural-FF3.png"></p>
+<h6>Fama - French 3 - Factor + ( Polarity + Subjectivity ) Model:</h6>
+<p><img alt="Picture showing Powell" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/Supernatural-FF3-SA.png"></p>
+<p>The OLS summary shows that both polarity and subjectivity are significant given the absolute values of their t-value is large enough. Also from the summary, the HML is moderately insignificant which may due to the defects of our data selection.</p>
+<p>The data was split into train and test by 80% to 20% and the out of sample MSE for the two models are around 0.0004736 and 0.0002455 respectively, so we are confident to conclude that the sentiment analysis scores do help improve the performance of Fama-French 3 Factor Model.</p>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2022-03-29T22:26:00+08:00">Tue 29 March 2022</time>
+            <h4>Category</h4>
+            <a class="category-link" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/categories.html#progress-report-ref">Progress Report</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+    <a href="https://github.com/buehlmaier/MFIN7036-student-blog-2022-02" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitHub" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1B1817"/><path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+    </a>
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>
