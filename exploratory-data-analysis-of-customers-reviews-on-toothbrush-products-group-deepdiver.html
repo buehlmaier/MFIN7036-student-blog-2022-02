@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="MFIN7036 Students" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", Progress Report, " />
+
+<meta property="og:title" content="Exploratory Data Analysis of Customers Reviews on ToothBrush Products (Group DeepDiver) "/>
+<meta property="og:url" content="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/exploratory-data-analysis-of-customers-reviews-on-toothbrush-products-group-deepdiver.html" />
+<meta property="og:description" content="By Group &#34;DeepDiver&#34; 1. Comparison of the Number of Comments Based on Product and Platform levels Before visualizing, we should load the data and get the useful data we need for graph. Dict = {&#39;Amazon_Colgate&#39;: pd.read_csv(&#34;amazon_colgate.csv&#34;), &#39;Amazon_Oralb&#39;: pd.read_csv(&#34;amazon_oralb.csv&#34;), &#39;Amazon …" />
+<meta property="og:site_name" content="MFIN7036 Student Blog" />
+<meta property="og:article:author" content="MFIN7036 Students" />
+<meta property="og:article:published_time" content="2022-03-29T18:54:00+08:00" />
+<meta name="twitter:title" content="Exploratory Data Analysis of Customers Reviews on ToothBrush Products (Group DeepDiver) ">
+<meta name="twitter:description" content="By Group &#34;DeepDiver&#34; 1. Comparison of the Number of Comments Based on Product and Platform levels Before visualizing, we should load the data and get the useful data we need for graph. Dict = {&#39;Amazon_Colgate&#39;: pd.read_csv(&#34;amazon_colgate.csv&#34;), &#39;Amazon_Oralb&#39;: pd.read_csv(&#34;amazon_oralb.csv&#34;), &#39;Amazon …">
+
+        <title>Exploratory Data Analysis of Customers Reviews on ToothBrush Products (Group DeepDiver)  · MFIN7036 Student Blog
+</title>
+        <link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="MFIN7036 Student Blog - Full Atom Feed" />
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/"><span class=site-name>MFIN7036 Student Blog</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       https://buehlmaier.github.io/MFIN7036-student-blog-2022-02
+                                    >Home</a>
+                                </li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/categories.html">Categories</a></li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/tags.html">Tags</a></li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/exploratory-data-analysis-of-customers-reviews-on-toothbrush-products-group-deepdiver.html">
+                Exploratory Data Analysis of Customers Reviews on ToothBrush Products (Group DeepDiver)
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <p>By Group "DeepDiver"</p>
+<h2>1. Comparison of the Number of Comments Based on Product and Platform levels</h2>
+<p>Before visualizing, we should load the data and get the useful data we need for graph.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Dict</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Amazon_Colgate&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;amazon_colgate.csv&quot;</span><span class="p">),</span>
+             <span class="s1">&#39;Amazon_Oralb&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;amazon_oralb.csv&quot;</span><span class="p">),</span>
+             <span class="s1">&#39;Amazon_Philiip&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;amazon_philiip.csv&quot;</span><span class="p">),</span>
+             <span class="s1">&#39;Bestbuy_Colgate&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;bestbuy_colgate.csv&quot;</span><span class="p">),</span>
+             <span class="s1">&#39;Bestbuy_Oralb&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;bestbuy_oralb.csv&quot;</span><span class="p">),</span>
+             <span class="s1">&#39;Bestbuy_Philiip&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;bestbuy_philiip.csv&quot;</span><span class="p">),</span>
+             <span class="s1">&#39;Target_Colgate&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;target_colgate.csv&quot;</span><span class="p">),</span>
+             <span class="s1">&#39;Target_Oralb&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;target_oralb.csv&quot;</span><span class="p">),</span>
+             <span class="s1">&#39;Target_Philiip&#39;</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;target_philiip.csv&quot;</span><span class="p">)}</span>
+
+<span class="n">products</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Oralb&#39;</span><span class="p">,</span> <span class="s1">&#39;Philiip&#39;</span><span class="p">,</span><span class="s1">&#39;Colgate&#39;</span><span class="p">]</span>
+<span class="n">platforms</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Amazon&#39;</span><span class="p">,</span>  <span class="s1">&#39;Target&#39;</span><span class="p">,</span><span class="s1">&#39;Bestbuy&#39;</span><span class="p">]</span>
+
+<span class="n">Product</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">def</span> <span class="nf">dic</span><span class="p">(</span><span class="n">product</span><span class="p">):</span>
+    <span class="n">num</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">platform</span> <span class="ow">in</span> <span class="n">platforms</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">platform</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">product</span>
+        <span class="n">num</span><span class="p">[</span><span class="n">platform</span><span class="p">]</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">Product</span><span class="p">[</span><span class="n">product</span><span class="p">]</span> <span class="o">=</span> <span class="n">num</span>
+
+<span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">products</span><span class="p">:</span>
+    <span class="n">dic</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">Product</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">labels</span> <span class="o">=</span> <span class="n">products</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">labels</span><span class="p">))</span>  
+<span class="n">width</span> <span class="o">=</span> <span class="mf">0.25</span>  
+
+<span class="n">p1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">width</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">width</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Amazon&#39;</span><span class="p">,</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#4682B4&#39;</span><span class="p">)</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span> <span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">width</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Target&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#00BFFF&#39;</span><span class="p">)</span>
+<span class="n">p3</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">width</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">width</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Bestbuy&#39;</span><span class="p">,</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#87CEFA&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar_label</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">label_type</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar_label</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span> <span class="n">label_type</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar_label</span><span class="p">(</span><span class="n">p3</span><span class="p">,</span> <span class="n">label_type</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Sum of Reviews&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Comparison of the Number of Comments Based on Product level&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mf">4.5</span><span class="p">),</span><span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;1.jpg&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<p>By changing some keywords and parameters, we can get another graph showing the comparison of the number of comments based on platform level</p>
+<p><img title="" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/DeepDiver_post-05_1.png" alt="picture group DeepDiver" width="286"> <img title="" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/DeepDiver_post-05_2.png" alt="picture group DeepDiver" width="288"></p>
+<p>From the two pictures, we can know that  we obtained 13,914 pieces of raw data in total, which were distributed by different shopping platforms or brands as follows. It could be inferred that customers on different platforms had different brand preferences. Oral-B and Philips were very popular on Amazon, but customers from Target.com preferred to buy Colgate's electric toothbrush.</p>
+<h2>2.Visualize the Distribution of Rating Levels</h2>
+<p>In this part, we got some <em>problems</em> when we used the code below to draw the bar chart.</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">products</span><span class="p">:</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">platform</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">product</span>
+
+    <span class="n">total_row_cnt</span> <span class="o">=</span> <span class="n">Dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">rating_1_cnt</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">Dict</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">Dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">rating</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">total_row_cnt</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">r1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rating_1_cnt</span><span class="p">)</span>
+    <span class="n">rating_2_cnt</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">Dict</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">Dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">rating</span> <span class="o">==</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">total_row_cnt</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">r2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rating_2_cnt</span><span class="p">)</span>
+    <span class="n">rating_3_cnt</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">Dict</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">Dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">rating</span> <span class="o">==</span> <span class="mi">3</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">total_row_cnt</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">r3</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rating_3_cnt</span><span class="p">)</span>
+    <span class="n">rating_4_cnt</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">Dict</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">Dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">rating</span> <span class="o">==</span> <span class="mi">4</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">total_row_cnt</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">r4</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rating_4_cnt</span><span class="p">)</span>
+    <span class="n">rating_5_cnt</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">Dict</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="n">Dict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">rating</span> <span class="o">==</span> <span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">total_row_cnt</span><span class="o">*</span><span class="mi">100</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">r5</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rating_5_cnt</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">xlabels</span> <span class="o">=</span> <span class="n">products</span>
+<span class="n">width</span> <span class="o">=</span> <span class="mf">0.8</span>
+<span class="n">p1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">xlabels</span> <span class="p">,</span><span class="n">r1</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rating_1&#39;</span><span class="p">,</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#00FA9A&#39;</span><span class="p">)</span>
+<span class="n">p2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">xlabels</span> <span class="p">,</span> <span class="n">r2</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="n">r1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rating_2&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#66CDAA&#39;</span><span class="p">)</span>
+<span class="n">p3</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">xlabels</span><span class="p">,</span> <span class="n">r3</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span><span class="n">bottom</span><span class="o">=</span><span class="n">r1</span> <span class="o">+</span> <span class="n">r2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rating_3&#39;</span><span class="p">,</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#7FFFD4&#39;</span><span class="p">)</span>
+<span class="n">p4</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">xlabels</span><span class="p">,</span> <span class="n">r4</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="n">r1</span> <span class="o">+</span> <span class="n">r2</span> <span class="o">+</span> <span class="n">r3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rating_4&#39;</span><span class="p">,</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#40E0D0&#39;</span><span class="p">)</span>
+<span class="n">p5</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">xlabels</span><span class="p">,</span> <span class="n">r5</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span><span class="n">bottom</span><span class="o">=</span><span class="n">r1</span><span class="o">+</span><span class="n">r2</span><span class="o">+</span><span class="n">r3</span><span class="o">+</span><span class="n">r4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;rating_5&#39;</span><span class="p">,</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;#20B2AA&#39;</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">bar_label</span><span class="p">(</span><span class="n">p1</span><span class="p">,</span> <span class="n">label_type</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar_label</span><span class="p">(</span><span class="n">p2</span><span class="p">,</span> <span class="n">label_type</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar_label</span><span class="p">(</span><span class="n">p3</span><span class="p">,</span> <span class="n">label_type</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar_label</span><span class="p">(</span><span class="n">p4</span><span class="p">,</span> <span class="n">label_type</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar_label</span><span class="p">(</span><span class="n">p5</span><span class="p">,</span> <span class="n">label_type</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;percentage(%)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Comparison of the Rating Level Distribution of Comments on Amazon&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<p><img alt="picture group DeepDiver" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/DeepDiver_post-05_3.png"></p>
+<p>Finnaly, we solved the problem following the <em>instructions from the link of github</em>. </p>
+<blockquote>
+<p><a href="https://github.com/matplotlib/cheatsheets">GitHub - matplotlib/cheatsheets: Official Matplotlib cheat sheets</a> </p>
+<p><strong>A very useful link to plot in python (Strongly Recommend!!!)</strong></p>
+</blockquote>
+<p>We got 3 beautiful pictures. The 3 products have the most rating-5 reviews, which shows the customers held a positive attitude towards their products. And on bestbuy.com, Philiip toothbrush even has zero rating-1 and rating-2 reviews.</p>
+<p><strong><img title="" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/DeepDiver_post-05_4.png" alt="picture group DeepDiver" width="187"><em> </em><img title="" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/DeepDiver_post-05_5.png" alt="picture group DeepDiver" width="188"> </strong><img title="" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/DeepDiver_post-05_6.png" alt="picture group DeepDiver" width="182"></p>
+<h2>3.Frequent Occuring Words in Reviews</h2>
+<p>Using the following code, by observing the most frequent words, we can observe which attributes of the product customers pay attention to.</p>
+<div class="highlight"><pre><span></span><code><span class="k">for</span> <span class="n">product</span> <span class="ow">in</span> <span class="n">products</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">platform</span> <span class="ow">in</span> <span class="n">platforms</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">platform</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="n">product</span> <span class="o">+</span> <span class="s1">&#39;_Wordfreq&#39;</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--&#39;</span><span class="o">*</span><span class="mi">50</span><span class="p">);</span> 
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Top 25 Frequent Words of Reviews of </span><span class="si">{</span><span class="n">product</span><span class="si">}</span><span class="s1"> on </span><span class="si">{</span><span class="n">platform</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">);</span> 
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--&#39;</span><span class="o">*</span><span class="mi">50</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Most Frequent Words_</span><span class="si">{</span><span class="n">product</span><span class="si">}</span><span class="s1">_</span><span class="si">{</span><span class="n">platform</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">fontsize</span> <span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Frequent Words&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Count of Occurence&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">Dict_Wordfreq</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;token&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">25</span><span class="p">],</span> <span class="n">height</span> <span class="o">=</span> <span class="n">Dict_Wordfreq</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="s1">&#39;freq&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">:</span><span class="mi">25</span><span class="p">]</span> <span class="p">,</span><span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;#87CEFA&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;Target_Oralb_Wordfreq&#39;</span><span class="p">:</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;1.jpg&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">();</span>
+</code></pre></div>
+
+<p><img alt="picture group DeepDiver" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/DeepDiver_post-05_7.png"></p>
+<p>For example, we can conclude from the above picture, customers on Bestbuy platform, cared most ahout thr battery, charging time and the toothbrush head about Colgate toothbrush.</p>
+<h6>In conclusion, there are lots of ways to visualize the preprocessed data and get some hints for your project, just to find instructions from the cheatsheet on github: <a href="https://github.com/matplotlib/cheatsheets">GitHub - matplotlib/cheatsheets: Official Matplotlib cheat sheets</a></h6>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2022-03-29T18:54:00+08:00">Tue 29 March 2022</time>
+            <h4>Category</h4>
+            <a class="category-link" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/categories.html#progress-report-ref">Progress Report</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+    <a href="https://github.com/buehlmaier/MFIN7036-student-blog-2022-02" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitHub" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1B1817"/><path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+    </a>
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>
