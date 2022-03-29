@@ -1,5 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>MFIN7036 Student Blog - Progress Report</title><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/" rel="alternate"></link><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/feeds/progress-report.atom.xml" rel="self"></link><id>https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/</id><updated>2022-03-29T08:49:00+08:00</updated><entry><title>Product Attribute Influence Analysis Based on Logistic Regression (Group DeepDiver)</title><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/product-attribute-influence-analysis-based-on-logistic-regression-group-deepdiver.html" rel="alternate"></link><published>2022-03-29T08:49:00+08:00</published><updated>2022-03-29T08:49:00+08:00</updated><author><name>MFIN7036 Students</name></author><id>tag:buehlmaier.github.io,2022-03-29:/MFIN7036-student-blog-2022-02/product-attribute-influence-analysis-based-on-logistic-regression-group-deepdiver.html</id><summary type="html">&lt;p&gt;By Group "DeepDiver"&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>MFIN7036 Student Blog - Progress Report</title><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/" rel="alternate"></link><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/feeds/progress-report.atom.xml" rel="self"></link><id>https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/</id><updated>2022-03-29T13:22:00+08:00</updated><entry><title>Tricks and Techniques in Improving Web-scraping Efficiency (Group Tower of Babel)</title><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/tricks-and-techniques-in-improving-web-scraping-efficiency-group-tower-of-babel.html" rel="alternate"></link><published>2022-03-29T13:22:00+08:00</published><updated>2022-03-29T13:22:00+08:00</updated><author><name>MFIN7036 Students</name></author><id>tag:buehlmaier.github.io,2022-03-29:/MFIN7036-student-blog-2022-02/tricks-and-techniques-in-improving-web-scraping-efficiency-group-tower-of-babel.html</id><summary type="html">&lt;p&gt;By Group "Tower of Babel"&lt;/p&gt;
+&lt;p&gt;Our group project aims at analyzing the customer reviews on e-commerce platform. In order to extract review data from the e-commerce website, we use Selenium to conduct the web-scraping process.
+Since web-scraping is time-consuming, especially when a large scale dataset is required by some research …&lt;/p&gt;</summary><content type="html">&lt;p&gt;By Group "Tower of Babel"&lt;/p&gt;
+&lt;p&gt;Our group project aims at analyzing the customer reviews on e-commerce platform. In order to extract review data from the e-commerce website, we use Selenium to conduct the web-scraping process.
+Since web-scraping is time-consuming, especially when a large scale dataset is required by some research purposes, here we want to share several useful tricks that can improve the efficiency of scraping information.&lt;/p&gt;
+&lt;p&gt;The target website is &lt;a href="http://https://www.amazon.com/product-reviews/B08SP5GYJP"&gt;amazon&lt;/a&gt; . Let's take one self-empty product as an example.
+We use Chrome as our browser.
+The pakage and modules we need:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;selenium&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;webdriver&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;selenium.webdriver.support.ui&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;WebDriverWait&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;selenium.webdriver.support&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;expected_conditions&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;EC&lt;/span&gt;
+&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;selenium.webdriver.common.by&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;By&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;1 Browser Setting arguments&lt;/h2&gt;
+&lt;p&gt;As beginners, normally we just import webdriver.exe and start "get(url)" to start a scraping process.
+However, we'd like to introduce some automatic initial changes to the browser which can substitude manual settings.
+Before "get(url)", use the following code to add options:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;options&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;webdriver&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ChromeOptions&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="c1"&gt;#setting the language to English in case you were in non-english country&lt;/span&gt;
+&lt;span class="n"&gt;options&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_argument&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;--lang=en-US&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="c1"&gt;#close the tips&lt;/span&gt;
+&lt;span class="n"&gt;options&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_experimental_option&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;excludeSwitches&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;enable-automation&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;span class="c1"&gt;#forbid showing image and css format &lt;/span&gt;
+&lt;span class="n"&gt;prefs&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;profile.managed_default_content_settings.images&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;permissions.default.stylesheet&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="n"&gt;options&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;add_experimental_option&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;prefs&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;prefs&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;As shown in the figure, the browser won't loading the figure, thus saving much time for us. &lt;/p&gt;
+&lt;p&gt;&lt;img alt="Picture of group tower of babel" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/Tower-of-Babel-Post-01-image-01.jpg"&gt;&lt;/p&gt;
+&lt;h2&gt;2 WebDriverWait&lt;/h2&gt;
+&lt;p&gt;WebDriverWait is one of the explicit wait methods.(&lt;a href="https://selenium-python.readthedocs.io/waits.html"&gt;What is explicit wait and implicit wait?&lt;/a&gt;)
+As the instrution mentioned,&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;An explicit wait is a code you define to wait for a certain condition to occur before proceeding further in the code.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;So how WebDriverWait can help in scraping?
+We want to scrape all the reviews showing in one page, but sometimes the scraping code was executed just before the website was fully loaded.
+In such case, python will stop running and report "NoSuchElementException" Error.
+To address such issue, we write a while+try clause with WebDriverWait:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;# use a loop to locate review elements&lt;/span&gt;
+
+&lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;try&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;WebDriverWait&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;driver&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;30&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;until&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EC&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;presence_of_element_located&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;By&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ID&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;cm_cr-review_list&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+        &lt;span class="k"&gt;break&lt;/span&gt;
+    &lt;span class="k"&gt;except&lt;/span&gt; &lt;span class="ne"&gt;Exception&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;driver&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;refresh&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;us&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;driver&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;find_element_by_id&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;cm_cr-review_list&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Although the clause for WebDriverWait is a bit complex, it is more useful than "time.sleep()" for it can be combined with other selenium modules to achieve specific goals.
+As you see, we combine it with the module "expected_conditions.presence_of_element_located()" (i.e. EC in the code)
+The same logit applies to locating and clicking the button.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="c1"&gt;#let the webdriver wait for specific elements, the maximum waiting time is 100s&lt;/span&gt;
+&lt;span class="c1"&gt;#the element we need is a &amp;#39;next page&amp;#39; button &lt;/span&gt;
+
+&lt;span class="c1"&gt;#once find the button, just click it&lt;/span&gt;
+&lt;span class="k"&gt;try&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;WebDriverWait&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;driver&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;until&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;EC&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;element_to_be_clickable&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;By&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;XPATH&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;//li[@class = &amp;quot;a-last&amp;quot;]/a&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+    &lt;span class="n"&gt;next_page&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;us&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;find_element_by_xpath&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;.//li[@class = &amp;quot;a-last&amp;quot;]/a&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get_attribute&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;href&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="c1"&gt;#if there is not such button, just print &amp;quot;no next page&amp;quot; and end it &lt;/span&gt;
+&lt;span class="k"&gt;except&lt;/span&gt; &lt;span class="n"&gt;NoSuchElementException&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;driver&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;find_elements_by_xpath&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;//li[@class = &amp;quot;a-disabled a-last&amp;quot;]&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;next_page&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;None&lt;/span&gt;
+    &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;no next page&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="c1"&gt;#if timeout, just refresh&lt;/span&gt;
+&lt;span class="k"&gt;except&lt;/span&gt; &lt;span class="n"&gt;TimeoutException&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;next_page&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="kc"&gt;None&lt;/span&gt;
+    &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;timeout&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;driver&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;refresh&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;this page is finished&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;3 Methods to automatically scroll down web-page&lt;/h2&gt;
+&lt;p&gt;The method in #2 applies to webistes that contain limitted reviews. 
+As for some other websites, there maybe a "read more" option, or they need manual scroll down operatin to show more information.
+So the following content shows some other ways to scroll down the page.
+Once you srcoll down for enough times, you can start scraping information.&lt;/p&gt;
+&lt;p&gt;(1) One simple way is to window.scrollBy() argument.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;numb&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;    &lt;span class="c1"&gt;# define how many times it needs to srcoll&lt;/span&gt;
+
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;number&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;execute_script&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;window.scrollBy(0, 1000)&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sleep&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;   &lt;span class="c1"&gt;# leave enough time between two scroll operations&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;(2) Use send_keys to send tap to imitate manual tapping.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;numb&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;  &lt;span class="c1"&gt;# define how many times it needs to srcoll&lt;/span&gt;
+
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;numb&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;find_element_by_tag_name&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;body&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;send_keys&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Keys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;END&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;   &lt;span class="c1"&gt;#send tap to the webpage&lt;/span&gt;
+    &lt;span class="n"&gt;time&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sleep&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;(3) click buttons like "read more" for several times and tap.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="n"&gt;numb&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;
+
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;numb&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;read_more&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;driver&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;find_element_by_xpath&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;//a[text()=&amp;quot;read_more&amp;quot;]&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;   &lt;span class="c1"&gt;#find read more button&lt;/span&gt;
+    &lt;span class="n"&gt;browser&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;find_element_by_tag_name&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;body&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;send_keys&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Keys&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;END&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</content><category term="Progress Report"></category></entry><entry><title>Product Attribute Influence Analysis Based on Logistic Regression (Group DeepDiver)</title><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/product-attribute-influence-analysis-based-on-logistic-regression-group-deepdiver.html" rel="alternate"></link><published>2022-03-29T08:49:00+08:00</published><updated>2022-03-29T08:49:00+08:00</updated><author><name>MFIN7036 Students</name></author><id>tag:buehlmaier.github.io,2022-03-29:/MFIN7036-student-blog-2022-02/product-attribute-influence-analysis-based-on-logistic-regression-group-deepdiver.html</id><summary type="html">&lt;p&gt;By Group "DeepDiver"&lt;/p&gt;
 &lt;p&gt;This is part of a whole Program, I skipped the web crawling, Data Cleaning, Word frequency statistics. After those I skipped, I have a certain understanding of the collected text data, but I still want to know what product attributes users rate the products and the pros …&lt;/p&gt;</summary><content type="html">&lt;p&gt;By Group "DeepDiver"&lt;/p&gt;
 &lt;p&gt;This is part of a whole Program, I skipped the web crawling, Data Cleaning, Word frequency statistics. After those I skipped, I have a certain understanding of the collected text data, but I still want to know what product attributes users rate the products and the pros &amp;amp; cons of Oral-B from the user reviews, and this requires us to perform a quantitative analysis.&lt;/p&gt;
 &lt;h1&gt;Original data structure&lt;/h1&gt;
