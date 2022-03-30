@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>MFIN7036 Student Blog - Analysis Report</title><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/" rel="alternate"></link><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/feeds/analysis-report.atom.xml" rel="self"></link><id>https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/</id><updated>2022-03-29T14:50:00+08:00</updated><entry><title>Part 4: Problems and solutions in Analysis part (Group Raw Text Connoisseurs)</title><link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/part-4-problems-and-solutions-in-analysis-part-group-raw-text-connoisseurs.html" rel="alternate"></link><published>2022-03-29T14:50:00+08:00</published><updated>2022-03-29T14:50:00+08:00</updated><author><name>MFIN7036 Students</name></author><id>tag:buehlmaier.github.io,2022-03-29:/MFIN7036-student-blog-2022-02/part-4-problems-and-solutions-in-analysis-part-group-raw-text-connoisseurs.html</id><summary type="html">&lt;hr&gt;
+&lt;p&gt;By Group "Raw Text Connoisseurs"&lt;/p&gt;
+&lt;h2&gt;Problem 1&lt;/h2&gt;
+&lt;p&gt;Our purpose is to explore whether there is a relationship between keywords and corporate profitability. The model determined at the beginning is the Hausman test (fixed effect model). The model design is as follows:
+&lt;/p&gt;
+&lt;div class="math"&gt;$$
+ROE = F(keywordscore, controls) = C + \beta_1 \cdot keywordscore …&lt;/div&gt;&lt;script type='text/javascript'&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</summary><content type="html">&lt;hr&gt;
+&lt;p&gt;By Group "Raw Text Connoisseurs"&lt;/p&gt;
+&lt;h2&gt;Problem 1&lt;/h2&gt;
+&lt;p&gt;Our purpose is to explore whether there is a relationship between keywords and corporate profitability. The model determined at the beginning is the Hausman test (fixed effect model). The model design is as follows:
+&lt;/p&gt;
+&lt;div class="math"&gt;$$
+ROE = F(keywordscore, controls) = C + \beta_1 \cdot keywordscore + \beta_2 \cdot LNGDP + \beta_3 \cdot AVEROE
+$$&lt;/div&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;LNGDP (Gross National Product Logarithm): measure the level of economic development in the current year.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;AVEROE (Industry average return on equity): measure the average level of return on equity in the corresponding industry.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Using STATA for regression, get error: "More samples needed". That is, the sample size is too small to use the fixed effects model. The error still occurs after expanding the sample from the top 10 companies to 20 companies.&lt;/p&gt;
+&lt;h2&gt;solution&lt;/h2&gt;
+&lt;p&gt;The linear regression model is used instead. Although it is not as accurate as the Hausman test, it is convenient to operate and is also suitable for smaller samples.&lt;/p&gt;
+&lt;h2&gt;Problem 2&lt;/h2&gt;
+&lt;p&gt;After performing linear regression, it is found that the significance of the model is generally strong, which is not in line with expectations. The preliminary judgment is that there is a problem with the keyword classification, and the keyword extraction is not accurate enough.&lt;/p&gt;
+&lt;h2&gt;solution&lt;/h2&gt;
+&lt;p&gt;Manually filter keywords to eliminate irrelevant words and reduce their interference. After filtering, the rationality of the model results is significantly improved. And it shows in the following highlighted words as an example.&lt;/p&gt;
+&lt;p&gt;['climate', 'energy', 'infrastructure', 'investing', 'emission', &lt;strong&gt;'http',&lt;/strong&gt; 'development', 'carbon', &lt;strong&gt;'paris'&lt;/strong&gt;, &lt;strong&gt;price'&lt;/strong&gt;, &lt;strong&gt;'project'&lt;/strong&gt;, 'technology', 'government', 'tax', 'mitigation', 'fuel', 'iea', 'asset', &lt;strong&gt;'increase'&lt;/strong&gt;, ...]&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</content><category term="Analysis Report"></category></entry></feed>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="MFIN7036 Students" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", Progress Report, " />
+
+<meta property="og:title" content="Part 3: Quantifying Performance: From 10K to Keyword Score (Group Raw Text Connoisseurs) "/>
+<meta property="og:url" content="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/part-3-quantifying-performance-from-10k-to-keyword-score-group-raw-text-connoisseurs.html" />
+<meta property="og:description" content="By Group &#34;Raw Text Connoisseurs&#34; Although it was anticipated that the earlier HTML Extractor function will be sufficient to extract information from the 10-k reports, multiple problems had emerged from the way the 10-K reports were uploaded to EDGAR and the lack of consistent html formatting over the years. Problem …" />
+<meta property="og:site_name" content="MFIN7036 Student Blog" />
+<meta property="og:article:author" content="MFIN7036 Students" />
+<meta property="og:article:published_time" content="2022-03-27T22:36:00+08:00" />
+<meta name="twitter:title" content="Part 3: Quantifying Performance: From 10K to Keyword Score (Group Raw Text Connoisseurs) ">
+<meta name="twitter:description" content="By Group &#34;Raw Text Connoisseurs&#34; Although it was anticipated that the earlier HTML Extractor function will be sufficient to extract information from the 10-k reports, multiple problems had emerged from the way the 10-K reports were uploaded to EDGAR and the lack of consistent html formatting over the years. Problem …">
+
+        <title>Part 3: Quantifying Performance: From 10K to Keyword Score (Group Raw Text Connoisseurs)  · MFIN7036 Student Blog
+</title>
+        <link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="MFIN7036 Student Blog - Full Atom Feed" />
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/"><span class=site-name>MFIN7036 Student Blog</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       https://buehlmaier.github.io/MFIN7036-student-blog-2022-02
+                                    >Home</a>
+                                </li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/categories.html">Categories</a></li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/tags.html">Tags</a></li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/part-3-quantifying-performance-from-10k-to-keyword-score-group-raw-text-connoisseurs.html">
+                Part 3: Quantifying Performance: From 10K to Keyword Score (Group Raw Text Connoisseurs)
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <p>By Group "Raw Text Connoisseurs"</p>
+<p>Although it was anticipated that the earlier HTML Extractor function will be sufficient to extract information from the 10-k reports, multiple problems had emerged from the way the 10-K reports were uploaded to EDGAR and the lack of consistent html formatting over the years. </p>
+<h1>Problem 1: The varying HTML format in 10-K report</h1>
+<p>Throughout the 2007-2021 time frame of 10-K reports we had extracted, the main portion of the text had been located in three different elements. One can find it in &lt;p>. &lt;font> and even in &lt;span>. This changing structure in 10-K report had broke the extractHTML function and required modification to successfully turn 10-K reports into String for processing.</p>
+<h3><strong>Solutions:</strong></h3>
+<p>The first version of the solution is to check if the extractHTML function yield text at the end of reading the element. Ranked by the frequency and the times these element were used, the snipet is as follow:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">extractHTML</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+    <span class="n">paragraph</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">paragraph</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">p</span><span class="o">.</span><span class="n">findChildren</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">p</span><span class="o">.</span><span class="n">has_attr</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">):</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="n">strip</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">text</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="n">paragraph</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s1">&#39;font&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">paragraph</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="n">strip</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">text</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="n">paragraph</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">paragraph</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="n">strip</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">text</span>
+</code></pre></div>
+
+<p><strong>An even better solution:</strong> <br>
+Although this approach solve the problem, as we scale the project, the keyword scoring will be repeatedly used and optimisation in speed at this part will be very helpful in the future. For this, we arrive to a soluton where we only check for the text once and check for extraction in the &lt;font> element instead. This allow the program to only run the get_text function twice in the worst case scenario with the same output. </p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">extractHTML</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+    <span class="n">paragraph</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">paragraph</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">p</span><span class="o">.</span><span class="n">findChildren</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">p</span><span class="o">.</span><span class="n">has_attr</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">):</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="n">strip</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">text</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="n">paragraph</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s1">&#39;font&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">paragraph</span> <span class="o">==</span> <span class="p">[]:</span>
+            <span class="n">paragraph</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s1">&#39;span&#39;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">paragraph</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="n">strip</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>     
+    <span class="k">return</span> <span class="n">text</span>
+</code></pre></div>
+
+<h1>Problem 2: The varying 10-K length introducing noise to keyword score</h1>
+<p>If the keyword score are used directly from the amount tallied, a problem that this introduce will be that companies that write more generally in 10-K would be rewarded with more favourable scores on average. </p>
+<h3><strong>Solutions:</strong></h3>
+<p>To solve this problem, the project is adjusted to retain the bag of words from the 10-K reports directly and tally up the words to be passed into the data frame before being tallied with the keyword lists. This is a simple addition but provided a lot of value for further analysis. </p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">scoreFactor</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">keywordLists</span><span class="p">):</span>
+    <span class="n">scoreArr</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">lemmatized</span> <span class="o">=</span> <span class="n">bagOfWords</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">lemmatized</span><span class="p">)</span>
+
+    <span class="c1"># This line of code</span>
+    <span class="n">scoreArr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">count</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+    <span class="c1"># Addition to count the total words in 10-K report</span>
+
+    <span class="k">for</span> <span class="n">keywordList</span> <span class="ow">in</span> <span class="n">keywordLists</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">countKey</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">keywordList</span><span class="p">)</span>
+        <span class="n">scoreArr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+
+    <span class="k">return</span> <span class="n">scoreArr</span>
+</code></pre></div>
+
+<h1>Problem 3: 10-K Reports with both &lt;p> and &lt;div> element used</h1>
+<p>When the program is ran, there were a few entries with supiciously low scores. Upon more investigation with the 10-K files, it is found that the 10-K problems did not stop from the previous solution. Another issue for 10-K is that some files store parts of the content in &lt;p> but moved the main contents in the &lt;div> element.</p>
+<h3><strong>Solutions:</strong></h3>
+<p>The approach from the previous problem will not work in this part as &lt;p> actually have some value. For this, we arrive in the solution to catch keyword results that have length lower than the threshold of 4000 words. The 4000 word threshold is extracted from the current lowest 10-K document length. After implementing this olution, the problem was resolved.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># catching the error in the flow</span>
+<span class="k">if</span> <span class="n">scores</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mi">4647</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">masterPath</span> <span class="o">+</span> <span class="n">company</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">year</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.html&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;unicode_escape&#39;</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span> 
+        <span class="n">f</span> <span class="o">=</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">masterPath</span> <span class="o">+</span> <span class="n">company</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">year</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.htm&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;unicode_escape&#39;</span><span class="p">)</span>
+    <span class="n">patched</span> <span class="o">=</span> <span class="n">handleError</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;   caught&#39;</span><span class="p">)</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">scoreFactor</span><span class="p">(</span><span class="n">patched</span><span class="p">,</span> <span class="n">keywordList</span><span class="p">)</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="c1"># The Function to handle error</span>
+<span class="k">def</span> <span class="nf">handleError</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+    <span class="n">paragraph</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">paragraph</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">p</span><span class="o">.</span><span class="n">findChildren</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">p</span><span class="o">.</span><span class="n">has_attr</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">):</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="n">strip</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">text</span>
+</code></pre></div>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2022-03-27T22:36:00+08:00">Sun 27 March 2022</time>
+            <h4>Category</h4>
+            <a class="category-link" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/categories.html#progress-report-ref">Progress Report</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+    <a href="https://github.com/buehlmaier/MFIN7036-student-blog-2022-02" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitHub" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1B1817"/><path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+    </a>
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

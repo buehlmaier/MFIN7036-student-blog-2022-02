@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="MFIN7036 Students" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", Progress Report, " />
+
+<meta property="og:title" content="Part 2: Solving the Raw Text Keyword Extraction process (Group Raw Text Connoisseurs) "/>
+<meta property="og:url" content="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/part-2-solving-the-raw-text-keyword-extraction-process-group-raw-text-connoisseurs.html" />
+<meta property="og:description" content="By Group &#34;Raw Text Connoisseurs&#34; With the lack of common consensus on what the ESG concepts encompass among listed companies, the second technical problem we have faced is to decide on how to properly extract a set of representative keywords from each theme we were trying to quantify. In coming …" />
+<meta property="og:site_name" content="MFIN7036 Student Blog" />
+<meta property="og:article:author" content="MFIN7036 Students" />
+<meta property="og:article:published_time" content="2022-03-27T12:36:00+08:00" />
+<meta name="twitter:title" content="Part 2: Solving the Raw Text Keyword Extraction process (Group Raw Text Connoisseurs) ">
+<meta name="twitter:description" content="By Group &#34;Raw Text Connoisseurs&#34; With the lack of common consensus on what the ESG concepts encompass among listed companies, the second technical problem we have faced is to decide on how to properly extract a set of representative keywords from each theme we were trying to quantify. In coming …">
+
+        <title>Part 2: Solving the Raw Text Keyword Extraction process (Group Raw Text Connoisseurs)  · MFIN7036 Student Blog
+</title>
+        <link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="MFIN7036 Student Blog - Full Atom Feed" />
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/"><span class=site-name>MFIN7036 Student Blog</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       https://buehlmaier.github.io/MFIN7036-student-blog-2022-02
+                                    >Home</a>
+                                </li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/categories.html">Categories</a></li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/tags.html">Tags</a></li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/part-2-solving-the-raw-text-keyword-extraction-process-group-raw-text-connoisseurs.html">
+                Part 2: Solving the Raw Text Keyword Extraction process (Group Raw Text Connoisseurs)
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <p>By Group "Raw Text Connoisseurs"</p>
+<p>With the lack of common consensus on what the ESG concepts encompass among listed companies, the second technical problem we have faced is to decide on how to properly extract a set of representative keywords from each theme we were trying to quantify.</p>
+<p>In coming up with a solution that can generate keyword lists that are both scalable and appendable, this problem has two aspects to it - how to collect data from different sources and how to combine numerous potentially different data formats into one condensed list of keywords.</p>
+<h1>Aspect 1: Collection of Data from different sources</h1>
+<p>As Raw Text Connoisseurs, we decided to extract keywords from dedicated reports that explicitly covers the topic of interest in PDFs and HTML format. Using reports ranging from OECD insight reports, International Labour organisation reports and g20 report on labour, the project demanded a differentiated approach for the HTML and PDFs.</p>
+<h2>Problem 1: Deciding on how to collect data</h2>
+<p>For data collection, our team first started with selenium web scraping. We believed that this would be an appropriate module to use due to its ability to handle dynamic web pages. However, as we delve deeper into the potential information sources, we found that they were more commonly listed on static web pages or download links that lead to a PDF file. The goal in this section is to transform both PDF and HTML information sources into a large String object in preparation for further analysis in NLTK. </p>
+<h3><strong>Solutions</strong>:</h3>
+<h4>HTML</h4>
+<p>For HTML, evaluating against the use case, we find the combination of beautiful soup and requests more efficient in the task. With both doing the same task, Beautiful Soup was able to more efficiently extract the entire text with fewer lines of code. As we will be scaling the project up along the process, this is a welcomed improvement to remove bulks from our program. See the following code snippet as an example:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">extractHTML</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s1">&#39;html.parser&#39;</span><span class="p">)</span>
+    <span class="n">paragraph</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">findAll</span><span class="p">(</span><span class="s1">&#39;p&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">paragraph</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">p</span><span class="o">.</span><span class="n">findChildren</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">p</span><span class="o">.</span><span class="n">has_attr</span><span class="p">(</span><span class="s1">&#39;class&#39;</span><span class="p">):</span>
+            <span class="n">text</span> <span class="o">+=</span> <span class="n">p</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="n">strip</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">text</span>
+</code></pre></div>
+
+<h4>PDF</h4>
+<p>For PDF, it is recognised that the official links did not provide readable HTML directly and instead leads to downloading the documents locally. For this, we employed the urlib request to first localise the PDF document to the file location of the script and then perform textract extraction. This method has effectively transform the text into a large chunk of string for further analysis</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">processPDF</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">fileName</span><span class="p">):</span>
+    <span class="n">opener</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">build_opener</span><span class="p">()</span>
+    <span class="n">opener</span><span class="o">.</span><span class="n">addheaders</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;User-Agent&#39;</span><span class="p">,</span> <span class="s1">&#39;MyApp/1.0&#39;</span><span class="p">)]</span>
+    <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">install_opener</span><span class="p">(</span><span class="n">opener</span><span class="p">)</span>
+    <span class="n">urllib</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">url</span><span class="p">,</span><span class="n">fileName</span><span class="p">)</span>
+
+    <span class="n">raw</span> <span class="o">=</span> <span class="n">textract</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">fileName</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">raw</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf8&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p><br></p>
+<h2>Problem 2: Website specific problem and solutions</h2>
+<p>During the process of localising PDFs onto our folder, two website-specific problems were encountered and quickly resolved. </p>
+<h3>Problem 2.1: Headless Browsers</h3>
+<p>The first problem was that the website returned a HTTP error 403 when we tried to retrieve the data. </p>
+<p><strong>Solution</strong>:
+Upon investigation, it was discovered that some web pages by default reject browsers without any headers to protect their websites from potential attacks. For this, we learned that urllib included the functionality to add a header to our browser and that this seemingly minor adjustment could lead to a fail or success scenario.</p>
+<div class="highlight"><pre><span></span><code><span class="n">opener</span><span class="o">.</span><span class="n">addheaders</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;User-Agent&#39;</span><span class="p">,</span> <span class="s1">&#39;MyApp/1.0&#39;</span><span class="p">)]</span>
+</code></pre></div>
+
+<h3>Problem 2.2: Temporary Download Links</h3>
+<p>Another problem with extracting PDF came from the website design for PDF downloads. In OECD report, when one click on the download link for the reports, the JavaScript on the website generates a temporary download link to the report. In the project settting, using such link will be troublesome as it would lead to inconsistent performance each time it is ran. </p>
+<p>https://www.oecd-ilibrary.org/docserver/9789264273528-en.pdf?expires=1648390628&amp;id=id&amp;accname=guest&amp;checksum=CAC9D8C20A83BC67F5A43C99461F5236</p>
+<p>As you can see in the link abo ve, they have a expires=1648390628 part in the link. Although this can be solved by implementing selenium, it does not sound reasonable for us to use another web scraper only for 1 click to download PDFs.</p>
+<p><strong>Solution</strong>:
+Through more investigation around the HTML written for the OECD, it was realised that another download link is actually used as parameter to obtain a temporary download link for the OECD PDF document. Upon discovering this link form the website, we replaced the document extraction link with the link used in the parameter and the limited duration of download link was no longera  problem for our project. </p>
+<p><img alt="RTC_temp" src="images/RTC_temp.png">
+<br></p>
+<h1>Aspect 2: Extract keywords and Combine lists into one condensed list of keywords</h1>
+<p>Once the keywords were gathered as a large group of raw text, the project chose to employ the NLTK language kit to handle language processing. As demonstrated in the code snippet below, the text will go through multiple processes:</p>
+<p><strong>Process:</strong> <br>
+1. tokenise words that are alphabets <br>
+2. remove stopwords from the tokenised words <br>
+3. lemmantise words <br>
+4. only keep the most frequent 100 words <br>
+5. extract keys to form lists <br></p>
+<h2>Problem 3: Avoiding duplicate within same list</h2>
+<p>As the keyword analysis is highly reliant on the quality of the keywords, having duplicated keywords in a list will heavily damage its reliability. This problem is bound to occur as documents of similar topic is bound to use some common words among each other. This problem require a solution that keeps only 1 copy of each word across the list.</p>
+<p><strong>Solution</strong>:
+Using our understanding towards datatype and their unique charactersitics in Python, this issue is actually resolvable with one line. As keys of dictionary do not tolerate duplicates, after extending into the new list of keywords into a consolidated list, by changing the list into a dictionary and back to a list, it will be strip of all duplicate keywords. The implementation of this is as follow:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># example</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">arr</span><span class="p">))</span>
+<span class="c1"># Result = [1,2,3,5]</span>
+
+<span class="c1"># how it is used in the project</span>
+<span class="n">governance_key</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">keywordExtract</span><span class="p">(</span><span class="n">gov_raw</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+<span class="n">governance_key</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">governance_key</span><span class="p">))</span>
+</code></pre></div>
+
+<p><br></p>
+<h2>Problem 4: Avoiding same keywords across the three ESG keywords theme</h2>
+<p>Although it is fine for innovation keywords to overlap in some extent with the other ESG factors as it is used as a measure to track innovation effort of firms, it will be damaging for the project's performance if ESG keywords overlap across each other. The keywords that exist in all three Environment, Social and Governance keyword list should be removed.</p>
+<p><strong>Solution</strong>:
+Using the concept from venn diagram, if we check for intersection of the three keyword list, we can extract a list of duplicated keywords that would allow us to filer in the final step:</p>
+<p><img alt="RTC_duplicates" src="images/RTC_duplicates.png"></p>
+<div class="highlight"><pre><span></span><code><span class="n">arr1</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;apple&#39;</span><span class="p">,</span><span class="s1">&#39;bob&#39;</span><span class="p">,</span><span class="s1">&#39;car&#39;</span><span class="p">,</span><span class="s1">&#39;dog&#39;</span><span class="p">]</span>
+<span class="n">arr2</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;bob&#39;</span><span class="p">,</span><span class="s1">&#39;car&#39;</span><span class="p">]</span>
+<span class="n">arr3</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;dog&#39;</span><span class="p">]</span>
+
+<span class="c1"># find relation arr1 -&gt; arr2, arr1 -&gt; arr3 and arr2 -&gt; arr3</span>
+<span class="n">duplicates</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">arr1</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">arr2</span><span class="p">))</span>
+<span class="n">duplicates2</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">arr1</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">arr3</span><span class="p">))</span> 
+<span class="n">duplicates3</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">arr2</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">arr3</span><span class="p">))</span>
+
+<span class="c1"># add all of the intersection together to obtain all common words across the three list</span>
+<span class="n">common_words</span> <span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">duplicates</span> <span class="o">+</span> <span class="n">duplicates2</span> <span class="o">+</span> <span class="n">duplicates3</span><span class="p">))</span> 
+
+<span class="c1"># Result = [&#39;car&#39;, &#39;dog&#39;, &#39;bob&#39;]</span>
+
+
+<span class="c1"># how it is used in the project</span>
+<span class="n">duplicates</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">social_key</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">governance_key</span><span class="p">))</span>
+<span class="n">duplicates2</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">social_key</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">environment_key</span><span class="p">))</span> 
+<span class="n">duplicates3</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">governance_key</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">environment_key</span><span class="p">))</span>
+<span class="n">common_key</span> <span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">duplicates</span> <span class="o">+</span> <span class="n">duplicates2</span> <span class="o">+</span> <span class="n">duplicates3</span><span class="p">))</span> 
+<span class="n">toBeRemoved</span> <span class="o">=</span> <span class="n">common_key</span> <span class="o">+</span> <span class="n">continents</span> <span class="o">+</span> <span class="n">neutral_words</span>
+
+<span class="n">governance_key</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">governance_key</span> <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">toBeRemoved</span><span class="p">]</span>
+<span class="n">environment_key</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">environment_key</span> <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">toBeRemoved</span><span class="p">]</span>
+<span class="n">social_key</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">social_key</span> <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">toBeRemoved</span><span class="p">]</span>
+<span class="n">innovation_key</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">innovation_key</span> <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">toBeRemoved</span><span class="p">]</span>
+</code></pre></div>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2022-03-27T12:36:00+08:00">Sun 27 March 2022</time>
+            <h4>Category</h4>
+            <a class="category-link" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/categories.html#progress-report-ref">Progress Report</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+    <a href="https://github.com/buehlmaier/MFIN7036-student-blog-2022-02" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitHub" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1B1817"/><path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+    </a>
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="MFIN7036 Students" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", Progress Report, " />
+
+<meta property="og:title" content="Part 5: 10-K Scraping breakthrough! From Semi-Automatic to Fully Automatic (Group Raw Text Connoisseurs) "/>
+<meta property="og:url" content="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/part-5-10-k-scraping-breakthrough-from-semi-automatic-to-fully-automatic-group-raw-text-connoisseurs.html" />
+<meta property="og:description" content="By Group &#34;Raw Text Connoisseurs&#34; With the numerous limitation placed by SEC to limit web scraping activties and updates that made the 10-K website dynamic, Web scraping on the EDGAR platform had became a very complicated task. To make the web scraping process of specific 10-K reports from a specific …" />
+<meta property="og:site_name" content="MFIN7036 Student Blog" />
+<meta property="og:article:author" content="MFIN7036 Students" />
+<meta property="og:article:published_time" content="2022-03-29T22:36:00+08:00" />
+<meta name="twitter:title" content="Part 5: 10-K Scraping breakthrough! From Semi-Automatic to Fully Automatic (Group Raw Text Connoisseurs) ">
+<meta name="twitter:description" content="By Group &#34;Raw Text Connoisseurs&#34; With the numerous limitation placed by SEC to limit web scraping activties and updates that made the 10-K website dynamic, Web scraping on the EDGAR platform had became a very complicated task. To make the web scraping process of specific 10-K reports from a specific …">
+
+        <title>Part 5: 10-K Scraping breakthrough! From Semi-Automatic to Fully Automatic (Group Raw Text Connoisseurs)  · MFIN7036 Student Blog
+</title>
+        <link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="MFIN7036 Student Blog - Full Atom Feed" />
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/"><span class=site-name>MFIN7036 Student Blog</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       https://buehlmaier.github.io/MFIN7036-student-blog-2022-02
+                                    >Home</a>
+                                </li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/categories.html">Categories</a></li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/tags.html">Tags</a></li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/part-5-10-k-scraping-breakthrough-from-semi-automatic-to-fully-automatic-group-raw-text-connoisseurs.html">
+                Part 5: 10-K Scraping breakthrough! From Semi-Automatic to Fully Automatic (Group Raw Text Connoisseurs)
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <p>By Group "Raw Text Connoisseurs"</p>
+<p>With the numerous limitation placed by SEC to limit web scraping activties and updates that made the 10-K website dynamic, Web scraping on the EDGAR platform had became a very complicated task. To make the web scraping process of specific 10-K reports from a specific time frame avaiable, a lot of issues were tackled on to reach our current solution. The following breakthrough was heavily inspired by <a href="https://github.com/Theling/10-K-scraper">Theling - 10-K-scraper</a> with some modification to account for the changing structure on EDGAR website.  </p>
+<h1>Problem 1: Dynamic Webpage</h1>
+<p>With the updated EDGAR search, a lot of clicking is required on the dynamically generated website. This is very difficult to implement for generalisation as different firms may have different amount of listing, making solutions with static parameters useless in this situaiton. </p>
+<p><img alt="RTC-EDGAR" src="images/RTC-EDGAR.png"></p>
+<h3><strong>Solutions:</strong></h3>
+<p>Instead of using the current search page, the classic version is used. Breaking down the filter and structure of the URL, it is found that the URL contains information of the filters and ticker a user use in their search. For this, a static link that pre-specify search on 10-K reports are used with ticker being the changed variable according to our list of company tickers.</p>
+<p>Since we are using a static version of the site, we are back with our bread and butter - Request and Beautiful Soup duo.</p>
+<div class="highlight"><pre><span></span><code><span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=</span><span class="si">{</span><span class="n">ticker</span><span class="si">}</span><span class="s1">&amp;type=10-k&amp;dateb=&amp;owner=exclude&amp;count=40&#39;</span>
+
+<span class="n">allTenKs</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+</code></pre></div>
+
+<h1>Problem 2: 10-K Report Amendments</h1>
+<p>When company list their reports, there are times when their filings need to be amended. These cannot be filtered out by our previous implementation and had creeped into our program as an undetected bug.</p>
+<p><img alt="RTC-10-K-Amend" src="images/RTC-10-K-Amend.png"></p>
+<h3><strong>Solutions:</strong></h3>
+<p>Upon discovering the bug, the solution of this issue is to also read the data category of the report from the table element on the page. When the program spot entries that do not exactly match the '10-K' string, it will skip the entry by adding 1 to the index used for extracting download link.</p>
+<div class="highlight"><pre><span></span><code><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">search_result</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">itemDate</span> <span class="ow">in</span> <span class="n">targetYears</span> <span class="ow">and</span> <span class="n">documentType</span> <span class="o">==</span> <span class="s1">&#39;10-K&#39;</span><span class="p">:</span>
+        <span class="n">targetURL</span> <span class="o">=</span> <span class="s1">&#39;https://www.sec.gov&#39;</span> <span class="o">+</span> <span class="n">search_result</span><span class="p">[</span><span class="n">count</span><span class="p">]</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;documentsbutton&quot;</span><span class="p">})[</span><span class="s1">&#39;href&#39;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">documentType</span> <span class="o">!=</span> <span class="s1">&#39;10-K&#39;</span><span class="p">:</span>
+        <span class="n">count</span> <span class="o">+=</span><span class="mi">1</span>
+
+    <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+</code></pre></div>
+
+<h1>Problem 3: Newly Introduced XBRL Viewer</h1>
+<p>Using Apple Stock as an example, starting from 2019, EDGAR filing had switched to using XBRL format to display their 10-K reports. This is very problematic as the usual method of extracting through wirting HTML content does not work with XBRL.</p>
+<h3><strong>Solutions:</strong></h3>
+<p>Suprisingly, the solution also hid in the URL of the EDGAR platform. It is discovered that EDGAR added 'ix?doc=/' to the url for the HTML file to be open in the XBRL viewer. When we searched and remove this element from the URL, we arrive at a plain HTML as it was before 2019.</p>
+<div class="highlight"><pre><span></span><code><span class="k">if</span> <span class="s1">&#39;ix?doc=/&#39;</span> <span class="ow">in</span> <span class="n">doc_url</span><span class="p">:</span>
+    <span class="n">doc_url</span> <span class="o">=</span> <span class="n">doc_url</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;ix?doc=/&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2022-03-29T22:36:00+08:00">Tue 29 March 2022</time>
+            <h4>Category</h4>
+            <a class="category-link" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/categories.html#progress-report-ref">Progress Report</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+    <a href="https://github.com/buehlmaier/MFIN7036-student-blog-2022-02" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitHub" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1B1817"/><path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+    </a>
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>
