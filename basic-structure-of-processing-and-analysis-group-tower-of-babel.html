@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="MFIN7036 Students" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", Progress Report, " />
+
+<meta property="og:title" content="Basic Structure of Processing and Analysis (Group Tower of Babel) "/>
+<meta property="og:url" content="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/basic-structure-of-processing-and-analysis-group-tower-of-babel.html" />
+<meta property="og:description" content="By Group &#34;Tower of Babel&#34; After capturing the data we need, we promoted our project as the following steps: Data cleaning Text Processing Analysis &amp; Visualization 1. Data cleaning The data we captured from the website contains so much redundancy that we do not need. Therefore, in this section, I would …" />
+<meta property="og:site_name" content="MFIN7036 Student Blog" />
+<meta property="og:article:author" content="MFIN7036 Students" />
+<meta property="og:article:published_time" content="2022-03-26T17:35:00+08:00" />
+<meta name="twitter:title" content="Basic Structure of Processing and Analysis (Group Tower of Babel) ">
+<meta name="twitter:description" content="By Group &#34;Tower of Babel&#34; After capturing the data we need, we promoted our project as the following steps: Data cleaning Text Processing Analysis &amp; Visualization 1. Data cleaning The data we captured from the website contains so much redundancy that we do not need. Therefore, in this section, I would …">
+
+        <title>Basic Structure of Processing and Analysis (Group Tower of Babel)  · MFIN7036 Student Blog
+</title>
+        <link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="MFIN7036 Student Blog - Full Atom Feed" />
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/"><span class=site-name>MFIN7036 Student Blog</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       https://buehlmaier.github.io/MFIN7036-student-blog-2022-02
+                                    >Home</a>
+                                </li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/categories.html">Categories</a></li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/tags.html">Tags</a></li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/basic-structure-of-processing-and-analysis-group-tower-of-babel.html">
+                Basic Structure of Processing and Analysis (Group Tower of Babel)
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <hr>
+<p>By Group "Tower of Babel"</p>
+<p>After capturing the data we need, we promoted our project as the following steps:</p>
+<ol>
+<li>
+<p>Data cleaning</p>
+</li>
+<li>
+<p>Text Processing</p>
+</li>
+<li>
+<p>Analysis &amp; Visualization</p>
+</li>
+</ol>
+<h2>1. Data cleaning</h2>
+<p>The data we captured from the website contains so much redundancy that we do not need. Therefore, in this section, I would record the obstacles we encountered and what we did to transform the raw data into the format we can use.</p>
+<p>The most important data we need is the information in the column ‘review_revs’ which contains the content of the reviews. However, there are some reviews are written in non-English language that can so we need to delete them.</p>
+<p>The most important data we need is the information in the column ‘review_revs’ which contains the content of the comment. However, there are some comments are written in non-English language so we need to delete them. Every non-English comment is end with ‘Translate review to English’, therefore we only need to keep comments without this sentence:</p>
+<div class="highlight"><pre><span></span><code><span class="n">dg</span> <span class="o">=</span> <span class="n">dg</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="o">~</span><span class="n">dg</span><span class="p">[</span><span class="s1">&#39;review_revs&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s1">&#39;Translate review to English&#39;</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</code></pre></div>
+
+<p>There are some not-real-review information at the end of each comment that need to be deleted, for example ‘Helpful’, ‘Report abuse’. </p>
+<div class="highlight"><pre><span></span><code><span class="n">destr</span> <span class="o">=</span> <span class="s2">&quot;found this helpful&#39;, &#39;Helpful&#39;, &#39;Report abuse&#39;&quot;</span>
+<span class="n">destr2</span> <span class="o">=</span> <span class="s2">&quot;&#39;Helpful&#39;, &#39;Report abuse&#39;&quot;</span>
+
+<span class="n">item</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dg</span><span class="p">[</span><span class="s1">&#39;review_revs&#39;</span><span class="p">])</span>
+<span class="n">a_list</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">destr</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">destr2</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">a_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="n">dg</span><span class="p">[</span><span class="s1">&#39;review_revs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">a_list</span>
+</code></pre></div>
+
+<h2>2. Text Processing</h2>
+<p>In this section, I would introduce the main steps of text processing in our project.</p>
+<p><strong>Step 1.  Convert all the text into lowercase</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">df</span><span class="p">[</span><span class="s1">&#39;review&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">review</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+</code></pre></div>
+
+<p><strong>Step 2.  Remove punctuation</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">punctuation_str</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">punctuation</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;review&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">review</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[</span><span class="si">{}</span><span class="s1">]+&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">punctuation_str</span><span class="p">),</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="n">x</span><span class="p">))</span>
+</code></pre></div>
+
+<p><strong>Step 3. Remove stopwords &amp; Tokenize</strong></p>
+<p>Stopwords generally don’t convey much valuable information but can frequently appear in the text. Removing stopwords can increase efficiency and accuracy of text analysis.</p>
+<p>We download  'stopwords'  by  'nltk' :</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">nltk</span>
+<span class="kn">import</span> <span class="nn">ssl</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">_create_unverified_https_context</span> <span class="o">=</span> <span class="n">ssl</span><span class="o">.</span><span class="n">_create_unverified_context</span>
+<span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+    <span class="k">pass</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">ssl</span><span class="o">.</span><span class="n">_create_default_https_context</span> <span class="o">=</span> <span class="n">_create_unverified_https_context</span>
+
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;stopwords&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>And then, use module 're' to do the tokenize (for we can not successfully download the package 'tokenize'):</p>
+<div class="highlight"><pre><span></span><code><span class="n">alist</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;review&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">blist</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">clist</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">stopw</span> <span class="o">=</span> <span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;english&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="n">alist</span><span class="p">:</span>
+    <span class="c1">#delete numbers</span>
+    <span class="n">cc</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;[0-9]&#39;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="nb">id</span><span class="p">)</span>   
+    <span class="n">x</span><span class="o">=</span><span class="mi">0</span>
+    <span class="c1">#delete stopwords</span>
+    <span class="k">while</span> <span class="n">x</span><span class="o">&lt;</span><span class="nb">len</span><span class="p">(</span><span class="n">stopw</span><span class="p">):</span>
+        <span class="n">cc</span> <span class="o">=</span> <span class="n">cc</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">+</span><span class="n">stopw</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s2">&quot; &quot;</span><span class="p">)</span> 
+        <span class="c1">#cc = cc.replace(stopw[x]+&#39; &#39;,&quot; &quot;) </span>
+        <span class="n">x</span><span class="o">+=</span><span class="mi">1</span>
+    <span class="n">bb</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="n">cc</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)))</span>
+    <span class="n">blist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bb</span><span class="p">)</span>
+    <span class="n">clist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cc</span><span class="p">)</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;review_tk&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">blist</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;review_untk&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clist</span>  
+</code></pre></div>
+
+<h2>3. Analysis &amp; Visualization</h2>
+<p>In this section, we mainly use packages 'seanborn', 'wordcloud' and 'matplotlib' to visualize our results.</p>
+<h3>1) Ratings for overall and different models</h3>
+<p>We want to get the percentage of different scores (1,2,3,4,5) , so we define the function <code>rate(input_data,name)</code> to show the frequency of each score in one histogram.
+<code>input_data</code> should be a DataFrame,
+<code>name</code> should be a string:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">rate</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span><span class="n">name</span><span class="p">):</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="s1">&#39;review_stars&#39;</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">input_data</span><span class="p">,</span><span class="n">palette</span><span class="o">=</span><span class="s1">&#39;Spectral&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;ratings&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Ratings in 2017-2022 (</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+
+    <span class="c1"># show the frequency in the histogram</span>
+    <span class="n">ncount</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">input_data</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">ax</span><span class="o">.</span><span class="n">patches</span><span class="p">:</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">get_bbox</span><span class="p">()</span><span class="o">.</span><span class="n">get_points</span><span class="p">()[:,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">y</span><span class="o">=</span><span class="n">p</span><span class="o">.</span><span class="n">get_bbox</span><span class="p">()</span><span class="o">.</span><span class="n">get_points</span><span class="p">()[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.1f}</span><span class="s1">%&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mf">100.</span><span class="o">*</span><span class="n">y</span><span class="o">/</span><span class="n">ncount</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">y</span><span class="p">),</span> 
+                <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">)</span> <span class="c1"># set the alignment of the text</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<p>Then we call the function to get the score percentage of holistic data:</p>
+<div class="highlight"><pre><span></span><code><span class="n">rate</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="s1">&#39;Full sample&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Here is the result: </p>
+<p><img alt="Picture showing Powell" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/tower_of_babel2.1.png"></p>
+<p>Above is an example, it is almost the same if we want to get the score percentage of a specific model, the only difference is that we need to filter the specific rows from the whole dataframe before we call the function:</p>
+<div class="highlight"><pre><span></span><code><span class="n">data_1</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;asin&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;B07D75MVX9&#39;</span><span class="p">])]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</code></pre></div>
+
+<p>and then, call the function. Please pay attention to the 'input_data', changes from 'df' to the dataframe that we get from last line:</p>
+<div class="highlight"><pre><span></span><code><span class="n">rate</span><span class="p">(</span><span class="n">data_1</span><span class="p">,</span><span class="s1">&#39;Eufy 30C&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<h3>2) Key words of 5-score reviews in different models</h3>
+<p>We want to know the key words of high-rated comments, so we decide to find 14 words that most frequently appeared in the 5-score comments.</p>
+<p><strong>First</strong>, pick out all the 5-score comments:</p>
+<div class="highlight"><pre><span></span><code><span class="n">key_words</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;review_stars&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">5</span><span class="p">][</span><span class="s1">&#39;review_untk&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> 
+</code></pre></div>
+
+<p><strong>Second</strong>, split all the 5-score comments into single words and save in a list:</p>
+<div class="highlight"><pre><span></span><code><span class="n">words_list</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">key_words</span><span class="p">:</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="n">word</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
+        <span class="n">words_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Third</strong>, exclude some general good words such as 'good', 'great', 'like', 'love':</p>
+<div class="highlight"><pre><span></span><code><span class="n">de_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;one&#39;</span><span class="p">,</span><span class="s1">&#39;get&#39;</span><span class="p">,</span><span class="s1">&#39;every&#39;</span><span class="p">,</span><span class="s1">&#39;love&#39;</span><span class="p">,</span><span class="s1">&#39;great&#39;</span><span class="p">,</span><span class="s1">&#39;much&#39;</span><span class="p">,</span><span class="s1">&#39;like&#39;</span><span class="p">,</span><span class="s1">&#39;well&#39;</span><span class="p">,</span><span class="s1">&#39;would&#39;</span><span class="p">,</span><span class="s1">&#39;job&#39;</span><span class="p">]</span>
+<span class="n">stopw_1</span> <span class="o">=</span> <span class="n">stopw</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">stopw_1</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">de_list</span><span class="p">)</span>
+<span class="n">words_list_1</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words_list</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">stopw_1</span><span class="p">]</span>
+</code></pre></div>
+
+<p><strong>Forth</strong>, visualize the result using wordcloud:</p>
+<div class="highlight"><pre><span></span><code><span class="n">words</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">words_list_1</span><span class="p">)</span>
+<span class="n">wordcloud</span> <span class="o">=</span> <span class="n">WordCloud</span><span class="p">(</span><span class="n">background_color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span><span class="n">height</span><span class="o">=</span><span class="mi">800</span><span class="p">)</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="n">words</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">wordcloud</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s2">&quot;bilinear&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<p>Here is the wordcloud result:</p>
+<p><img alt="Picture showing Powell" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/tower_of_babel2.2.png"></p>
+<p>In addition to the high-score wordcloud, we also made a low-score wordcloud. The process is almost the same except that we have to exclude some general bad words rather than good.</p>
+<h3>3) Vader Emotion Score of different models</h3>
+<p>We grade all the comments according to their emotion tendency by using 'Vader':</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">vaderSentiment.vaderSentiment</span> <span class="kn">import</span> <span class="n">SentimentIntensityAnalyzer</span>
+<span class="n">sentences</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;review_revs&#39;</span><span class="p">])</span>
+<span class="n">analyzer</span> <span class="o">=</span> <span class="n">SentimentIntensityAnalyzer</span><span class="p">()</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+    <span class="n">vs</span> <span class="o">=</span> <span class="n">analyzer</span><span class="o">.</span><span class="n">polarity_scores</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+    <span class="n">scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vs</span><span class="p">[</span><span class="s1">&#39;compound&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;scores_Vader&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">scores</span>
+</code></pre></div>
+
+<p>And plot the result of emotion score into a line chart.</p>
+<p><strong>Above is the basic structure and also the idea that we followed when we develop our code. Hope this will help with going through our code.</strong></p>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2022-03-26T17:35:00+08:00">Sat 26 March 2022</time>
+            <h4>Category</h4>
+            <a class="category-link" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/categories.html#progress-report-ref">Progress Report</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+    <a href="https://github.com/buehlmaier/MFIN7036-student-blog-2022-02" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitHub" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1B1817"/><path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+    </a>
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>
