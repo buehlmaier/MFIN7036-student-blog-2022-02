@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="MFIN7036 Students" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", Progress Report, " />
+
+<meta property="og:title" content="Forecasting Interest Rate Trends Based On FOMC Speeches (Group Professional Team) "/>
+<meta property="og:url" content="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/forecasting-interest-rate-trends-based-on-fomc-speeches-group-professional-team.html" />
+<meta property="og:description" content="By Group &#34;Professional Team&#34; Our mission is to forecast interest rate trends based on FOMC speeches. This blog is mainly talking about the code part and problems we meet. Data Collection In the beginning, enter FOMC&#39;s official website. When we wanted to go to the next page, the website&#39;s URL …" />
+<meta property="og:site_name" content="MFIN7036 Student Blog" />
+<meta property="og:article:author" content="MFIN7036 Students" />
+<meta property="og:article:published_time" content="2022-03-30T19:35:00+08:00" />
+<meta name="twitter:title" content="Forecasting Interest Rate Trends Based On FOMC Speeches (Group Professional Team) ">
+<meta name="twitter:description" content="By Group &#34;Professional Team&#34; Our mission is to forecast interest rate trends based on FOMC speeches. This blog is mainly talking about the code part and problems we meet. Data Collection In the beginning, enter FOMC&#39;s official website. When we wanted to go to the next page, the website&#39;s URL …">
+
+        <title>Forecasting Interest Rate Trends Based On FOMC Speeches (Group Professional Team)  · MFIN7036 Student Blog
+</title>
+        <link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="MFIN7036 Student Blog - Full Atom Feed" />
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/"><span class=site-name>MFIN7036 Student Blog</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       https://buehlmaier.github.io/MFIN7036-student-blog-2022-02
+                                    >Home</a>
+                                </li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/categories.html">Categories</a></li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/tags.html">Tags</a></li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/forecasting-interest-rate-trends-based-on-fomc-speeches-group-professional-team.html">
+                Forecasting Interest Rate Trends Based On FOMC Speeches (Group Professional Team)
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <p>By Group "Professional Team"</p>
+<p>Our mission is to forecast interest rate trends based on FOMC speeches. This blog is mainly talking about the code part and problems we meet.</p>
+<h2>Data Collection</h2>
+<p>In the beginning, enter <a href="https://www.federalreserve.gov/newsevents/speeches.htm">FOMC's official website</a>. When we wanted to go to the next page, the website's URL didn't change, which meant that this page was a dynamic webpage. However, the web page's structure seemed simple, which was good news for us since it meant it was easy to scrape! </p>
+<p>First, just press F12 to open DEVtools, locate the lecture's headline, then it would show us the lecture's URL. Copy its <em>XPATH</em> and use Selenium's <em>find_element_by_xpath</em> function then we could get the lecture URLs from the whole page. Then we needed to locate the "Next" button. Here we met a problem. Because every time we went to a different page, the"Next" button would change its position. So here we used Selenium's another function <em>find_element_by_link_text.click()</em>("Next"). It worked!</p>
+<p><img alt="Picture" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/Professional Team-Post-01_web_scraping.png"></p>
+<p>Here is the code for getting all lecture's URLs.</p>
+<div class="highlight"><pre><span></span><code><span class="n">url</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">47</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">page</span><span class="o">!=</span><span class="mi">46</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">21</span><span class="p">):</span>
+            <span class="n">url</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s1">&#39;//*[@id=&quot;article&quot;]/div[1]/div[&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;]/div[2]/p[1]/em/a&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">))</span>
+        <span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_link_text</span><span class="p">(</span><span class="s2">&quot;Next&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">click</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">16</span><span class="p">):</span>
+            <span class="n">url</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element_by_xpath</span><span class="p">(</span><span class="s1">&#39;//*[@id=&quot;article&quot;]/div[1]/div[&#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;]/div[2]/p[1]/em/a&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get_attribute</span><span class="p">(</span><span class="s1">&#39;href&#39;</span><span class="p">))</span>    
+</code></pre></div>
+
+<p>Second, we went through all URLs, located the title, date, speaker, location and content. Here we used <em>XPATH</em>. Another problem happened.</p>
+<p><img alt="Picture" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/Professional Team-Post-01_web_scraping2.png"></p>
+<p>If we simply click the article, it was only able to locate one paragraph. The solution is to locate its parent node! </p>
+<p>Finally, we got 915 speeches from 31 lecturers. The period was from January 18, 2006 to February 24, 2022.</p>
+<h2>Text Preprocessing</h2>
+<p>After scraping the information we needed from the website, we took out the speech content from the dataframe we created and made the lecture content in lower case for further processing.
+A speech example is showed below: </p>
+<p><img alt="Picture" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/Professional Team-Post-01_process1.png"></p>
+<p>Then we defined some stopwords which were not important to analyze the sentiment in the lecture, like some prepositions, auxiliary verbs and some common words for the speech's opening. Additionally, since there were usually dates and numbers mentioned in the speech but difficult to confirm the connection between them in the text analysis, we also chose to delete them by using the datetime list downloaded from Github.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">#Defining set containing all stopwords in English.</span>
+<span class="n">stopwordlist</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;about&#39;</span><span class="p">,</span> <span class="s1">&#39;above&#39;</span><span class="p">,</span> <span class="s1">&#39;after&#39;</span><span class="p">,</span> <span class="s1">&#39;again&#39;</span><span class="p">,</span> <span class="s1">&#39;ain&#39;</span><span class="p">,</span> <span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="s1">&#39;am&#39;</span><span class="p">,</span> <span class="s1">&#39;an&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;and&#39;</span><span class="p">,</span><span class="s1">&#39;any&#39;</span><span class="p">,</span><span class="s1">&#39;are&#39;</span><span class="p">,</span> <span class="s1">&#39;as&#39;</span><span class="p">,</span> <span class="s1">&#39;at&#39;</span><span class="p">,</span> <span class="s1">&#39;be&#39;</span><span class="p">,</span> <span class="s1">&#39;because&#39;</span><span class="p">,</span> <span class="s1">&#39;been&#39;</span><span class="p">,</span> <span class="s1">&#39;before&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;being&#39;</span><span class="p">,</span> <span class="s1">&#39;below&#39;</span><span class="p">,</span> <span class="s1">&#39;between&#39;</span><span class="p">,</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="s1">&#39;by&#39;</span><span class="p">,</span> <span class="s1">&#39;can&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;did&#39;</span><span class="p">,</span> <span class="s1">&#39;do&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;does&#39;</span><span class="p">,</span> <span class="s1">&#39;doing&#39;</span><span class="p">,</span> <span class="s1">&#39;down&#39;</span><span class="p">,</span> <span class="s1">&#39;during&#39;</span><span class="p">,</span> <span class="s1">&#39;each&#39;</span><span class="p">,</span><span class="s1">&#39;few&#39;</span><span class="p">,</span> <span class="s1">&#39;for&#39;</span><span class="p">,</span> <span class="s1">&#39;from&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;further&#39;</span><span class="p">,</span> <span class="s1">&#39;had&#39;</span><span class="p">,</span> <span class="s1">&#39;has&#39;</span><span class="p">,</span> <span class="s1">&#39;have&#39;</span><span class="p">,</span> <span class="s1">&#39;having&#39;</span><span class="p">,</span> <span class="s1">&#39;he&#39;</span><span class="p">,</span> <span class="s1">&#39;her&#39;</span><span class="p">,</span> <span class="s1">&#39;here&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;hers&#39;</span><span class="p">,</span> <span class="s1">&#39;herself&#39;</span><span class="p">,</span> <span class="s1">&#39;him&#39;</span><span class="p">,</span> <span class="s1">&#39;himself&#39;</span><span class="p">,</span> <span class="s1">&#39;his&#39;</span><span class="p">,</span> <span class="s1">&#39;how&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="s1">&#39;if&#39;</span><span class="p">,</span> <span class="s1">&#39;in&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;into&#39;</span><span class="p">,</span><span class="s1">&#39;is&#39;</span><span class="p">,</span> <span class="s1">&#39;it&#39;</span><span class="p">,</span> <span class="s1">&#39;its&#39;</span><span class="p">,</span> <span class="s1">&#39;itself&#39;</span><span class="p">,</span> <span class="s1">&#39;just&#39;</span><span class="p">,</span> <span class="s1">&#39;ll&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;ma&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;me&#39;</span><span class="p">,</span> <span class="s1">&#39;more&#39;</span><span class="p">,</span> <span class="s1">&#39;most&#39;</span><span class="p">,</span><span class="s1">&#39;my&#39;</span><span class="p">,</span> <span class="s1">&#39;myself&#39;</span><span class="p">,</span> <span class="s1">&#39;now&#39;</span><span class="p">,</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="s1">&#39;of&#39;</span><span class="p">,</span> <span class="s1">&#39;on&#39;</span><span class="p">,</span> <span class="s1">&#39;once&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;only&#39;</span><span class="p">,</span> <span class="s1">&#39;or&#39;</span><span class="p">,</span> <span class="s1">&#39;other&#39;</span><span class="p">,</span> <span class="s1">&#39;our&#39;</span><span class="p">,</span> <span class="s1">&#39;ours&#39;</span><span class="p">,</span><span class="s1">&#39;ourselves&#39;</span><span class="p">,</span> <span class="s1">&#39;out&#39;</span><span class="p">,</span> <span class="s1">&#39;own&#39;</span><span class="p">,</span> <span class="s1">&#39;re&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="s1">&#39;she&#39;</span><span class="p">,</span> <span class="s2">&quot;shes&quot;</span><span class="p">,</span> <span class="s1">&#39;should&#39;</span><span class="p">,</span> <span class="s2">&quot;shouldve&quot;</span><span class="p">,</span><span class="s1">&#39;so&#39;</span><span class="p">,</span> <span class="s1">&#39;some&#39;</span><span class="p">,</span> <span class="s1">&#39;such&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="s1">&#39;than&#39;</span><span class="p">,</span> <span class="s1">&#39;that&#39;</span><span class="p">,</span> <span class="s2">&quot;thatll&quot;</span><span class="p">,</span> <span class="s1">&#39;the&#39;</span><span class="p">,</span> <span class="s1">&#39;their&#39;</span><span class="p">,</span> <span class="s1">&#39;theirs&#39;</span><span class="p">,</span> <span class="s1">&#39;them&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;themselves&#39;</span><span class="p">,</span> <span class="s1">&#39;then&#39;</span><span class="p">,</span> <span class="s1">&#39;there&#39;</span><span class="p">,</span> <span class="s1">&#39;these&#39;</span><span class="p">,</span> <span class="s1">&#39;they&#39;</span><span class="p">,</span> <span class="s1">&#39;this&#39;</span><span class="p">,</span> <span class="s1">&#39;those&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;through&#39;</span><span class="p">,</span> <span class="s1">&#39;to&#39;</span><span class="p">,</span> <span class="s1">&#39;too&#39;</span><span class="p">,</span><span class="s1">&#39;under&#39;</span><span class="p">,</span> <span class="s1">&#39;until&#39;</span><span class="p">,</span> <span class="s1">&#39;up&#39;</span><span class="p">,</span> <span class="s1">&#39;ve&#39;</span><span class="p">,</span> <span class="s1">&#39;very&#39;</span><span class="p">,</span> <span class="s1">&#39;was&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;we&#39;</span><span class="p">,</span> <span class="s1">&#39;were&#39;</span><span class="p">,</span> <span class="s1">&#39;what&#39;</span><span class="p">,</span> <span class="s1">&#39;when&#39;</span><span class="p">,</span> <span class="s1">&#39;where&#39;</span><span class="p">,</span><span class="s1">&#39;which&#39;</span><span class="p">,</span><span class="s1">&#39;while&#39;</span><span class="p">,</span> <span class="s1">&#39;who&#39;</span><span class="p">,</span> <span class="s1">&#39;whom&#39;</span><span class="p">,</span>
+             <span class="s1">&#39;why&#39;</span><span class="p">,</span> <span class="s1">&#39;will&#39;</span><span class="p">,</span> <span class="s1">&#39;with&#39;</span><span class="p">,</span> <span class="s1">&#39;won&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;you&#39;</span><span class="p">,</span> <span class="s2">&quot;youd&quot;</span><span class="p">,</span><span class="s2">&quot;youll&quot;</span><span class="p">,</span> <span class="s2">&quot;youre&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;youve&quot;</span><span class="p">,</span> <span class="s1">&#39;your&#39;</span><span class="p">,</span> <span class="s1">&#39;yours&#39;</span><span class="p">,</span> <span class="s1">&#39;yourself&#39;</span><span class="p">,</span> <span class="s1">&#39;yourselves&#39;</span><span class="p">,</span><span class="s1">&#39;thank&#39;</span><span class="p">,</span><span class="s1">&#39;would&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;like&#39;</span><span class="p">,</span><span class="s1">&#39;speak&#39;</span><span class="p">,</span><span class="s1">&#39;great&#39;</span><span class="p">,</span><span class="s1">&#39;honor&#39;</span><span class="p">,</span><span class="s1">&#39;today&#39;</span><span class="p">,</span><span class="s1">&#39;$&#39;</span><span class="p">]</span>
+
+<span class="n">stoplist</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;pysentiment-master\pysentiment\static\DatesandNumbers.txt&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span> 
+            <span class="n">stoplist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+
+<span class="n">stopwordlist</span><span class="o">=</span><span class="n">stopwordlist</span><span class="o">+</span><span class="n">stoplist</span>
+
+<span class="c1">#Cleaning and removing the above stop words list from the lecture text</span>
+<span class="n">STOPWORDS</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">stopwordlist</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cleaning_stopwords</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">word</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">nltk</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="k">if</span> <span class="n">word</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">STOPWORDS</span> <span class="p">])</span>
+</code></pre></div>
+
+<p>For further cleaning, we removed the references of the lecture posted at the end of each lecture and some additional URLs in the lecture content. </p>
+<div class="highlight"><pre><span></span><code><span class="c1">#Cleaning and removing URL’s</span>
+<span class="k">def</span> <span class="nf">cleaning_URLs</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;((www.[^s]+)|(https?://[^s]+))&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1">#Cleaning and removing reference</span>
+<span class="k">def</span> <span class="nf">cleaning_references</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">1&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div>
+
+<div class="highlight"><pre><span></span><code><span class="n">df1</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df1</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">cleaning_references</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<span class="n">df1</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df1</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">text</span><span class="p">:</span> <span class="n">cleaning_stopwords</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+<span class="n">df1</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df1</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">cleaning_URLs</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+</code></pre></div>
+
+<p>After these steps, the new lecture content is showed below:</p>
+<p><img alt="Picture" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/Professional Team-Post-01_process2.png"></p>
+<p>Considering the entire lecture content was complex and scoring its sentiment might be inaccurate or difficult. So we splited each lecture into several sentences in a tokenized way, and then deleted punctuations in each sentence.</p>
+<p>Additionally, in the case of pretty short sentences, less information and extreme emotion might be reflected, which was another issue we needed to pay attention to when using the <em>Loughran</em> and <em>McDonald</em>'s dictionary. So we deleted the sentences with words less than 8.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">#Split the lecture into sentences</span>
+<span class="n">df1</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">df1</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">nltk</span><span class="o">.</span><span class="n">sent_tokenize</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+<span class="n">less8</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df1</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">])):</span>
+    <span class="n">df1</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">df1</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">::]</span>
+    <span class="n">less8</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">nltk</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">&lt;</span><span class="mi">8</span><span class="p">,</span> <span class="n">df1</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">])))</span>
+    <span class="n">df1</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">nltk</span><span class="o">.</span><span class="n">word_tokenize</span><span class="p">(</span><span class="n">x</span><span class="p">))</span><span class="o">&gt;=</span><span class="mi">8</span><span class="p">,</span> <span class="n">df1</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]))</span> <span class="c1"># delete sentence that length &lt;8</span>
+</code></pre></div>
+
+<p><img alt="Picture" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/Professional Team-Post-01_process3.png"></p>
+<h2>Word Cloud</h2>
+<p>Here we built word clouds mainly based on former preprocessed text. We classified words into two categories. One was the words from positive lectures, one was the words from negative lectures. Since some phrases like "central bank", the word"central" and "bank" sometimes occurred together, we also made bigrams for such kinds of words. Besides, we converted words with the same meaning but different tenses to their prototype and then formed the word clouds. </p>
+<div class="highlight"><pre><span></span><code><span class="c1">#####wordcloud</span>
+<span class="n">lec1</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">lec0</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s2">&quot;score&quot;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">:</span>
+        <span class="n">lec1</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s2">&quot;content&quot;</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s2">&quot;score&quot;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+        <span class="n">lec0</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s2">&quot;content&quot;</span><span class="p">])</span>
+
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">import</span> <span class="nn">gensim</span>
+<span class="kn">import</span> <span class="nn">gensim.corpora</span> <span class="k">as</span> <span class="nn">corpora</span>
+<span class="kn">from</span> <span class="nn">gensim.utils</span> <span class="kn">import</span> <span class="n">simple_preprocess</span>
+<span class="kn">from</span> <span class="nn">gensim.models</span> <span class="kn">import</span> <span class="n">CoherenceModel</span>
+<span class="kn">import</span> <span class="nn">spacy</span>
+<span class="kn">import</span> <span class="nn">pyLDAvis</span>
+<span class="kn">import</span> <span class="nn">pyLDAvis.gensim</span>  
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span><span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">)</span>    
+
+<span class="k">def</span> <span class="nf">sent_to_words</span><span class="p">(</span><span class="n">sentences</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentences</span><span class="p">:</span>
+        <span class="k">yield</span><span class="p">(</span><span class="n">gensim</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">simple_preprocess</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">sentence</span><span class="p">),</span> <span class="n">deacc</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span> 
+
+<span class="n">data_words</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">sent_to_words</span><span class="p">(</span><span class="n">lec0</span><span class="p">))</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">data_words</span><span class="p">[:</span><span class="mi">1</span><span class="p">])</span>
+
+
+<span class="c1"># Build the bigram and models</span>
+<span class="n">bigram</span> <span class="o">=</span> <span class="n">gensim</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Phrases</span><span class="p">(</span><span class="n">data_words</span><span class="p">,</span> <span class="n">min_count</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span> 
+<span class="n">bigram_mod</span> <span class="o">=</span> <span class="n">gensim</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">phrases</span><span class="o">.</span><span class="n">Phraser</span><span class="p">(</span><span class="n">bigram</span><span class="p">)</span>
+<span class="c1"># Define functions for bigrams and lemmatization</span>
+<span class="k">def</span> <span class="nf">make_bigrams</span><span class="p">(</span><span class="n">texts</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">bigram_mod</span><span class="p">[</span><span class="n">doc</span><span class="p">]</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">texts</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">lemmatization</span><span class="p">(</span><span class="n">texts</span><span class="p">,</span> <span class="n">allowed_postags</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;NOUN&#39;</span><span class="p">,</span> <span class="s1">&#39;ADJ&#39;</span><span class="p">,</span> <span class="s1">&#39;VERB&#39;</span><span class="p">,</span> <span class="s1">&#39;ADV&#39;</span><span class="p">]):</span>
+    <span class="n">texts_out</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">sent</span> <span class="ow">in</span> <span class="n">texts</span><span class="p">:</span>
+        <span class="n">doc</span> <span class="o">=</span> <span class="n">nlp</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sent</span><span class="p">))</span> 
+        <span class="n">texts_out</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">token</span><span class="o">.</span><span class="n">lemma_</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">doc</span> <span class="k">if</span> <span class="n">token</span><span class="o">.</span><span class="n">pos_</span> <span class="ow">in</span> <span class="n">allowed_postags</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">texts_out</span>
+
+<span class="c1"># Form Bigrams</span>
+<span class="n">data_words_bigrams</span> <span class="o">=</span> <span class="n">make_bigrams</span><span class="p">(</span><span class="n">data_words</span><span class="p">)</span>
+
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;en_core_web_sm&#39;</span><span class="p">,</span> <span class="n">disable</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;parser&#39;</span><span class="p">,</span> <span class="s1">&#39;ner&#39;</span><span class="p">])</span>
+
+<span class="c1"># Do lemmatization keeping only noun, adj, vb, adv</span>
+<span class="n">data_lemmatized</span> <span class="o">=</span> <span class="n">lemmatization</span><span class="p">(</span><span class="n">data_words_bigrams</span><span class="p">,</span> <span class="n">allowed_postags</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;NOUN&#39;</span><span class="p">,</span> <span class="s1">&#39;ADJ&#39;</span><span class="p">,</span> <span class="s1">&#39;VERB&#39;</span><span class="p">,</span> <span class="s1">&#39;ADV&#39;</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">data_lemmatized</span><span class="p">[:</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="c1">#draw wordcloud with bigrams</span>
+<span class="n">bi</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data_lemmatized</span><span class="p">:</span>
+     <span class="n">bi</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+
+<span class="kn">from</span> <span class="nn">wordcloud</span> <span class="kn">import</span> <span class="n">WordCloud</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">cloud</span> <span class="o">=</span> <span class="n">WordCloud</span><span class="p">(</span>   
+    <span class="n">background_color</span> <span class="o">=</span> <span class="s1">&#39;white&#39;</span><span class="p">,</span>  
+    <span class="n">font_path</span><span class="o">=</span><span class="s1">&#39;./fonts/simhei.ttf&#39;</span><span class="p">,</span>
+    <span class="n">max_words</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+    <span class="n">scale</span><span class="o">=</span><span class="mi">4</span>
+<span class="p">)</span> 
+<span class="n">word_cloud</span> <span class="o">=</span> <span class="n">cloud</span><span class="o">.</span><span class="n">generate</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">bi</span><span class="p">))</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">word_cloud</span><span class="p">)</span>  
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;off&#39;</span><span class="p">)</span>  
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div>
+
+<p><img alt="Picture" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/Professional Team-Post-01_word_cloud.png"></p>
+<h2>Sentiment Analysis</h2>
+<p>After the data cleaning, we imported the <em>pysentiment</em> package and used the <em>Loughran</em> and <em>McDonald</em> dictionary to get the score from each sentence.</p>
+<p><em>Loughran</em> and <em>McDonald</em> is a kind of English text sentiment analysis in the financial area, from which we can directly get the number of positive and negative words, the degree of emotional bias and subjectivity in the text.</p>
+<p>We used <em>LM</em> dictionary to calculate the polarity score of each sentence in a lecture and take the mean score of sentences in a speech as the overall sentiment of the lecture. Finally, we kept the score of each lecture in the dataframe and named it ’score_final‘.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">pysentiment</span> <span class="k">as</span> <span class="nn">ps</span>
+<span class="c1">#coding:utf8</span>
+<span class="n">lm</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="n">LM</span><span class="p">()</span>
+
+<span class="n">score</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df1</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">])):</span>
+    <span class="n">score_list</span><span class="o">=</span><span class="p">[]</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df1</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">])):</span>
+            <span class="n">df1</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">cleaning_repeating_char</span><span class="p">(</span><span class="n">df1</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+            <span class="n">df1</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">cleaning_punctuations</span><span class="p">(</span><span class="n">df1</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span>
+            <span class="n">score_of_one_sentence</span><span class="o">=</span> <span class="n">lm</span><span class="o">.</span><span class="n">get_score</span><span class="p">(</span><span class="n">lm</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="n">df1</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]))[</span><span class="s1">&#39;Polarity&#39;</span><span class="p">]</span>
+            <span class="n">score_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">score_of_one_sentence</span><span class="p">)</span>
+    <span class="n">score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">score_list</span><span class="p">))</span>
+
+<span class="n">Score</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+<span class="n">df</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">Score</span><span class="p">,</span><span class="n">df1</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">df</span><span class="o">=</span><span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s2">&quot;score_final&quot;</span><span class="p">})</span>
+</code></pre></div>
+
+<p><img alt="Picture" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/Professional Team-Post-01_process4.png"></p>
+<h2>Basis on Modeling</h2>
+<p>After analyzing the sentiment of the FOMC speeches and giving a sentiment score to each of them, we needed to build a connection between the score of speeches and the change in the federal funds rate (FFR). Actually, for each speech, there were two problems behind us:
+a) Which change of FFR does the speech have an influence on?
+b)There are 915 speeches in the dataset in total, but only 129 changes in FFR. Obviously, in most cases, a change is associated with more than one speech. So how to allocate the influence level (also known as weight) of different speeches to the same related change?</p>
+<p>The federal fund's target rate is determined by a <a href="https://en.wikipedia.org/wiki/Federal_funds_rate">meeting</a>  of the members of the FOMC which normally occurs eight times a year.</p>
+<p>And the interval between two adjacent meetings is about six to seven weeks. Since the decision of the change of FFR is made at the meetings and it exactly reflects the latest views of FOMC members on the recent economic situation and monetary policy, we believed only several latest speeches before a change imply the present views of the members and have a relationship with this change.</p>
+<p>But what is the definition of ‘latest’? We thought only the speeches between the last meeting and this meeting would be taken into consideration when analyzing the change of FFR at a meeting. The information in the speeches before the last meeting has already shown in the last change. 
+(P.S. The speeches exactly given on the same day with an FOMC meeting will be allocated to the next change of FFR.)</p>
+<p>Among all the speeches that have influence on the same change in FFR, we believed that the closer the speech is to the meeting, the greater its impact on the change. Therefore, the days between the speech and the related meeting are also an important parameter.</p>
+<p>How about our dependent variable, the change of FFR? Definitely, here are three kinds of results in a total of the FFR’s change after a general FOMC meeting:
+a)  Increase. (We use ‘1’ to represent this case.)
+b)  Decrease. (‘-1’ is used to represent this case.)
+c)  Stay unchanged. (Actually, this is the most common result. And we use ‘0’ when it happens.)
+The transformation was already made in the dataset.</p>
+<p>Below is the code that we used to determine the related time of the FOMC meeting and the number of days before the meeting of every observation.</p>
+<div class="highlight"><pre><span></span><code><span class="n">FFR</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;FFR.xlsx&#39;</span><span class="p">,</span> <span class="n">usecols</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">Lecture</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;final_lecture.xlsx&#39;</span><span class="p">)</span>
+
+<span class="c1"># Change the format of date from &#39;string&#39; to &#39;datetime.datetime&#39;</span>
+<span class="n">FFR</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">FFR</span><span class="o">.</span><span class="n">date</span><span class="p">)</span>
+<span class="n">Lecture</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">Lecture</span><span class="o">.</span><span class="n">date</span><span class="p">)</span>
+
+<span class="n">lec</span> <span class="o">=</span> <span class="n">Lecture</span><span class="p">[[</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;score_final&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="s1">&#39;date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># To decide the time of change that each speech is related to</span>
+<span class="n">lec</span><span class="p">[</span><span class="s1">&#39;next_change&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lec</span><span class="p">)):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">FFR</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">FFR</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">lec</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;date&#39;</span><span class="p">]:</span>
+            <span class="n">lec</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s1">&#39;next_change&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">FFR</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="s1">&#39;date&#39;</span><span class="p">]</span>
+            <span class="k">break</span>
+
+<span class="c1"># Calculate the difference of days between the speech and the related change of FFR</span>
+<span class="n">lec</span><span class="p">[</span><span class="s1">&#39;day_delta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lec</span><span class="p">)):</span>
+<span class="n">lec</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="s1">&#39;day_delta&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">lec</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;next_change&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">lec</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;date&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">days</span>
+</code></pre></div>
+
+<p>But what about our problem b)? If there are 10 speeches between two meetings, how to calculate their different influence on the next change of FFR?</p>
+<p>We decided to get a weighted average of the sentiment scores of all speeches between two meetings to be the ‘overall score’ which is related to the next change of FFR, and take research on the correlation between the 'overall score' and the actual change. The weights will have an inverse relationship with the time interval between the speeches and the corresponding change.</p>
+<p><img alt="Picture" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/Professional Team-Post-01_logistic.png"></p>
+<p>During this process, we used the idea of <a href="https://www.warriortrading.com/exponential-moving-average/">exponential moving average</a> to decide the exact value of the weights of each observation. In the <em>pandas</em> package of Python, there is a function called <em><a href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.ewm.html">ewm</a></em> which is responsible for this calculation, but its application scenarios are somewhat different from the problems we face, so we made some changes of its function and define our weighted average function to be:</p>
+<p><img alt="Picture" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/Professional Team-Post-01_formula.png"></p>
+<p>In this formula, x is the sentiment score of each speech, t is the days from the speech to the next FOMC meetings, and ‘alpha’ is a parameter to be determined. The larger the alpha, the greater the proportion of speeches that are close to the meetings in the overall score.</p>
+<p>And here is the function we define in Python for this calculation:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">cal_avg</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">a</span><span class="p">):</span>
+    <span class="n">num</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="n">nume</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">deno</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num</span><span class="p">):</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;score_final&#39;</span><span class="p">]</span>
+        <span class="n">days</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;day_delta&#39;</span><span class="p">]</span>
+
+        <span class="n">nume</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">**</span><span class="n">days</span> <span class="o">*</span> <span class="n">score</span>
+        <span class="n">deno</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">**</span><span class="n">days</span>
+
+<span class="k">return</span> <span class="p">[</span><span class="n">nume</span><span class="o">/</span><span class="n">deno</span><span class="p">,</span> <span class="n">num</span><span class="p">]</span>
+</code></pre></div>
+
+<p>Since we couldn't decide the optimal value of alpha, we used traversal in the following process of model building.</p>
+<h2>Statistic Analysis</h2>
+<p>In general, the change of interest rates is a macroeconomic issue, and the traditional method of forecasting the decision of FOMC is to use factor models. (The factors, which are mainly economic indicators of the country, themselves are also an important basis for FOMC members to decide FFR.)</p>
+<p>In this project, we firstly built a model based on the traditional way, using the economic factors to make predictions of changes of FFR. Then, we added the factor of sentiment scores about the speeches to the model, and saw if it could imporve the performance of the prediction model.</p>
+<p>The macroeconomic indicators selected by us include:①Gross Domestic Product (GDP)
+②Durable Goods Orders (DGORDER) ③Unemployment Rate (UNRATE) ④Procuder Price Index (PPIACO) ⑤Consumer Price Index less Food and Energy (CORESTICKM159SFRBATL)⑥Personal Consumption Expenditures (PCE) ⑦S&amp;P 500 at close (S&amp;P500_close)</p>
+<p>In this part, we used <em>yfinance</em> and <em>pandas_datareader</em> to get the data of these economic indicators from trusted data sources.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">yfinance</span> <span class="k">as</span> <span class="nn">yf</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="mi">2006</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">end</span> <span class="o">=</span> <span class="n">dt</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+<span class="n">sp</span> <span class="o">=</span> <span class="n">yf</span><span class="o">.</span><span class="n">Ticker</span><span class="p">(</span><span class="s1">&#39;^GSPC&#39;</span><span class="p">)</span>
+<span class="n">sp_data</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">history</span><span class="p">(</span><span class="n">interval</span> <span class="o">=</span> <span class="s1">&#39;1mo&#39;</span><span class="p">,</span> <span class="n">start</span> <span class="o">=</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="n">end</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">sp_data</span> <span class="o">=</span> <span class="n">sp_data</span><span class="p">[[</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span><span class="s1">&#39;Close&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Date&#39;</span><span class="p">:</span><span class="s1">&#39;DATE&#39;</span><span class="p">,</span><span class="s1">&#39;Close&#39;</span><span class="p">:</span> <span class="s1">&#39;S&amp;P500_close&#39;</span><span class="p">})</span>
+
+<span class="kn">import</span> <span class="nn">pandas_datareader</span> <span class="k">as</span> <span class="nn">pdr</span>
+<span class="n">gdp_data</span> <span class="o">=</span> <span class="n">pdr</span><span class="o">.</span><span class="n">get_data_fred</span><span class="p">(</span><span class="s1">&#39;GDP&#39;</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">dgo_data</span> <span class="o">=</span> <span class="n">pdr</span><span class="o">.</span><span class="n">get_data_fred</span><span class="p">(</span><span class="s1">&#39;DGORDER&#39;</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">une_data</span> <span class="o">=</span> <span class="n">pdr</span><span class="o">.</span><span class="n">get_data_fred</span><span class="p">(</span><span class="s1">&#39;UNRATE&#39;</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">ppi_data</span> <span class="o">=</span> <span class="n">pdr</span><span class="o">.</span><span class="n">get_data_fred</span><span class="p">(</span><span class="s1">&#39;PPIACO&#39;</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">cpi_data</span> <span class="o">=</span> <span class="n">pdr</span><span class="o">.</span><span class="n">get_data_fred</span><span class="p">(</span><span class="s1">&#39;CORESTICKM159SFRBATL&#39;</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">pce_data</span> <span class="o">=</span> <span class="n">pdr</span><span class="o">.</span><span class="n">get_data_fred</span><span class="p">(</span><span class="s1">&#39;PCE&#39;</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</code></pre></div>
+
+<p>Then, we extracted the economic indicators which were corresponding to the timing of the FOMC meeting, and made them matched.</p>
+<div class="highlight"><pre><span></span><code><span class="n">full_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">meeting</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+<span class="n">full_data</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">full_data</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
+<span class="n">full_data</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">full_data</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">month</span><span class="p">)</span>
+<span class="n">full_data</span><span class="p">[</span><span class="s1">&#39;quarter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">full_data</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">quarter</span>
+
+<span class="n">gdp_data</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdp_data</span><span class="o">.</span><span class="n">DATE</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
+<span class="n">gdp_data</span><span class="p">[</span><span class="s1">&#39;quarter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">gdp_data</span><span class="o">.</span><span class="n">DATE</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">quarter</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">full_data</span><span class="p">,</span> <span class="n">gdp_data</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;inner&#39;</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span><span class="s1">&#39;quarter&#39;</span><span class="p">])</span>
+<span class="n">full_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">full_data</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">GDP</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="p">[</span><span class="n">sp_data</span><span class="p">,</span><span class="n">dgo_data</span><span class="p">,</span><span class="n">une_data</span><span class="p">,</span><span class="n">ppi_data</span><span class="p">,</span><span class="n">cpi_data</span><span class="p">,</span><span class="n">pce_data</span><span class="p">]:</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">DATE</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">year</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">DATE</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">month</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">full_data</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;inner&#39;</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span><span class="s1">&#39;month&#39;</span><span class="p">])</span>
+<span class="n">full_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">full_data</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="o">-</span><span class="mi">1</span><span class="p">]],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<p>After that, we defined a loop to traverse the alpha in the function of weighted average. The value range was from 0.01 to 0.5, per 0.01. When the alpha value was too large, the earlier speech had little effect on the change of FFR, which might not be a good model.</p>
+<div class="highlight"><pre><span></span><code><span class="n">scores</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">date</span><span class="p">,</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.51</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">):</span>
+    <span class="n">summ</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;alpha_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">)])</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">date</span><span class="p">:</span>
+        <span class="n">subdf</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;next_change&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">i</span><span class="p">]</span>
+        <span class="n">score</span><span class="p">,</span> <span class="n">num</span> <span class="o">=</span> <span class="n">cal_avg</span><span class="p">(</span><span class="n">subdf</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+        <span class="n">summ</span> <span class="o">=</span> <span class="n">summ</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;alpha_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">a</span><span class="p">):</span> <span class="n">score</span><span class="p">},</span> <span class="n">ignore_index</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">scores</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">scores</span><span class="p">,</span><span class="n">summ</span><span class="p">],</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<p>We chose Random Forest as the classifier to build the model. First, we built a prediction model only using the macroecnomic indicators. Then, we added the factor of sentiment score to the model, and used different alphas to find out a model with the best performance.</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>    
+<span class="n">yx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">meeting</span><span class="p">,</span> <span class="n">full_data</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="s1">&#39;date&#39;</span><span class="p">)</span>
+<span class="n">yx</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">yx</span><span class="p">,</span> <span class="n">scores</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="s1">&#39;date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">yx</span><span class="o">.</span><span class="n">change</span>
+<span class="n">x_commen</span> <span class="o">=</span> <span class="n">yx</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">5</span><span class="p">:</span><span class="mi">12</span><span class="p">]</span>
+<span class="n">RF</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="n">max_depth</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">x_commen</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.33</span><span class="p">)</span>  
+<span class="n">rf</span> <span class="o">=</span> <span class="n">RF</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">s_train</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">s_test</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+
+<span class="n">train_score</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">test_score</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">x_score</span> <span class="ow">in</span> <span class="n">yx</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">12</span><span class="p">:]:</span>     
+    <span class="n">X_s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">x_commen</span><span class="p">,</span> <span class="n">yx</span><span class="p">[</span><span class="n">x_score</span><span class="p">]],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>  
+    <span class="n">Xs_train</span><span class="p">,</span> <span class="n">Xs_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X_s</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span> <span class="o">=</span> <span class="mf">0.33</span><span class="p">)</span>
+    <span class="n">RF</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="n">max_depth</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">rf_s</span> <span class="o">=</span> <span class="n">RF</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_s</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">ss_train</span> <span class="o">=</span> <span class="n">rf_s</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">Xs_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">ss_test</span> <span class="o">=</span> <span class="n">rf_s</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">Xs_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+    <span class="n">train_score</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">s_train</span><span class="p">,</span> <span class="n">ss_train</span><span class="p">,</span> <span class="n">ss_train</span> <span class="o">-</span> <span class="n">s_train</span><span class="p">))</span>
+<span class="n">test_score</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">s_test</span><span class="p">,</span> <span class="n">ss_test</span><span class="p">,</span> <span class="n">ss_test</span> <span class="o">-</span> <span class="n">s_test</span><span class="p">))</span>
+</code></pre></div>
+
+<p>Using the above code, we built one model with traditional macroeconomic indicators, and 50 models containing the sentiment score of differnet alphas. We used the built-in function <em>score</em> calculating the mean accuracy of the model to evaluate the model performance. </p>
+<p><img alt="Picture" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/Professional Team-Post-01_result.png"></p>
+<p>As could be seen from the figure, when applying the model to the training dataset, the model without the sentiment score outperforms the one with it. But as for the testing dataset, regardless of the value of alphas, the model with sentiment score has a better prediction power. Among all values of alpha, the model with sentiment score performs best when alpha is 0.26.</p>
+<h2>Conclusion</h2>
+<p>Compared with the result of the training dataset, the score of testing dataset is undoubtedly more convincing. Good performance in the training dataset may be due to overfitting, but a better performance in the testing dataset illustrates that the factor of sentiment score can significantly improve the generalization ability of the model. And in reality, what we are going to use the model to predict is a new sample that has never been seen before.</p>
+<p>So we believe, the content of the FOMC speeches really helps when we make predictions about the next change of federal funds rate.</p>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2022-03-30T19:35:00+08:00">Wed 30 March 2022</time>
+            <h4>Category</h4>
+            <a class="category-link" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/categories.html#progress-report-ref">Progress Report</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+    <a href="https://github.com/buehlmaier/MFIN7036-student-blog-2022-02" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitHub" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1B1817"/><path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+    </a>
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>
