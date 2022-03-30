@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="MFIN7036 Students" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", Progress Report, " />
+
+<meta property="og:title" content="Scraping package selection and company selection (Group Supernatural) "/>
+<meta property="og:url" content="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/scraping-package-selection-and-company-selection-group-supernatural.html" />
+<meta property="og:description" content="By Group &#34;Supernatural&#34; Our group plans to explore the relationship between sentiments of tweets regarding a specific company and the price, volatility or trading volume of its stock. We have currently finished the data collection and cleaning and is diving into analyzing stage. This blog will describe the progress in …" />
+<meta property="og:site_name" content="MFIN7036 Student Blog" />
+<meta property="og:article:author" content="MFIN7036 Students" />
+<meta property="og:article:published_time" content="2022-03-29T16:42:00+08:00" />
+<meta name="twitter:title" content="Scraping package selection and company selection (Group Supernatural) ">
+<meta name="twitter:description" content="By Group &#34;Supernatural&#34; Our group plans to explore the relationship between sentiments of tweets regarding a specific company and the price, volatility or trading volume of its stock. We have currently finished the data collection and cleaning and is diving into analyzing stage. This blog will describe the progress in …">
+
+        <title>Scraping package selection and company selection (Group Supernatural)  · MFIN7036 Student Blog
+</title>
+        <link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="MFIN7036 Student Blog - Full Atom Feed" />
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/"><span class=site-name>MFIN7036 Student Blog</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       https://buehlmaier.github.io/MFIN7036-student-blog-2022-02
+                                    >Home</a>
+                                </li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/categories.html">Categories</a></li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/tags.html">Tags</a></li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/scraping-package-selection-and-company-selection-group-supernatural.html">
+                Scraping package selection and company selection (Group Supernatural)
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <p>By Group "Supernatural"</p>
+<p>Our group plans to explore the relationship between sentiments of tweets regarding a specific company and the price, volatility or trading volume of its stock. We have currently finished the data collection and cleaning and is diving into analyzing stage. This blog will describe the progress in our project and intended analyzing methods that may be used.</p>
+<h2>Scraping tweets from twitter</h2>
+<h4>Tweepy</h4>
+<p>The first package comes into our mind for doing such task is Tweepy. We applied for an <a href="https://en.wikipedia.org/wiki/API">API</a> successfully and tested the code. </p>
+<p>However, we soon found out that Tweepy is a live stream that always start from the most recent tweets relating to a certain topic and it takes around half an hour to scrape the first 10000 tweets about Tesla. We were also informed that there’s limits when streaming with Tweepy, so it is really hard to scrape tweets in a relatively long time period. However, our project requires at least two months data on twitter comments, so we then turn to other choices.</p>
+<h4>Twint</h4>
+<p>We then noticed that Twint is another package for scraping tweets, and one can set the time for scarping and the number of tweets to scrape. </p>
+<p>This should be an ideal package but when implement into practice, we encountered several problems. Twint needs a lot of other packages to function together but some of these packages apply only for a specific version of python. This leads to error when running twint code. We also tried to implement package nest_asyncio.apply() as instructed by StackOverflow, it still can’t function well.</p>
+<h4>snscrape</h4>
+<p>We finally found a website describing package called ‘snscrape’. This package doesn’t require the API from twitter and have several attributes controlling the criterion for scraping. The speed of scraping is also satisfactory. The time to scrape 1000 tweets on Costco is 10 seconds and although the rate would decrease a bit when the number scraped increase, we decided to use this package to scrape twitter.</p>
+<p>The code here is to scrape three target companies’ tweets:</p>
+<div class="highlight"><pre><span></span><code><span class="n">tickers</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Rio Tinto&#39;</span><span class="p">,</span> <span class="s1">&#39;Tesla&#39;</span><span class="p">,</span> <span class="s1">&#39;costco&#39;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">ticker</span> <span class="ow">in</span> <span class="n">tickers</span><span class="p">:</span>
+    <span class="c1"># Creating list to append tweet data to</span>
+    <span class="n">tweets_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Using TwitterSearchScraper to scrape data and append tweets to list</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">tweet</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sntwitter</span><span class="o">.</span><span class="n">TwitterSearchScraper</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> since:2021-03-01 </span><span class="se">\</span>
+<span class="s1">                                                            until:2022-03-01 lang:en&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ticker</span><span class="p">))</span><span class="o">.</span><span class="n">get_items</span><span class="p">()):</span>
+        <span class="n">tweets_list</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">tweet</span><span class="o">.</span><span class="n">date</span><span class="p">,</span> <span class="n">tweet</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span> <span class="n">tweet</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">])</span>
+
+    <span class="c1"># Creating a dataframe from the tweets list above</span>
+    <span class="n">tweets_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">tweets_list</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Datetime&#39;</span><span class="p">,</span> <span class="s1">&#39;Text&#39;</span><span class="p">,</span> <span class="s1">&#39;Username&#39;</span><span class="p">])</span>
+
+    <span class="n">tweets_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="s1">&#39;Rawdata_</span><span class="si">{}</span><span class="s1">.csv&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ticker</span><span class="p">))</span>
+</code></pre></div>
+
+<h2>Company selection</h2>
+<p>The companies selected are also important for our project, it would decide the quality of tweets we acquire from twitter and thus affect later analysis. </p>
+<p>We tried several companies at first, including Costco, Tesla, Apple, Microsoft etc., but most tweets regarding these companies are advertisements on their products, which will be extremely positive if doing sentiment analysis. It is also interesting to notice that tweets on Elon Mask will always add hashtag Tesla but have nothing to do with Tesla itself. </p>
+<p>After several round of trial, we concluded that companies monopolizing within an industry or companies mainly doing research would be a good choice, since tweets regarding these types of companies are news on some achievements or actions taken. </p>
+<p>We then select three companies: Aramco Ltd, Pfizer and Rio Tinto for further selection. Considering the large number of tweets on Pfizer, it is possible for us to take 2 days to download the texts, which is pretty time-consuming. And the discussion of Aramco is not enough. Finally, we choose Rio Tinto as the target company.</p>
+<p>Figures below are tweets on Costco and Pfizer.</p>
+<h6>Tweets on Costco:</h6>
+<p><img alt="Picture showing Powell" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/Supernatural-Costco.png"></p>
+<h6>Tweets on Pfizer:</h6>
+<p><img alt="Picture showing Powell" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/Supernatural-Pfizer.png"></p>
+<h4>Scraping financial data from website</h4>
+<p>For collecting financial data about these companies, we select Yahoo Finance as our target website. Package selenium is the tools used. </p>
+<p>First, we download a ChromeDriver into our folder to define the browser and by applying website URL to ‘get’ attribute, the targeted website containing historical data will be opened. </p>
+<p>We then use find_elements_by_xpath to navigate the data we intend to scrape and then successfully download required financial data into our database. Since the factors are in the form of list when downloaded from the website, a database needs to be created for further analysis. </p>
+<p>However, when concatenating these lists, we encountered a problem. As shown below, Yahoo Finance would also record the dividend payment into historical data, but we can not avoid these lines when doing web scraping, so the length of the date list is bigger than other lists of factors. </p>
+<h6>Historical data on Yahoo Finance:</h6>
+<p><img alt="Picture showing Powell" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/Supernatural-Yahoo.png"></p>
+<p>After discussion and testing, we found that factors other than opening price are not affected and we can use drop duplicates command in python to delete duplicated dates in the date list, making the date list the same length as factor lists. We finally obtained data frames on financial factors of companies.</p>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2022-03-29T16:42:00+08:00">Tue 29 March 2022</time>
+            <h4>Category</h4>
+            <a class="category-link" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/categories.html#progress-report-ref">Progress Report</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+    <a href="https://github.com/buehlmaier/MFIN7036-student-blog-2022-02" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitHub" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1B1817"/><path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+    </a>
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>
