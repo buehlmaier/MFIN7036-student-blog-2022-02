@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/css/elegant.prod.9e9d5ce754.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/css/custom.css" media="screen">
+
+        <link rel="dns-prefetch" href="//fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+
+        <meta name="author" content="MFIN7036 Students" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content=", Progress Report, " />
+
+<meta property="og:title" content="Buzzword and Its Model Fitting with BTC Price (Group Processors) "/>
+<meta property="og:url" content="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/buzzword-and-its-model-fitting-with-btc-price-group-processors.html" />
+<meta property="og:description" content="By Group &#34;Processors&#34; Introduction We have talked about how we fit regression model with bitcoin price and sentiment of social media related text in our last blog. For this blog, we will continue to explore possible relationship between discussion and bitcoin price. More specifically, we will find the buzzwords in …" />
+<meta property="og:site_name" content="MFIN7036 Student Blog" />
+<meta property="og:article:author" content="MFIN7036 Students" />
+<meta property="og:article:published_time" content="2022-03-27T01:23:00+08:00" />
+<meta name="twitter:title" content="Buzzword and Its Model Fitting with BTC Price (Group Processors) ">
+<meta name="twitter:description" content="By Group &#34;Processors&#34; Introduction We have talked about how we fit regression model with bitcoin price and sentiment of social media related text in our last blog. For this blog, we will continue to explore possible relationship between discussion and bitcoin price. More specifically, we will find the buzzwords in …">
+
+        <title>Buzzword and Its Model Fitting with BTC Price (Group Processors)  · MFIN7036 Student Blog
+</title>
+        <link href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="MFIN7036 Student Blog - Full Atom Feed" />
+
+
+
+    </head>
+    <body>
+        <div id="content">
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <div class="container-fluid">
+                        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </a>
+                        <a class="brand" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/"><span class=site-name>MFIN7036 Student Blog</span></a>
+                        <div class="nav-collapse collapse">
+                            <ul class="nav pull-right top-menu">
+                                <li >
+                                    <a href=
+                                       https://buehlmaier.github.io/MFIN7036-student-blog-2022-02
+                                    >Home</a>
+                                </li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/categories.html">Categories</a></li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/tags.html">Tags</a></li>
+                                <li ><a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/archives.html">Archives</a></li>
+                                <li><form class="navbar-search" action="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span1"></div>
+                    <div class="span10">
+<article itemscope>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+        <h1>
+            <a href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/buzzword-and-its-model-fitting-with-btc-price-group-processors.html">
+                Buzzword and Its Model Fitting with BTC Price (Group Processors)
+            </a>
+        </h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+            
+            <p>By Group "Processors"</p>
+<h1>Introduction</h1>
+<p>We have talked about how we fit regression model with bitcoin price and sentiment of social media related text in our last blog. For this blog, we will continue to explore possible relationship between discussion and bitcoin price. More specifically, we will find the buzzwords in the past one month from both social media and news and relate the frequency of these words with the bitcoin price. </p>
+<p>The agenda of this blog will be as follow:</p>
+<ol>
+<li>Finding the Buzzwords</li>
+<li>Words Selection</li>
+<li>Model Fitting (News Articles)</li>
+<li>Model Fitting (Social Media Discussions)</li>
+</ol>
+<h1>Finding the Buzzwords</h1>
+<p>Recall that we have gone over the text preprocessing in our past blog. We now can utilize the cleaned text to find our buzzwords by calculating the frequency of each word in all text data from last month. We will go through the text data from Cryptonews to better illustrate the steps.</p>
+<p><code>CountVectorizer</code> from the machine learning module <code>sklearn.feature_extraction.text</code> will be used to calculate the term frequancy. It will generate a table of the frequency of each term in each article. We will then group all articles from the same date and get the daily term frequency.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># each cleaned article becomes one item in the list</span>
+<span class="n">text_clean_list</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;text_clean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span>
+<span class="c1"># count the frequency</span>
+<span class="n">count</span> <span class="o">=</span> <span class="n">CountVectorizer</span><span class="p">()</span>
+<span class="n">word_count</span> <span class="o">=</span> <span class="n">count</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">text_clean_list</span><span class="p">)</span>
+<span class="n">word_count</span><span class="o">.</span><span class="n">shape</span> <span class="c1">#(150, 6911) -&gt; 150 articles, 6911 unique words</span>
+<span class="c1"># save in a dataframe and group by date</span>
+<span class="n">df_tf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">word_count</span><span class="o">.</span><span class="n">toarray</span><span class="p">(),</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">count</span><span class="o">.</span><span class="n">get_feature_names</span><span class="p">())</span>
+<span class="n">df_tf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">],</span> <span class="n">df_tf</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">df_tf1</span> <span class="o">=</span> <span class="n">df_tf</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="s1">&#39;Date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">df_tf1</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;cryptonews word count.csv&#39;</span><span class="p">))</span>
+</code></pre></div>
+
+<p>Our definition of buzzwords is the 100 most frequently used words in the text data from the past month. We identify these words by adding up their sum of the daily counts and sort the sum in descending order. We will only keep the top 100 words.</p>
+<div class="highlight"><pre><span></span><code><span class="n">cryptonews_count</span> <span class="o">=</span> <span class="n">df_tf1</span><span class="o">.</span><span class="n">T</span>
+<span class="n">cryptonews_count</span><span class="p">[</span><span class="s1">&#39;sum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cryptonews_count</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># get the sum of the frequency count</span>
+<span class="n">cryptonews_count</span><span class="p">[</span><span class="s1">&#39;sum&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10000000</span> <span class="c1"># this is the &#39;Date&#39; column</span>
+<span class="n">cryptonews_count</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;sum&#39;</span><span class="p">],</span> <span class="n">ascending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">inplace</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">cryptonews_count</span> <span class="o">=</span> <span class="n">cryptonews_count</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">101</span><span class="p">]</span> <span class="c1"># 100 words + Date</span>
+<span class="n">cryptonews_count</span> <span class="o">=</span> <span class="n">cryptonews_count</span><span class="o">.</span><span class="n">T</span>
+<span class="n">cryptonews_count</span> <span class="o">=</span> <span class="n">cryptonews_count</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">31</span><span class="p">]</span> <span class="c1"># exclude the sum row</span>
+</code></pre></div>
+
+<p>Once we finish the above process, we will a dataframe like this:</p>
+<p><img alt="word frequency table" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/processors-table2.PNG"></p>
+<h1>Words Selection</h1>
+<p>Before we fit the frequency of these 100 words with the bitcoin price, we have to manually go through these words to see if they actually make sense. For this part, we just need to use our common sense to consider if a word would be somehow connected to the bitcoin price. For example, for word like "people", I really do not see how it would truly connect to stock price even it may show up in our text data very frequently. This manual selection is very crucial since some uncorrelated words may be very significant in the model but it can just be pure coincidence and our computers will never notice.</p>
+<div class="highlight"><pre><span></span><code><span class="n">delete_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;new&#39;</span><span class="p">,</span> <span class="s1">&#39;news&#39;</span><span class="p">,</span> <span class="s1">&#39;include&#39;</span><span class="p">,</span> <span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="s1">&#39;announce&#39;</span><span class="p">,</span> <span class="s1">&#39;use&#39;</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">,</span> <span class="s1">&#39;expect&#39;</span><span class="p">,</span> <span class="s1">&#39;people&#39;</span><span class="p">,</span> <span class="s1">&#39;come&#39;</span><span class="p">,</span> <span class="s1">&#39;add&#39;</span><span class="p">,</span> <span class="s1">&#39;level&#39;</span><span class="p">,</span> <span class="s1">&#39;claim&#39;</span><span class="p">,</span> <span class="s1">&#39;clear&#39;</span><span class="p">,</span> <span class="s1">&#39;follow&#39;</span><span class="p">,</span> <span class="s1">&#39;learn&#39;</span><span class="p">,</span> <span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="s1">&#39;report&#39;</span><span class="p">,</span> <span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="s1">&#39;country&#39;</span><span class="p">,</span> <span class="s1">&#39;zone&#39;</span><span class="p">,</span> <span class="s1">&#39;market&#39;</span><span class="p">,</span> <span class="s1">&#39;support&#39;</span><span class="p">,</span> <span class="s1">&#39;plan&#39;</span><span class="p">,</span> <span class="s1">&#39;remain&#39;</span><span class="p">,</span> <span class="s1">&#39;high&#39;</span><span class="p">,</span> <span class="s1">&#39;decline&#39;</span><span class="p">,</span> <span class="s1">&#39;break&#39;</span><span class="p">,</span> <span class="s1">&#39;increase&#39;</span><span class="p">,</span> <span class="s1">&#39;accord&#39;</span><span class="p">]</span>
+<span class="n">cryptonews_count</span> <span class="o">=</span> <span class="n">cryptonews_count</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">delete_list</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Another thing we need to do is to combine the count of some words into one. For instance, the word 'ethereum' means the same thing as 'eth' and they should not be treated as two different words. Same thing go with 'russia' and 'russian', 'bitcoin' and 'btc', etc.</p>
+<div class="highlight"><pre><span></span><code><span class="n">cryptonews_count</span><span class="p">[</span><span class="s1">&#39;bitcoin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cryptonews_count</span><span class="p">[</span><span class="s1">&#39;bitcoin&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">cryptonews_count</span><span class="p">[</span><span class="s1">&#39;btc&#39;</span><span class="p">]</span> 
+<span class="k">del</span> <span class="n">cryptonews_count</span><span class="p">[</span><span class="s1">&#39;btc&#39;</span><span class="p">]</span>
+<span class="n">cryptonews_count</span><span class="p">[</span><span class="s1">&#39;ethereum&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cryptonews_count</span><span class="p">[</span><span class="s1">&#39;ethereum&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">cryptonews_count</span><span class="p">[</span><span class="s1">&#39;eth&#39;</span><span class="p">]</span>
+<span class="k">del</span> <span class="n">cryptonews_count</span><span class="p">[</span><span class="s1">&#39;eth&#39;</span><span class="p">]</span>
+<span class="n">cryptonews_count</span><span class="p">[</span><span class="s1">&#39;russia&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cryptonews_count</span><span class="p">[</span><span class="s1">&#39;russia&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">cryptonews_count</span><span class="p">[</span><span class="s1">&#39;russian&#39;</span><span class="p">]</span>
+<span class="k">del</span> <span class="n">cryptonews_count</span><span class="p">[</span><span class="s1">&#39;russian&#39;</span><span class="p">]</span>
+<span class="n">cryptonews_count</span><span class="p">[</span><span class="s1">&#39;ukraine&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cryptonews_count</span><span class="p">[</span><span class="s1">&#39;ukraine&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">cryptonews_count</span><span class="p">[</span><span class="s1">&#39;ukrainian&#39;</span><span class="p">]</span>
+<span class="k">del</span> <span class="n">cryptonews_count</span><span class="p">[</span><span class="s1">&#39;ukrainian&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<p>After we are done with manual selection, we can start the automatic selection process where we filter out the statistical insignificant words. We first use LASSO and Ridge (will both be covered in later section) separately to run a regression on all terms passed manual selection. These two methods are very popular for variables selection and regularization. They will shrink the insignificant variables by making their coefficients to or close to zero. Therefore, we will simply select the variables that have non-zero coefficients. A sample result of LASSO is shown below.</p>
+<p><img alt="LASSO result table" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/processors-table3.PNG"></p>
+<p>Other than LASSO and Ridge, we will also select words using linear regression (will also be covered later). To do that, we will fit the term frequencies with the bitcoin price and look at the summary table of the model. </p>
+<p><img alt="OLS result table" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/processors-table4.PNG"></p>
+<p>For the summary table, we will focus on the p-value of each factor other than the constant term. The smaller the p-value is, the more statistical significant the factor will be. However, it will be kind of difficult to determine the cutoff line for small and different people have different belief about that. Yet, we can tell when the p-value is too large, for example, if it is greater than 0.5, so we will eliminate the words with p-value greater than 0.5.</p>
+<p>Above is the simplified version of steps we take to narrow down to a list of around 20 words for later model fitting. In the actual selection process, we would have to go back and forth between different models to test and remove one or few terms at a time until we get a satisfying list of words. It is not as straightforward as shown in the above steps since some words can be totally insignificant in one model and very significant in the other. We will just need the best judgement we can when encountering situation like that. </p>
+<h1>Model Fitting (News Articles)</h1>
+<p>In this part, we finally start to explore the relationship between bitcoin price and the term frequency of these words. For dependent variable (y), we will use the bitcoin price or its transformation, while for independent variables (X), we will use the term frequency count of each word. </p>
+<p>The following models will be covered:</p>
+<ol>
+<li>Logistic Regression</li>
+<li>LASSO </li>
+<li>Ridge </li>
+<li>Linear Regression</li>
+</ol>
+<p>To have a clear idea about the performance of our models, we will split the dataset into training set and testing set during the procedure. We typically use the first 20 days as training and the rest as testing.</p>
+<h3>Logistic Regression</h3>
+<p>Logistic Regression is normally used to predict a binary outcome given other observation, thus, its input dependent variable has to be a binary variable. Recall from our last blog, we would indicate the movement of bitcoin price with 0 being going up and 1 being going down. This movement tag will be used as our dependent variable for the model fitting. </p>
+<p><code>Logit</code> from <code>statsmodels.api</code> module will be used to fit the model. </p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">Logistic_fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train_size</span><span class="p">):</span>    
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
+    <span class="c1"># splitting the sample into training and testing    </span>
+    <span class="n">Xtraining</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:</span><span class="n">train_size</span><span class="p">]</span>
+    <span class="n">Xtesting</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">train_size</span><span class="p">:]</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">y</span>
+    <span class="n">ytraining</span> <span class="o">=</span> <span class="n">price</span><span class="p">[:</span><span class="n">train_size</span><span class="p">]</span>
+    <span class="n">ytesting</span> <span class="o">=</span> <span class="n">price</span><span class="p">[</span><span class="n">train_size</span><span class="p">:]</span>
+
+    <span class="c1"># Logistic Regression</span>
+    <span class="n">lr_model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="n">Logit</span><span class="p">(</span><span class="n">ytraining</span><span class="p">,</span><span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">Xtraining</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">lr_model</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span> <span class="c1"># get a summary result</span>
+
+    <span class="c1"># get the prediction</span>
+    <span class="n">predicted_prob</span> <span class="o">=</span> <span class="n">lr_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">Xtraining</span><span class="p">))</span>
+
+    <span class="c1">#compute false positive rate and true positive rate using roc_curve function</span>
+    <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">ytraining</span><span class="p">,</span> <span class="n">predicted_prob</span><span class="p">)</span>
+    <span class="n">roc_auc</span> <span class="o">=</span> <span class="n">auc</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">)</span>
+
+    <span class="c1"># testing</span>
+    <span class="n">predicted_prob1</span> <span class="o">=</span> <span class="n">lr_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">Xtesting</span><span class="p">))</span>
+    <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">ytesting</span><span class="p">,</span> <span class="n">predicted_prob1</span><span class="p">)</span>
+    <span class="n">roc_auc</span> <span class="o">=</span> <span class="n">auc</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">)</span>
+</code></pre></div>
+
+<p>The below result is obtained. The in-sample AUC is 0.97 while the out-of-sample ROC is 0.33. The Pseudo R^2 for this model is 0.6428. </p>
+<p><img alt="ROC of Logistic Regression" src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/processors-roc3.PNG"></p>
+<h3>LASSO</h3>
+<p>Unlike we only have five sentiment categories as independent variables last time, we have many term frequency variables this time which makes it a good dataset for LASSO regression. LASSO will automatically select the useful variables and discard the insignificant ones. </p>
+<p>For this model, the price will be used as the dependent variables. We will use<code>Lasso</code> from <code>sklearn.linear_model</code> to fit the model. And we will calculate the error using <code>mean_squared_error</code> and <code>mean_absolute_error</code> from <code>sklearn.metrics</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">LASSO_fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train_size</span><span class="p">):</span>
+    <span class="c1"># separate training and testing</span>
+    <span class="n">train</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:</span><span class="n">train_size</span><span class="p">]</span>
+    <span class="n">test</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">train_size</span><span class="p">:]</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">y</span>
+
+    <span class="n">r2_train</span><span class="p">,</span> <span class="n">r2_test</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="n">mse_train</span><span class="p">,</span> <span class="n">mse_test</span><span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+    <span class="n">mae_train</span><span class="p">,</span> <span class="n">mae_test</span><span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+
+    <span class="c1"># Define X, Y </span>
+    <span class="n">x_train</span> <span class="o">=</span> <span class="n">train</span>
+    <span class="n">y_train</span> <span class="o">=</span> <span class="n">price</span><span class="p">[:</span><span class="n">train_size</span><span class="p">]</span>
+    <span class="n">x_test</span> <span class="o">=</span> <span class="n">test</span>
+    <span class="n">y_test</span> <span class="o">=</span> <span class="n">price</span><span class="p">[</span><span class="n">train_size</span><span class="p">:]</span>
+
+    <span class="c1"># Perform Lasso</span>
+    <span class="n">lasso</span> <span class="o">=</span> <span class="n">Lasso</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">lasso</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+    <span class="c1"># Get predicted Y</span>
+    <span class="n">y_train_p</span> <span class="o">=</span> <span class="n">lasso</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span>
+    <span class="n">y_test_p</span> <span class="o">=</span> <span class="n">lasso</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+    <span class="c1"># Get R Square, MAE, MSE</span>
+    <span class="n">r2_train</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lasso</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">))</span> 
+    <span class="n">r2_test</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">lasso</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span><span class="n">y_test</span><span class="p">))</span> 
+    <span class="n">mae_train</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_p</span><span class="p">))</span>  
+    <span class="n">mse_train</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_p</span><span class="p">))</span> 
+    <span class="n">mae_test</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_test_p</span><span class="p">))</span>  
+    <span class="n">mse_test</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_test_p</span><span class="p">))</span>  
+
+    <span class="c1"># Prediction error</span>
+    <span class="n">summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;In-Sample&#39;</span><span class="p">,</span><span class="s1">&#39;Out-of-Sample&#39;</span><span class="p">])</span>
+    <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;R Square&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">r2_train</span><span class="p">),</span><span class="nb">sum</span><span class="p">(</span><span class="n">r2_test</span><span class="p">)]</span>
+    <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;MAE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">mae_train</span><span class="p">),</span><span class="nb">sum</span><span class="p">(</span><span class="n">mae_test</span><span class="p">)]</span>
+    <span class="n">summary</span><span class="p">[</span><span class="s1">&#39;MSE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">mse_train</span><span class="p">),</span><span class="nb">sum</span><span class="p">(</span><span class="n">mse_test</span><span class="p">)]</span>
+</code></pre></div>
+
+<p>The result of the LASSO regression is shown below.</p>
+<p><img alt="LASSO result " src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/processors-table5.PNG"></p>
+<h3>Ridge</h3>
+<p>Ridge is very similar to LASSO, except that LASSO will reduce some coefficients to zero as compared to Ridge which never sets any to zero but only brings them to very close to zero. </p>
+<p><code>Ridge</code> from <code>sklearn.linear_model</code> will be used in the code below. Since we input the same variables as we do in LASSO and the code of Ridge is very similar to that for LASSO, we will only show the part of the code that is different.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">Ridge_fit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train_size</span><span class="p">):</span>
+    <span class="c1"># the first part is exactly the same as LASSO so we won&#39;t show it here</span>
+
+    <span class="c1"># Perform Lasso</span>
+    <span class="n">ridge</span> <span class="o">=</span> <span class="n">Ridge</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ridge</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+    <span class="c1"># Get predicted Y</span>
+    <span class="n">y_train_p</span> <span class="o">=</span> <span class="n">ridge</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span>
+    <span class="n">y_test_p</span> <span class="o">=</span> <span class="n">ridge</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+
+    <span class="c1"># Get R Square, MAE, MSE</span>
+    <span class="n">r2_train</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ridge</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">))</span> 
+    <span class="n">r2_test</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ridge</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">x_test</span><span class="p">,</span><span class="n">y_test</span><span class="p">))</span> 
+    <span class="n">mae_train</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_p</span><span class="p">))</span>  
+    <span class="n">mse_train</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">y_train_p</span><span class="p">))</span> 
+    <span class="n">mae_test</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_test_p</span><span class="p">))</span>  
+    <span class="n">mse_test</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_test_p</span><span class="p">))</span>
+</code></pre></div>
+
+<p>The result from Ridge is also very similar to that from LASSO.</p>
+<p><img alt="Ridge result " src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/processors-table6.PNG"></p>
+<h3>Linear Regression</h3>
+<p>For the classic linear regression, we try to use the price to be the dependent variable but it seems like the log transformation of the price gives a better result so we use the log price instead. </p>
+<p><code>OLS</code> from <code>statsmodels.api</code> will be used to perform the regression.</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">Linear_fit1</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">train_size</span><span class="p">):</span>    
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+
+    <span class="c1"># splitting the sample into training and testing    </span>
+    <span class="n">Xtraining</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:</span><span class="n">train_size</span><span class="p">]</span>
+    <span class="n">Xtesting</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">train_size</span><span class="p">:]</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">y</span>
+    <span class="n">ytraining</span> <span class="o">=</span> <span class="n">price</span><span class="p">[:</span><span class="n">train_size</span><span class="p">]</span>
+    <span class="n">ytesting</span> <span class="o">=</span> <span class="n">price</span><span class="p">[</span><span class="n">train_size</span><span class="p">:]</span>
+
+    <span class="c1"># fit OLS</span>
+    <span class="n">reg</span> <span class="o">=</span> <span class="n">OLS</span><span class="p">(</span><span class="n">ytraining</span><span class="p">,</span><span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">Xtraining</span><span class="p">))</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+    <span class="c1">#result = reg.fit_regularized(alpha=2., L1_wt=0, refit=True)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">reg</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+
+     <span class="c1"># out of sample  </span>
+    <span class="n">yhat_train</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">Xtraining</span><span class="p">))</span>
+    <span class="n">yhat_test</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">sm</span><span class="o">.</span><span class="n">add_constant</span><span class="p">(</span><span class="n">Xtesting</span><span class="p">))</span>    
+
+    <span class="c1"># MSE and r2</span>
+    <span class="n">MSE_in</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">mse_model</span>
+    <span class="n">MSE_out</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">ytesting</span><span class="p">,</span><span class="n">yhat_test</span><span class="p">)</span>
+    <span class="n">r2_in</span> <span class="o">=</span> <span class="n">reg</span><span class="o">.</span><span class="n">rsquared</span>
+    <span class="c1">#r2_out = ytesting.corr(yhat_test)**2</span>
+    <span class="n">var_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">var</span><span class="p">(</span><span class="n">ytesting</span><span class="p">)</span>
+    <span class="n">r2_out</span> <span class="o">=</span> <span class="mi">1</span><span class="o">-</span><span class="n">MSE_out</span><span class="o">/</span><span class="n">var_test</span>
+</code></pre></div>
+
+<p>The result of linear regression is shown below. We obtain a R^2 of 1.</p>
+<p><img alt="OLS result " src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/processors-table7.PNG"></p>
+<h1>Model Fitting (Social Media)</h1>
+<h3>With Term Frequency</h3>
+<p>As for discussions on social media (Bitcointalk,Yahoo Finance Community, Reddit, and Twitter), 
+we decide to sum up the word count for each word from the four platforms in terms of date, and 
+get the top 100 terms with the highest frequency. Since the data from different platforms ranges 
+in different dates, we only choose data from February 16 to March 16.</p>
+<div class="highlight"><pre><span></span><code><span class="n">df</span> <span class="o">=</span> <span class="n">twitter_dic</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">yahoo_dic</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bitcointalk_dic</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">reddit_dic</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">to_be_customized</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">46</span><span class="p">:</span><span class="mi">75</span><span class="p">,:]</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="n">n</span> <span class="o">=</span> <span class="mi">200</span><span class="p">)</span>  <span class="c1"># df.iloc is for date selection</span>
+</code></pre></div>
+
+<p>Similar with model fitting with news articles, we fit the 100 terms from social media 
+in the four models and manually delete words from the top 100 based on the performance, reaching to 
+a list of around 1o words.</p>
+<div class="highlight"><pre><span></span><code> <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">to_be_customized</span><span class="o">.</span><span class="n">index</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">delete_list</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">to_be_customized</span><span class="p">[</span><span class="n">term</span><span class="p">]</span>
+<span class="nb">len</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">to_be_customized</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
+
+<span class="c1"># Final Term List</span>
+<span class="n">term_list</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;el&#39;</span><span class="p">,</span><span class="s1">&#39;cnbc&#39;</span><span class="p">,</span><span class="s1">&#39;pe&#39;</span><span class="p">,</span><span class="s1">&#39;binance&#39;</span><span class="p">,</span><span class="s1">&#39;financial&#39;</span><span class="p">,</span><span class="s1">&#39;defi&#39;</span><span class="p">,</span><span class="s1">&#39;inflation&#39;</span><span class="p">,</span><span class="s1">&#39;trust&#39;</span><span class="p">,</span><span class="s1">&#39;power&#39;</span><span class="p">,</span><span class="s1">&#39;metaverse&#39;</span><span class="p">,</span><span class="s1">&#39;bluesparrow&#39;</span><span class="p">,</span><span class="s1">&#39;investment&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<p>The final result of linear regression OLS is as below. 
+<img alt="OLS result  " src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/processors-table8.PNG"></p>
+<h3>With Term Frequency and Sentiment</h3>
+<p>To explore futher relationships, we also fit the selected term frequencies in the 
+four models again together with the total counts of five sentiment categories. In addition, 
+we make the sentiment counts go through the models alone for comparison.</p>
+<div class="highlight"><pre><span></span><code><span class="n">df_sen</span> <span class="o">=</span> <span class="n">twitter_sen</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">yahoo_sen</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bitcointalk_sen</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">reddit_sen</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_sen</span><span class="p">,</span> <span class="n">term_df</span><span class="p">,</span> <span class="n">on</span> <span class="o">=</span> <span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="n">how</span> <span class="o">=</span> <span class="s1">&#39;right&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>The final result of linear regression OLS is as below. 
+<img alt="OLS result  " src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/images/processors-table9.PNG"></p>
+<h1>Final Analysis</h1>
+<p>We will provide further analysis on the models and the outputs in our report.</p>
+
+
+             
+ 
+            
+            
+            
+
+
+
+
+
+
+
+            <hr/>
+        </div>
+        <section id="article-sidebar" class="span2">
+            <h4>Published</h4>
+            <time itemprop="dateCreated" datetime="2022-03-27T01:23:00+08:00">Sun 27 March 2022</time>
+            <h4>Category</h4>
+            <a class="category-link" href="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/categories.html#progress-report-ref">Progress Report</a>
+<h4>Contact</h4>
+<div id="sidebar-social-link">
+    <a href="https://github.com/buehlmaier/MFIN7036-student-blog-2022-02" title="" target="_blank" rel="nofollow noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" aria-label="GitHub" role="img" viewBox="0 0 512 512"><rect width="512" height="512" rx="15%" fill="#1B1817"/><path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/></svg>
+    </a>
+</div>
+            
+
+
+
+
+
+            
+
+
+
+
+
+        </section>
+</div>
+</article>
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe.
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides.
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo https://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>                    </div>
+                    <div class="span1"></div>
+                </div>
+            </div>
+        </div>
+<footer>
+
+
+
+
+    <div id="fpowered">
+        Powered by: <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank" rel="nofollow noopener noreferrer">Pelican</a>
+        Theme: <a href="https://elegant.oncrashreboot.com/" title="Theme Elegant Home Page" target="_blank" rel="nofollow noopener noreferrer">Elegant</a>
+    </div>
+</footer>            <script src="//code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="https://buehlmaier.github.io/MFIN7036-student-blog-2022-02/theme/js/elegant.prod.9e9d5ce754.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    <script>
+    (function () {
+        if (window.location.hash.match(/^#comment-\d+$/)) {
+            $('#comment_thread').collapse('show');
+        }
+    })();
+    window.onhashchange=function(){
+        if (window.location.hash.match(/^#comment-\d+$/))
+            window.location.reload(true);
+    }
+    $('#comment_thread').on('shown', function () {
+        var link = document.getElementById('comment-accordion-toggle');
+        var old_innerHTML = link.innerHTML;
+        $(link).fadeOut(200, function() {
+            $(this).text('Click here to hide comments').fadeIn(200);
+        });
+        $('#comment_thread').on('hidden', function () {
+            $(link).fadeOut(200, function() {
+                $(this).text(old_innerHTML).fadeIn(200);
+            });
+        })
+    })
+</script>
+
+    </body>
+    <!-- Theme: Elegant built for Pelican
+        License : MIT -->
+</html>
