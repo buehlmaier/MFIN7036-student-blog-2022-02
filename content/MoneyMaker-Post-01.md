@@ -1,6 +1,6 @@
 ---
-Title: Application of NLP in financial real-time event monitoring and Financial Express——Take Tesla as an example
-Date: 2022-03-29 9:00
+Title: Application of NLP in financial real-time event monitoring and Financial Express——Take Tesla as an example (Group Money Maker)
+Date: 2022-03-30 23:07
 Category: Progress Report
 ---
 
